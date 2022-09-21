@@ -14,6 +14,17 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
+
+             int[,] grid_game = new int[height, width];
+        for (int i =0; i<height; i++){
+            for(int j = 0; j< width; i++){
+                grid_game[i][j] = 0;
+                  
+            }
+        }
+        //test
+
+        
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
