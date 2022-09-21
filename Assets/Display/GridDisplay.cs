@@ -18,7 +18,7 @@ public class GridDisplay : MonoBehaviour
              int[,] grid_game = new int[height, width];
         for (int i =0; i<height; i++){
             for(int j = 0; j< width; j++){
-                grid_game[i][j] = 0;
+                grid_game[i,j] = 0;
                   
             }
         }
