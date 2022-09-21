@@ -6,10 +6,10 @@ public class GridDisplay : MonoBehaviour
 {
 
     // Hauteur de la grille en nombre de cases
-    public int height = 22;
+    public static int height = 22;
 
     // Largeur de la grille en nombre de cases
-    public int width = 10;
+    public static int width = 10;
     
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
