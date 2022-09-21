@@ -1,0 +1,138 @@
+{
+    "name": "TetrisActions",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "328d896b-3a69-49d8-840c-478d6b9a1db0",
+            "actions": [
+                {
+                    "name": "MoveLeft",
+                    "type": "Button",
+                    "id": "3ce0e65d-291a-4e4e-bee1-9697a8b6dfa7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MoveRight",
+                    "type": "Button",
+                    "id": "a795a1e5-1c82-46be-8a3d-a4777a859ff3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rush",
+                    "type": "Button",
+                    "id": "8fb45e46-908c-4e7c-9546-1f346b4f863d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "59919d22-9dd1-4bab-8287-e2a1774c5007",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "78396c0b-7a66-4d9e-8c6f-98ac8341a837",
+                    "path": "Keyboard/LeftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea12e385-99fc-45ee-bbe4-90c49d83dd7b",
+                    "path": "Keyboard/Q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cc5552f-8067-4c82-b2da-9f418cdf23ad",
+                    "path": "Keyboard/RightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "238dc02e-e9c0-4afe-a9e0-b9c73b6aa857",
+                    "path": "Keyboard/D",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c7e6df3-7a8b-405c-a7bc-7cfd3cc873b2",
+                    "path": "Keyboard/DownArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rush",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e4b225e-24a3-461d-8b91-26c65fca4c35",
+                    "path": "Keyboard/S",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rush",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c2d91dd-a8b7-4668-9c40-e4f7dee64829",
+                    "path": "Keyboard/Space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9228295-eed7-4b67-83d2-e9ecd02e1413",
+                    "path": "Keyboard/Digit0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
