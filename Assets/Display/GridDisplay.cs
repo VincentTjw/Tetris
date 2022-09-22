@@ -20,7 +20,7 @@ public class GridDisplay : MonoBehaviour
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
-                Ligne.Add(SquareColor.RED);
+                Ligne.Add(SquareColor.DEEP_BLUE);
             }
             board.Add(Ligne);
         }
