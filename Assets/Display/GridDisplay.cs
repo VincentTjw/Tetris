@@ -18,7 +18,7 @@ public class GridDisplay : MonoBehaviour
         bool loose = false;
         
         //initialisation de la grille
-        /*List<List<SquareColor>> board = new List<List<SquareColor>>(); 
+        List<List<SquareColor>> board = new List<List<SquareColor>>(); 
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
@@ -26,7 +26,7 @@ public class GridDisplay : MonoBehaviour
             }
             board.Add(Ligne);
         }         
-         GridDisplay.SetColors(board);*/
+         GridDisplay.SetColors(board);
 
          
          
@@ -42,13 +42,18 @@ public class GridDisplay : MonoBehaviour
             //création objet
             //mise en descente
              // random color = "+ randomColor);
-             List<List<SquareColor>> board = new List<List<SquareColor>>(); 
+             //List<List<SquareColor>> board = new List<List<SquareColor>>(); 
              Oblock oblock = new Oblock(SquareColor.DEEP_BLUE);
-             board.Add(oblock.getModel());
+             
             //List<SquareColor> Ligne = new List<SquareColor>();
               //  Ligne.Add(randomColor);
             //board.Add(Ligne);
               GridDisplay.SetColors(board);
+
+                
+              for(int i =0; i < width; i++){
+                board[0][i] = (Oblock.getModel1())[i];
+              }
 
        // }
 
