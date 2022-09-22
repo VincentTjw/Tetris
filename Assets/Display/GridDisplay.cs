@@ -29,6 +29,7 @@ public class GridDisplay : MonoBehaviour
 
          
          GridDisplay.SetColors(board);
+         
          GridDisplay.SetScore(3);
 
          //test
