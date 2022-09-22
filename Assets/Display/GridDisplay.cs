@@ -61,7 +61,8 @@ public class GridDisplay : MonoBehaviour
                 
               for(int i =0; i < width; i++){
                 board[0][i] = (oblock.getModel1())[i];
-              }
+                 board[1][i] = (oblock.getModel2())[i];
+              } 
 
               board[0][0] = SquareColor.RED;
               board[6][0] = SquareColor.PURPLE;
