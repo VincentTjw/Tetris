@@ -32,21 +32,25 @@ public class GridDisplay : MonoBehaviour
          
          
          
-        while(!loose) {
+        //while(!loose) {
             //choix couleur et forme
-            Array values = Enum.GetValues(typeof(SquareColor));
-            Random random = new Random();
-            SquareColor randomColor = (SquareColor)values.GetValue(random.Next(values.Length));
+            
+            //TODO :random color
+            //Random rnd = new Random();
+            //int nb  = rnd.Next(1, 7);
+
             //création objet
             //mise en descente
              // random color = "+ randomColor);
              List<List<SquareColor>> board = new List<List<SquareColor>>(); 
-     
-            List<SquareColor> Ligne = new List<SquareColor>();
-                Ligne.Add(randomColor);
-            board.Add(Ligne);
+             Oblock oblock = new Oblock(SquareColor.DEEP_BLUE);
+             board.Add(oblock.getModel);
+            //List<SquareColor> Ligne = new List<SquareColor>();
+              //  Ligne.Add(randomColor);
+            //board.Add(Ligne);
+              GridDisplay.SetColors(board);
 
-        }
+       // }
 
          //test
 
