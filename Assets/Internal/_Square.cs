@@ -41,9 +41,9 @@ public class _Square : MonoBehaviour
             return new Color(0.8f,0.73f,0.17f);
             case SquareColor.RED:
             return new Color(0.69f,0.16f,0.09f);
-            case SquareColor.TRANSPARENT:
+            case SquareColor.TRANSPARENT: //changé
             default:
-            return new Color(0.0f,0.0f,0.0f,0.0f);
+            return new Color(0.5f,0.5f,0.0f,0.0f);
         }
     }
 }
