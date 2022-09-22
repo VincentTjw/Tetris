@@ -18,7 +18,7 @@ public class GridDisplay : MonoBehaviour
            List<List<SquareColor>>  grid_game = new int[height, width];
         for (int i =0; i<height; i++){
             for(int j = 0; j< width; j++){
-                grid_game[i,j] = SquareColor.DEEP_BLUE;
+                grid_game[i][j] = SquareColor.DEEP_BLUE;
                   
             }
         }
