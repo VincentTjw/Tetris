@@ -19,7 +19,7 @@ public class GridDisplay : MonoBehaviour
            List<SquareColor> list = new List<SquareColor>();
            
            list.Capacity = width;
-           grid_game.Capacity = height*width;
+           grid_game.Capacity = height;
         for (int i =0; i<list.Capacity; i++){
         
                 list.Add(SquareColor.RED);
