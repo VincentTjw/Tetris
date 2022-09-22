@@ -16,15 +16,20 @@ public class GridDisplay : MonoBehaviour
     public static void Initialize(){
 
            List<List<SquareColor>>  grid_game = List<List<SquareColor>>();
+           List<SquareColor> list = List<SquareColor>();
+           list.Capacity = width;
            grid_game.Capacity = height*width;
-        for (int i =0; i<grid_game.Capacity; i++){
+        for (int i =0; i<list.Capacity; i++){
         
-                grid_game.Add(SquareColor.RED);
+                list.Add(SquareColor.RED);
+            
 
                   
             
         }
+        grid_game.Add(list);
 
+         
          GridDisplay.SetColors(grid_game);
          GridDisplay.SetScore(3);
 
