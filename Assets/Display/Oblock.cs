@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Oblock {
 
-    List<SquareColor> list = new List<SquareColor>();
+    public List<SquareColor> list = new List<SquareColor>();
     int width = 10;
     int height =2;
 
