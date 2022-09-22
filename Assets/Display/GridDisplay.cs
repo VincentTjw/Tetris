@@ -14,23 +14,35 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        
 
+        bool loose = false;
+        
+        //initialisation de la grille
         List<List<SquareColor>> board = new List<List<SquareColor>>(); 
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
-                Ligne.Add(SquareColor.RED);
+                Ligne.Add(SquareColor.TRANSPARENT);
             }
             board.Add(Ligne);
-        }
-          
-     
+        }         
+         GridDisplay.SetColors(board);
 
          
-         GridDisplay.SetColors(board);
          
-         GridDisplay.SetScore(3);
+         
+         
+        while(!loose) {
+            //choix couleur et forme
+            Array values = Enum.GetValues(typeof(SquareColor));
+            Random random = new Random();
+            SquareColor randomColor = (SquareColor)values.GetValue(random.Next(values.Length));
+            //création objet
+            //mise en descente
+             Debug.Log("random color = "+ randomColor);
+            
+
+        }
 
          //test
 
