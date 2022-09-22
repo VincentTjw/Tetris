@@ -28,6 +28,8 @@ public class GridDisplay : MonoBehaviour
          GridDisplay.SetColors(grid_game);*/
          GridDisplay.SetScore(3);
 
+         //test
+
         
 
 
