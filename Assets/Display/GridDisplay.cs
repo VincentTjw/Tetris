@@ -27,7 +27,7 @@ public class GridDisplay : MonoBehaviour
          GridDisplay.SetColors(grid_game);
 
         
-        //test de mélaine
+
 
         
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
