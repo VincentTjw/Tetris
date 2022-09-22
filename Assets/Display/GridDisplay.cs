@@ -43,7 +43,7 @@ public class GridDisplay : MonoBehaviour
             //mise en descente
              // random color = "+ randomColor);
              //List<List<SquareColor>> board = new List<List<SquareColor>>(); 
-             Oblock oblock = new Oblock(SquareColor.DEEP_BLUE);
+             Oblock oblock = new Oblock(SquareColor.ORANGE);
              
             //List<SquareColor> Ligne = new List<SquareColor>();
               //  Ligne.Add(randomColor);
@@ -54,6 +54,9 @@ public class GridDisplay : MonoBehaviour
               for(int i =0; i < width; i++){
                 board[0][i] = (oblock.getModel1())[i];
               }
+
+              board[0][0] = SquareColor.RED;
+              board[6][8] = SquareColor.PURPLE;
 
        // }
 
