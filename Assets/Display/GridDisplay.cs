@@ -22,7 +22,7 @@ public class GridDisplay : MonoBehaviour
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
-                if(j=1 && i = 3){
+                if((j==1) &&( i == 3)){
                     Ligne.Add(SquareColor.PURPLE);
                 } else {    
                     Ligne.Add(SquareColor.TRANSPARENT);
