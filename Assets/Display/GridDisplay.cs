@@ -18,7 +18,7 @@ public class GridDisplay : MonoBehaviour
         bool loose = false;
         
         //initialisation de la grille
-        List<List<SquareColor>> board = new List<List<SquareColor>>(); 
+        /*List<List<SquareColor>> board = new List<List<SquareColor>>(); 
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
@@ -26,7 +26,7 @@ public class GridDisplay : MonoBehaviour
             }
             board.Add(Ligne);
         }         
-         GridDisplay.SetColors(board);
+         GridDisplay.SetColors(board);*/
 
          
          
@@ -39,8 +39,12 @@ public class GridDisplay : MonoBehaviour
             SquareColor randomColor = (SquareColor)values.GetValue(random.Next(values.Length));
             //création objet
             //mise en descente
-             Debug.Log("random color = "+ randomColor);
-            
+             // random color = "+ randomColor);
+             List<List<SquareColor>> board = new List<List<SquareColor>>(); 
+     
+            List<SquareColor> Ligne = new List<SquareColor>();
+                Ligne.Add(randomColor);
+            board.Add(Ligne);
 
         }
 
