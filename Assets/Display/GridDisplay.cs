@@ -35,8 +35,8 @@ public class GridDisplay : MonoBehaviour
 
          
 
-         board[2][2] = SquareColor.ORANGE;
-         board[2][2] = SquareColor.RED;
+         board[0][2] = SquareColor.ORANGE;
+         board[2][0] = SquareColor.RED;
          
          
          
@@ -56,7 +56,7 @@ public class GridDisplay : MonoBehaviour
             //List<SquareColor> Ligne = new List<SquareColor>();
               //  Ligne.Add(randomColor);
             //board.Add(Ligne);
-              GridDisplay.SetColors(board);
+             
 
                 
               for(int i =0; i < width; i++){
@@ -65,6 +65,8 @@ public class GridDisplay : MonoBehaviour
 
               board[0][0] = SquareColor.RED;
               board[6][0] = SquareColor.PURPLE;
+
+               GridDisplay.SetColors(board);
 
        // }
 
