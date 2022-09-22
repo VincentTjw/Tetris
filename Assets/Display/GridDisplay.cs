@@ -19,10 +19,10 @@ public class GridDisplay : MonoBehaviour
         
         //initialisation de la grille
         List<List<SquareColor>> board = new List<List<SquareColor>>(); 
-        for (int i=0;i<22;i++){
+        for (int i=0;i<1;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
-            for (int j = 0;j<10;j++){
-                Ligne.Add(SquareColor.TRANSPARENT);
+            for (int j = 0;j<1;j++){
+                Ligne.Add(SquareColor.RED);
             }
             board.Add(Ligne);
         }         
