@@ -14,18 +14,18 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-/*
+
            List<List<SquareColor>>  grid_game = List<List<SquareColor>>();
            grid_game.Capacity = height*width;
         for (int i =0; i<grid_game.Capacity; i++){
         
-                grid_game[i][i] = SquareColor.DEEP_BLUE;
+                grid_game.Add(SquareColor.RED);
 
                   
             
         }
 
-         GridDisplay.SetColors(grid_game);*/
+         GridDisplay.SetColors(grid_game);
          GridDisplay.SetScore(3);
 
          //test
