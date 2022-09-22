@@ -25,7 +25,7 @@ public class GridDisplay : MonoBehaviour
                 if((j==1) &&( i == 3)){
                     Ligne.Add(SquareColor.PURPLE);
                 } else {    
-                    Ligne.Add(SquareColor.TRANSPARENT);
+                    Ligne.Add(SquareColor.GREEN);
                 }
                 
             }
