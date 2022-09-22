@@ -19,10 +19,15 @@ public class GridDisplay : MonoBehaviour
         
         //initialisation de la grille
         List<List<SquareColor>> board = new List<List<SquareColor>>(); 
-        for (int i=0;i<1;i++){
+        for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
-            for (int j = 0;j<1;j++){
-                Ligne.Add(SquareColor.RED);
+            for (int j = 0;j<10;j++){
+                if(j=1 && i = 3){
+                    Ligne.Add(SquareColor.PURPLE);
+                } else {    
+                    Ligne.Add(SquareColor.TRANSPARENT);
+                }
+                
             }
             board.Add(Ligne);
         }         
@@ -56,7 +61,7 @@ public class GridDisplay : MonoBehaviour
               }
 
               board[0][0] = SquareColor.RED;
-              board[6][8] = SquareColor.PURPLE;
+              board[6][0] = SquareColor.PURPLE;
 
        // }
 
