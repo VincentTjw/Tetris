@@ -18,7 +18,7 @@ public class Oblock {
 
            
              if (r>= startOf && r < startOf+size) {
-                if(j = 0){
+                if(j == 0){
                      list1.Add(color);
                 
                 }else {
@@ -27,7 +27,7 @@ public class Oblock {
                 r++;
                
             } else {
-                if(j = 0){
+                if(j == 0){
                      list1.Add(SquareColor.TRANSPARENT);
                 
                 }else {
@@ -42,11 +42,11 @@ public class Oblock {
 
     }
 
-    public List<List<SquareColor>> getModel1 (){
+    public List<SquareColor> getModel1 (){
         return list1;
     }
 
-public List<List<SquareColor>> getModel2 (){
+public List<SquareColor> getModel2 (){
         return list2;
     }
 
