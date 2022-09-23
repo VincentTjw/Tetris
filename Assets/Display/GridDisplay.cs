@@ -28,8 +28,8 @@ public class GridDisplay : MonoBehaviour
          GridDisplay.SetColors(board);
 
           for(int i =0; i < width; i++){
-                 //board[0][i] = (block.getModel1())[i];
-                 //board[1][i] = (block.getModel2())[i];
+                 board[0][i] = (block.getModel1())[i];
+                 board[1][i] = (block.getModel2())[i];
               } 
 
 
@@ -44,12 +44,12 @@ public class GridDisplay : MonoBehaviour
          
          
          int k=0;
-        while(!loose && (k < 10) ) {
+        while(!loose ) {
           
-             block block = new block(SquareColor.ORANGE,1);
-
-             board[k][2] = SquareColor.RED;
-
+          
+            SetMoveRightFunction(block.moveRight());
+              board[0][i] = (block.getModel1())[i];
+                 board[1][i] = (block.getModel2())[i];
              
              
 
@@ -64,7 +64,7 @@ public class GridDisplay : MonoBehaviour
              //tick per second             
             GridDisplay.SetTickFunction(GridDisplay.TickFunction());
             //GridDisplay.SetTickTime(1);
-             k=k+1;
+           
              
 
         }
@@ -152,10 +152,14 @@ public class GridDisplay : MonoBehaviour
 
 
 
+<<<<<<< HEAD
     //function 
     public static void TickFunction(){
         _grid.TickFunction();
     }
+=======
+   
+>>>>>>> a8b5ad85b153686909fbe51e3269879d8071476c
 
 
 
