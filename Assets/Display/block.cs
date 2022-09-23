@@ -53,7 +53,7 @@ public List<SquareColor> getModel2 (){
     }
 
 
-    public void moveRight(){
+    public static void moveRight(SquareColor color){
         startOf = startOf +1;
 
            int r = 0;
