@@ -153,7 +153,7 @@ public class GridDisplay : MonoBehaviour
 
 
     //function 
-    public void TickTime (){
+    public static void TickTime (){
         System.Threading.Thread.Sleep(1000);
     }
 
