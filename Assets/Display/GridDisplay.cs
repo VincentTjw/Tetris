@@ -30,8 +30,16 @@ public class GridDisplay : MonoBehaviour
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
+<<<<<<< HEAD
                     Ligne.Add(SquareColor.TRANSPARENT);
                 
+=======
+                if((j==8) &&( i == 7)){
+                    Ligne.Add(SquareColor.PURPLE);
+                } else {    
+                    Ligne.Add(SquareColor.GREEN);
+                }
+>>>>>>> 17c4924afb84e3afaa172fff41fd6d857a5a49b0
                 
             }
             board.Add(Ligne);
@@ -43,11 +51,25 @@ public class GridDisplay : MonoBehaviour
                  board[1][i] = (block.getModel2())[i];
               } 
 
+<<<<<<< HEAD
         //coordonnée objet
         //ligne
         
         //colomne
         
+=======
+         board[0][2] = SquareColor.ORANGE;
+         board[2][0] = SquareColor.RED;
+         
+         
+         
+        //while(!loose) {
+            //choix couleur et forme
+            
+            //TODO :random color
+            //Random rnd = new Random();
+            //int nb  = rnd.Next(1, 7);
+>>>>>>> 17c4924afb84e3afaa172fff41fd6d857a5a49b0
 
          
          
@@ -58,6 +80,13 @@ public class GridDisplay : MonoBehaviour
 
              board[j][2] = SquareColor.RED;
              
+<<<<<<< HEAD
+=======
+            //List<SquareColor> Ligne = new List<SquareColor>();
+              //  Ligne.Add(randomColor);
+            //board.Add(Ligne);
+             
+>>>>>>> 17c4924afb84e3afaa172fff41fd6d857a5a49b0
 
               //get les cases des objets en cours
                 //puis on applique la descente
@@ -67,8 +96,14 @@ public class GridDisplay : MonoBehaviour
             GridDisplay.SetColors(board);
 
 
+<<<<<<< HEAD
              //tick per second
              SetTickFunction();
+=======
+               GridDisplay.SetColors(board);
+
+       // }
+>>>>>>> 17c4924afb84e3afaa172fff41fd6d857a5a49b0
 
         }
 
