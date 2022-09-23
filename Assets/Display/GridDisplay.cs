@@ -51,13 +51,13 @@ public class GridDisplay : MonoBehaviour
                  board[1][i] = (block.getModel2())[i];
               } 
 
-<<<<<<< HEAD
+
         //coordonnée objet
         //ligne
         
         //colomne
         
-=======
+
          board[0][2] = SquareColor.ORANGE;
          board[2][0] = SquareColor.RED;
          
@@ -69,7 +69,7 @@ public class GridDisplay : MonoBehaviour
             //TODO :random color
             //Random rnd = new Random();
             //int nb  = rnd.Next(1, 7);
->>>>>>> 17c4924afb84e3afaa172fff41fd6d857a5a49b0
+
 
          
          
