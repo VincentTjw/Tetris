@@ -11,65 +11,68 @@ public class GridDisplay : MonoBehaviour
     // Largeur de la grille en nombre de cases
     public static int width = 10;
     
+    public static List<List<SquareColor>> board = new List<List<SquareColor>>(); 
+
+
+    
+    
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
 
+
+        
+
         bool loose = false;
         
         //initialisation de la grille
-        List<List<SquareColor>> board = new List<List<SquareColor>>(); 
+        
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
-                if((j==8) &&( i == 7)){
-                    Ligne.Add(SquareColor.PURPLE);
-                } else {    
                     Ligne.Add(SquareColor.TRANSPARENT);
-                }
+                
                 
             }
             board.Add(Ligne);
         }         
          GridDisplay.SetColors(board);
 
-         
-
-         board[2][2] = SquareColor.ORANGE;
-         board[2][2] = SquareColor.RED;
-         
-         
-         
-        //while(!loose) {
-            //choix couleur et forme
-            
-            //TODO :random color
-            //Random rnd = new Random();
-            //int nb  = rnd.Next(1, 7);
-
-            //création objet
-            //mise en descente
-             // random color = "+ randomColor);
-             //List<List<SquareColor>> board = new List<List<SquareColor>>(); 
-             Oblock oblock = new Oblock(SquareColor.ORANGE);
-             
-            //List<SquareColor> Ligne = new List<SquareColor>();
-              //  Ligne.Add(randomColor);
-            //board.Add(Ligne);
-              GridDisplay.SetColors(board);
-
-                
-              for(int i =0; i < width; i++){
-                board[0][i] = (oblock.getModel1())[i];
-                 board[1][i] = (oblock.getModel2())[i];
+          for(int i =0; i < width; i++){
+                 board[0][i] = (block.getModel1())[i];
+                 board[1][i] = (block.getModel2())[i];
               } 
 
-              board[0][0] = SquareColor.RED;
-              board[6][0] = SquareColor.PURPLE;
+        //coordonnée objet
+        //ligne
+        
+        //colomne
+        
 
-       // }
+         
+         
+         int j =0;
+        while(!loose && j < 10 ) {
+          
+             block block = new block(SquareColor.ORANGE);
 
-         //test
+             board[j][2] = SquareColor.RED;
+             
+
+              //get les cases des objets en cours
+                //puis on applique la descente
+                //puis a chaque tick il faut vérif les collisions --> on verif les cases suivante avant de le déplacer 
+                
+             
+            GridDisplay.SetColors(board);
+
+
+             //tick per second
+             SetTickFunction();
+
+        }
+
+   
 
         
 

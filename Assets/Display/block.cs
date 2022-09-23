@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Oblock {
+public class block {
 
     public List<SquareColor> list1 = new List<SquareColor>();
      public List<SquareColor> list2 = new List<SquareColor>();
@@ -9,9 +9,11 @@ public class Oblock {
     int height =2;
 
     int size = 2;
-    int startOf = 4; //TODO : valeur random entre 0 et 8 
+     int startOf = 4; //TODO : valeur random entre 0 et 8 
 
-    public Oblock(SquareColor color){
+    public block(SquareColor color, int id){
+        //there is 7 id (0 - 6)
+
         int r = 0;
     for(int j = 0 ; j < height; j++){
         for(int i=0; i<width; i++){
@@ -42,13 +44,10 @@ public class Oblock {
 
     }
 
-    public List<SquareColor> getModel1 (){
-        return list1;
+    public void getOBlock (){
+        GridDisplay.board[0][]
     }
-
-public List<SquareColor> getModel2 (){
-        return list2;
-    }
-
 
 }
+
+
