@@ -45,7 +45,7 @@ public class block {
     }
 
     public void getOBlock (){
-        GridDisplay.board[0][]
+       // GridDisplay.board[0][]
     }
 
 }
