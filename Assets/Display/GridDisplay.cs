@@ -152,14 +152,7 @@ public class GridDisplay : MonoBehaviour
 
 
 
-<<<<<<< HEAD
-    //function 
-    public static void TickFunction(){
-        _grid.TickFunction();
-    }
-=======
    
->>>>>>> a8b5ad85b153686909fbe51e3269879d8071476c
 
 
 
