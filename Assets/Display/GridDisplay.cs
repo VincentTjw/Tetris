@@ -61,9 +61,9 @@ public class GridDisplay : MonoBehaviour
             GridDisplay.SetColors(board);
 
 
-             //tick per second
-            // GridDisplay.SetTickFunction(SetTickTime(1));
-            GridDisplay.SetTickTime(1000);
+             //tick per second             
+            GridDisplay.SetTickFunction(TickTime());
+            //GridDisplay.SetTickTime(1);
              k=k+1;
              
 
