@@ -9,7 +9,7 @@ public class Oblock {
     int height =2;
 
     int size = 2;
-    int startOf = 4; //TODO : valeur random entre 0 et 8 
+    int startOf = 2; //TODO : valeur random entre 0 et 8 
 
     public Oblock(SquareColor color){
         int r = 0;
