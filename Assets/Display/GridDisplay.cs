@@ -14,6 +14,9 @@ public class GridDisplay : MonoBehaviour
     public static List<List<SquareColor>> board = new List<List<SquareColor>>(); 
 
 
+    int j =0;
+
+
     
     
 
@@ -39,8 +42,8 @@ public class GridDisplay : MonoBehaviour
          GridDisplay.SetColors(board);
 
           for(int i =0; i < width; i++){
-                 board[0][i] = (block.getModel1())[i];
-                 board[1][i] = (block.getModel2())[i];
+                 //board[0][i] = (block.getModel1())[i];
+                 //board[1][i] = (block.getModel2())[i];
               } 
 
 
@@ -65,10 +68,10 @@ public class GridDisplay : MonoBehaviour
 
          
          
-         int j =0;
+         
         while(!loose && j < 10 ) {
           
-             block block = new block(SquareColor.ORANGE);
+             block block = new block(SquareColor.ORANGE,1);
 
              board[j][2] = SquareColor.RED;
              
@@ -83,6 +86,8 @@ public class GridDisplay : MonoBehaviour
 
              //tick per second
              SetTickFunction();
+
+             j=j+1;
 
         }
 
