@@ -11,32 +11,17 @@ public class GridDisplay : MonoBehaviour
 
     // Largeur de la grille en nombre de cases
     public static int width = 10;
-    
-    public static List<List<SquareColor>> board = new List<List<SquareColor>>(); 
-
-
-    
-
-
-    
-    
+    public static List<List<SquareColor>> board = new List<List<SquareColor>>();    
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-
-
-        
-
         bool loose = false;
         
         //initialisation de la grille
-        
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
-                    Ligne.Add(SquareColor.TRANSPARENT);
-                
-                
+                    Ligne.Add(SquareColor.TRANSPARENT);                
             }
             board.Add(Ligne);
         }         
@@ -52,19 +37,8 @@ public class GridDisplay : MonoBehaviour
         //ligne
         
         //colomne
-        
-
-         board[0][2] = SquareColor.ORANGE;
-         board[2][0] = SquareColor.RED;
-         
-         
-         
-        //while(!loose) {
-            //choix couleur et forme
             
-            //TODO :random color
-            //Random rnd = new Random();
-            //int nb  = rnd.Next(1, 7);
+       
 
 
          
@@ -75,6 +49,8 @@ public class GridDisplay : MonoBehaviour
              block block = new block(SquareColor.ORANGE,1);
 
              board[k][2] = SquareColor.RED;
+
+             
              
 
               //get les cases des objets en cours
@@ -86,9 +62,10 @@ public class GridDisplay : MonoBehaviour
 
 
              //tick per second
-            // GridDisplay.SetTickFunction(SetTickTime(1));
-            GridDisplay.SetTickTime(1000);
+            GridDisplay.SetTickFunction(TickTime());
+            //GridDisplay.SetTickTime(1);
              k=k+1;
+             
 
         }
 
@@ -172,6 +149,14 @@ public class GridDisplay : MonoBehaviour
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();
     }
+
+
+
+    //function 
+    public void TickTime (){
+        System.Threading.Thread.Sleep(1000);
+    }
+
 
 
 /// Les lignes au delà de celle-ci ne vous concernent pas.
