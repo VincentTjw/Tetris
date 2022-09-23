@@ -53,4 +53,45 @@ public List<SquareColor> getModel2 (){
     }
 
 
+    public void moveRight(){
+        startOf = startOf +1;
+
+           int r = 0;
+    for(int j = 0 ; j < height; j++){
+        for(int i=0; i<width; i++){
+
+           
+             if (r>= startOf && r < startOf+size) {
+                if(j == 0){
+                     list1.Add(color);
+                
+                }else {
+                    list2.Add(color);
+                }
+                r++;
+               
+            } else {
+                if(j == 0){
+                     list1.Add(SquareColor.TRANSPARENT);
+                
+                }else {
+                   list2.Add(SquareColor.TRANSPARENT);
+                }
+               
+                 r++;
+            }
+        }
+    }
+
+
+        if(isPossibleToMove()){
+
+        }
+    }
+
+    public bool isPossibleToMove(){
+
+    }
+
+
 }
