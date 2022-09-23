@@ -16,7 +16,7 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         bool loose = false;
-        
+        block block = new block(SquareColor.RED, 1);
         //initialisation de la grille
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
@@ -47,7 +47,7 @@ public class GridDisplay : MonoBehaviour
         while(!loose ) {
 
           
-            SetMoveRightFunction(block.moveRight());
+            SetMoveRightFunction(block.moveRight(SquareColor.RED));
               board[0][i] = (block.getModel1())[i];
                  board[1][i] = (block.getModel2())[i];
              
