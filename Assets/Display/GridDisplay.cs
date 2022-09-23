@@ -14,7 +14,7 @@ public class GridDisplay : MonoBehaviour
     public static List<List<SquareColor>> board = new List<List<SquareColor>>(); 
 
 
-    int j =0;
+    
 
 
     
@@ -68,8 +68,8 @@ public class GridDisplay : MonoBehaviour
 
          
          
-         
-        while(!loose && j < 10 ) {
+         int j=0;
+        while(!loose && (j < 10) ) {
           
              block block = new block(SquareColor.ORANGE,1);
 
