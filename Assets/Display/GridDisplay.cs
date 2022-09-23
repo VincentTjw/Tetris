@@ -68,12 +68,12 @@ public class GridDisplay : MonoBehaviour
 
          
          
-         int j=0;
-        while(!loose && (j < 10) ) {
+         int k=0;
+        while(!loose && (k < 10) ) {
           
              block block = new block(SquareColor.ORANGE,1);
 
-             board[j][2] = SquareColor.RED;
+             board[k][2] = SquareColor.RED;
              
 
               //get les cases des objets en cours
@@ -85,9 +85,9 @@ public class GridDisplay : MonoBehaviour
 
 
              //tick per second
-             SetTickFunction();
+             GridDisplay.SetTickFunction();
 
-             j=j+1;
+             k=k+1;
 
         }
 
