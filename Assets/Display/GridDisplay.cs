@@ -30,16 +30,8 @@ public class GridDisplay : MonoBehaviour
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
-<<<<<<< HEAD
                     Ligne.Add(SquareColor.TRANSPARENT);
                 
-=======
-                if((j==8) &&( i == 7)){
-                    Ligne.Add(SquareColor.PURPLE);
-                } else {    
-                    Ligne.Add(SquareColor.GREEN);
-                }
->>>>>>> 17c4924afb84e3afaa172fff41fd6d857a5a49b0
                 
             }
             board.Add(Ligne);
