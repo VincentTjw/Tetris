@@ -86,7 +86,7 @@ public class GridDisplay : MonoBehaviour
 
 
              //tick per second
-             GridDisplay.SetTickFunction(wait(1000));
+             GridDisplay.SetTickFunction(System.Threading.Thread.Sleep(1000));
 
              k=k+1;
 
