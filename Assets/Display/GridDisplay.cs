@@ -45,7 +45,7 @@ public class GridDisplay : MonoBehaviour
          
          int k=0;
         while(!loose ) {
-          
+
           
             SetMoveRightFunction(block.moveRight());
               board[0][i] = (block.getModel1())[i];
