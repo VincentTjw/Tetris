@@ -62,6 +62,7 @@ public class GridDisplay : MonoBehaviour
 
 
              //tick per second
+             
             GridDisplay.SetTickFunction(TickTime());
             //GridDisplay.SetTickTime(1);
              k=k+1;
