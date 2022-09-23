@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+System.Threading.Tasks;
 
 public class GridDisplay : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class GridDisplay : MonoBehaviour
 
 
              //tick per second
-             GridDisplay.SetTickFunction();
+             GridDisplay.SetTickFunction(wait(1000));
 
              k=k+1;
 
