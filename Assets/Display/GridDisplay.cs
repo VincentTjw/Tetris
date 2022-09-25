@@ -16,21 +16,59 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         bool loose = false;
-        block block = new block(SquareColor.RED, 1);
+        bool sameBlock = true;
+        
         //initialisation de la grille
-        for (int i=0;i<22;i++){
+        for (int i=0;i<GridDisplay.height;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
-            for (int j = 0;j<10;j++){
+            for (int j = 0;j<GridDisplay.width;j++){
                     Ligne.Add(SquareColor.TRANSPARENT);                
             }
             board.Add(Ligne);
-        }         
-         GridDisplay.SetColors(board);
+        }
 
-          for(int i =0; i < width; i++){
-                 board[0][i] = (block.getModel1())[i];
-                 board[1][i] = (block.getModel2())[i];
-              } 
+
+        //id between 0-6 for choose a block (7 id possible)
+        //TODO : id random
+        //TODO ; color random
+        while(!loose){
+
+            //SetTickFunction(//TODO);
+
+
+            while(sameBlock){
+
+                int id = 0;
+
+                block block = new block(SquareColor.RED, id);
+
+                if(block.BTL1 == 21 || block.BTR1 == 21){
+                    sameBlock = false;
+                } else {
+                                        
+                }
+
+
+                
+                
+                
+                System.Threading.Thread.Sleep(1000);
+                GridDisplay.SetColors(board);  
+            }
+
+
+
+
+
+                 
+      
+
+       
+
+
+        GridDisplay.SetColors(board);  
+
+        }  
 
 
         //coordonnée objet
@@ -42,32 +80,12 @@ public class GridDisplay : MonoBehaviour
 
 
          
-         
-         int k=0;
-        while(!loose ) {
-
-          
-            SetMoveRightFunction(block.moveRight(SquareColor.RED));
-              board[0][i] = (block.getModel1())[i];
-                 board[1][i] = (block.getModel2())[i];
+ 
+     
              
-             
+       
 
-              //get les cases des objets en cours
-                //puis on applique la descente
-                //puis a chaque tick il faut vérif les collisions --> on verif les cases suivante avant de le déplacer 
-                
-             
-            GridDisplay.SetColors(board);
-
-            //GridDisplay._grid.tick = TickTime();
-                         //tick per second             
-            //GridDisplay.SetTickFunction(GridDisplay.TickTime());
-            //GridDisplay.SetTickTime(1);
            
-             
-
-        }
 
    
 

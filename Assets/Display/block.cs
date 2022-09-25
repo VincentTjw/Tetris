@@ -3,95 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 public class block {
 
-    public List<SquareColor> list1 = new List<SquareColor>();
-     public List<SquareColor> list2 = new List<SquareColor>();
-    int width = 10;
-    int height =2;
-
-    int size = 2;
-    int startOf = 4; //TODO : valeur random entre 0 et 8 
+    //coordonnées de chaque block
+    public int TPL1, TPL2,TPR1, TPR2,BTL1, BTL2,BTR1, BTR2;
 
     public block(SquareColor color, int id){
         //there is 7 id (0 - 6)
+        if(id == 0){
+            GridDisplay.board[0][4] = color;
+            GridDisplay.board[0][5] = color;
+            GridDisplay.board[1][4] = color;
+            GridDisplay.board[1][5] = color;
+            TPL1 = 0;
+            TPL2 = 4;
+            TPR1 = 0;
+            TPR2 = 5;
+            BTL1 = 1;
+            BTL2 = 4;
+            BTR1 = 1;
+            BTR2 = 5;
+        }
 
-        int r = 0;
-    for(int j = 0 ; j < height; j++){
-        for(int i=0; i<width; i++){
-
-           
-             if (r>= startOf && r < startOf+size) {
-                if(j == 0){
-                     list1.Add(color);
-                
-                }else {
-                    list2.Add(color);
-                }
-                r++;
-               
-            } else {
-                if(j == 0){
-                     list1.Add(SquareColor.TRANSPARENT);
-                
-                }else {
-                   list2.Add(SquareColor.TRANSPARENT);
-                }
-               
-                 r++;
-            }
+       
         }
     }
 
 
-    }
-
-    public List<SquareColor> getModel1 (){
-        return list1;
-    }
-
-public List<SquareColor> getModel2 (){
-        return list2;
-    }
+    
 
 
-    public static void moveRight(SquareColor color){
-        startOf = startOf +1;
 
-           int r = 0;
-    for(int j = 0 ; j < height; j++){
-        for(int i=0; i<width; i++){
-
-           
-             if (r>= startOf && r < startOf+size) {
-                if(j == 0){
-                     list1.Add(color);
-                
-                }else {
-                    list2.Add(color);
-                }
-                r++;
-               
-            } else {
-                if(j == 0){
-                     list1.Add(SquareColor.TRANSPARENT);
-                
-                }else {
-                   list2.Add(SquareColor.TRANSPARENT);
-                }
-               
-                 r++;
-            }
-        }
-    }
-
-
-        if(isPossibleToMove()){
-
-        }
+   /* public static void moveRight(SquareColor color){
+        
     }
 
     public bool isPossibleToMove(){
+        return true;
+    }*/
 
-    }
 
 
-}
