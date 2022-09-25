@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=System.Random;
 using System.Threading.Tasks;
+using System.Threading;
+
+
 
 public class GridDisplay : MonoBehaviour
 {
 
+
+    public static KeyCode moveUp;
+    public static KeyCode moveRight;
     // Hauteur de la grille en nombre de cases
     public static int height = 22;
 
@@ -17,7 +24,7 @@ public class GridDisplay : MonoBehaviour
     public static void Initialize(){
         bool loose = false;
         bool sameBlock = true;
-        
+      
         //initialisation de la grille
         for (int i=0;i<GridDisplay.height;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
@@ -27,72 +34,55 @@ public class GridDisplay : MonoBehaviour
             board.Add(Ligne);
         }
 
+        GridDisplay.SetColors(board);
+               
+         
 
         //id between 0-6 for choose a block (7 id possible)
         //TODO : id random
         //TODO ; color random
-        while(!loose){
 
-            //SetTickFunction(//TODO);
-
-
-            while(sameBlock){
-
-                int id = 0;
-
-                block block = new block(SquareColor.RED, id);
-
-                if(block.BTL1 == 21 || block.BTR1 == 21){
-                    sameBlock = false;
-                } else {
-                                        
-                }
-
-
-                
-                
-                
-                System.Threading.Thread.Sleep(1000);
-                GridDisplay.SetColors(board);  
-            }
-
-
-
-
-
-                 
+        
       
-
-       
-
-
-        GridDisplay.SetColors(board);  
-
-        }  
+            //SetTickFunction(//TODO);
+             Task t1 = Task.Run(() => {
+              while(!loose){
+                
 
 
-        //coordonnée objet
-        //ligne
-        
-        //colomne
+             int id = 0;
             
-       
+            SquareColor color = getAColorblock();
+            block block = new block(color, id);
+            GridDisplay.SetColors(board);
+            
+
+            blockGoDown(id,block,color,sameBlock,loose);
+            /*if(Input.GetKeyDown ("KeyRight")){
+                SetMoveRightFunction(block.moveRight(color,id)); 
+                GridDisplay.SetColors(board);   */ 
 
 
-         
- 
-     
+
+            //TODO check if a line is completed
+
              
-       
+        
+          
 
-           
+        }
 
-   
+        TriggerGameOver();
+
+          });
+
+        
+        
 
         
 
-
-        
+       // }  
+                    
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
@@ -167,6 +157,89 @@ public class GridDisplay : MonoBehaviour
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();
     }
+
+
+    public static SquareColor getAColorblock(){
+        
+        
+        Random random = new Random();
+        var num = random.Next(1,8);
+        
+        switch (num) 
+        {
+        case 1:
+            return SquareColor.DEEP_BLUE;
+            
+        case 2:
+            return SquareColor.LIGHT_BLUE;
+            
+        case 3:
+            return SquareColor.GREEN;
+            
+        case 4:
+            return SquareColor.RED;
+       
+        case 5:
+            return SquareColor.PURPLE;
+          
+        case 6:
+            return SquareColor.ORANGE;
+            
+        case 7:
+            return SquareColor.YELLOW;
+          
+        }
+
+         return SquareColor.RED;
+       
+        
+    }
+
+
+    public static void blockGoDown (int id, block block, SquareColor color, bool sameBlock, bool loose){
+        
+        if(id ==0){
+            if(block.BTL1 == 1 && block.BTR1 == 21 && !block.isPossibleToGoDown(id)){
+                loose = true;
+                sameBlock = false;                
+            }
+
+        
+
+           
+            while(sameBlock){  
+
+                  
+            
+                
+                               
+               
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id)){                    
+                  GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;       
+                    GridDisplay.board[block.TPR1][block.TPR2]  = SquareColor.TRANSPARENT;  
+                    
+                    GridDisplay.board[block.BTL1+1][block.BTL2] = color;
+                    GridDisplay.board[block.BTR1+1][block.BTR2] = color;
+                    block.TPL1 ++;
+                    block.TPR1 ++;  
+                    block.BTL1 ++;
+                    block.BTR1 ++;  
+                    GridDisplay.SetColors(board);            
+                } else {
+                    sameBlock = false;}
+
+                GridDisplay.SetColors(board);       
+           
+        
+            Task.Delay(200).Wait();        
+        }
+
+
+        
+        }
+
+    }
+    
 
 
 

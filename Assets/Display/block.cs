@@ -25,20 +25,46 @@ public class block {
 
        
         }
-    }
 
+
+        public bool isPossibleToGoDown(int id){
+            if (id ==0){
+                if(GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+            return false;
+
+        }
 
     
-
-
-
-   /* public static void moveRight(SquareColor color){
+    public MoveFunction moveRight(SquareColor color, int id){
+        if(id ==0){
+            if(TPR2 != 9 && BTR2 != 9 && isPossibleToMove()){
+                    GridDisplay.board[TPL1][TPL2] = SquareColor.TRANSPARENT;       
+                    GridDisplay.board[BTL1][BTL2]  = SquareColor.TRANSPARENT;  
+                    
+                    GridDisplay.board[TPR1][TPR2+1] = color;
+                    GridDisplay.board[BTR1][BTR2+1] = color;
+                    TPL2 ++;
+                    TPR2 ++;  
+                    BTL2 ++;
+                    BTR2 ++;
+            }
+        }
+        //SURE ??????
+        return null;
         
     }
 
     public bool isPossibleToMove(){
+        //TODO :
         return true;
-    }*/
+    }
+
+}
 
 
 
