@@ -16,7 +16,7 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         bool loose = false;
-        block block = new block(SquareColor.RED, 1);
+       
         //initialisation de la grille
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
@@ -27,29 +27,38 @@ public class GridDisplay : MonoBehaviour
         }         
          GridDisplay.SetColors(board);
 
-          for(int i =0; i < width; i++){
-                 board[0][i] = (block.getModel1())[i];
-                 board[1][i] = (block.getModel2())[i];
-              } 
-
-
-        //coordonnée objet
-        //ligne
-        
-        //colomne
-            
+          
        
 
 
          
          
-         int k=0;
+        
         while(!loose ) {
+            //faire id et couleur aléatoire
+             block block = new block(SquareColor.RED, 0);
+              int topLeftC = 4;
+        int topLeftL = 0;
+            
+       
+        int topRightC = 5;
+        int topRightL = 0;
+       
+        int BottomRightC = 5;
+        int BottomRightL = 1;
 
-          
-            SetMoveRightFunction(block.moveRight(SquareColor.RED));
-              board[0][i] = (block.getModel1())[i];
-                 board[1][i] = (block.getModel2())[i];
+        int BottomLeftC = 4;
+        int BottomLeftL =1;
+
+             while(!toBottom){
+                //le block en cours arrive au bottom
+                SetMoveRightFunction(block.moveRight(SquareColor.RED,topLeftC,topLeftL,topRightC,topRightL,BottomLeftC, BottomLeftL, BottomRightC, BottomRightL));
+
+             }
+
+            
+            
+               
              
              
 

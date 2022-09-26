@@ -14,82 +14,74 @@ public class block {
     public block(SquareColor color, int id){
         //there is 7 id (0 - 6)
 
-        int r = 0;
-    for(int j = 0 ; j < height; j++){
-        for(int i=0; i<width; i++){
+    //O block
+    if(id ==0) {
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[0][startOf+1] = color;
+        GridDisplay.board[1][startOf+1] = color;
+        GridDisplay.board[1][startOf]   = color;
 
-           
-             if (r>= startOf && r < startOf+size) {
-                if(j == 0){
-                     list1.Add(color);
-                
-                }else {
-                    list2.Add(color);
-                }
-                r++;
-               
-            } else {
-                if(j == 0){
-                     list1.Add(SquareColor.TRANSPARENT);
-                
-                }else {
-                   list2.Add(SquareColor.TRANSPARENT);
-                }
-               
-                 r++;
-            }
-        }
+    } 
+    //left stairs --_ _
+    else if (id == 1){
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[0][startOf+1] = color;
+        GridDisplay.board[1][startOf+1] = color;
+        GridDisplay.board[1][startOf+2]   = color;
+
+    } //left L |_ _ _
+    else if (id == 2){
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[1][startOf] = color;
+        GridDisplay.board[1][startOf+1] = color;
+        GridDisplay.board[1][startOf+2]   = color;
+
+    } //line _ _ _ _
+     else if (id == 3){
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[0][startOf+3] = color;
+        GridDisplay.board[0][startOf+1] = color;
+        GridDisplay.board[0][startOf+2]   = color;
+
+    } //middle 
+    else if (id == 4){
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[1][startOf-1] = color;
+        GridDisplay.board[1][startOf+1] = color;
+        GridDisplay.board[1][startOf]   = color;
+
+    }// Right L _ _ _|
+    else if (id == 5){
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[1][startOf-1] = color;
+        GridDisplay.board[1][startOf-2] = color;
+        GridDisplay.board[1][startOf]   = color;
+
+    }//right stairs _ _--
+    else if (id == 6){
+        GridDisplay.board[0][startOf]   = color;
+        GridDisplay.board[0][startOf+1] = color;
+        GridDisplay.board[1][startOf-1] = color;
+        GridDisplay.board[1][startOf]   = color;
+
     }
 
 
     }
 
-    public List<SquareColor> getModel1 (){
-        return list1;
+   
+
+
+    public static void moveRight(SquareColor color,int topLeftC,int topLeftL,int topRightC,int topRightL,int BottomLeftC,int  BottomLeftL,int  BottomRightC,int  BottomRightL){
+       if(block.isPossibleToMove){
+        GridDisplay.board[topLeftL][topLeftC] = SquareColor.TRANSPARENT;
+        GridDisplay.board[BottomLeftL][BottomLeftC] = SquareColor.TRANSPARENT;
+        GridDisplay.board[topRightL+1][topRightC] = color;
+        GridDisplay.board[BottomRightL+1][BottomRightC] = color;
+       }
     }
 
-public List<SquareColor> getModel2 (){
-        return list2;
-    }
-
-
-    public static void moveRight(SquareColor color){
-        startOf = startOf +1;
-
-           int r = 0;
-    for(int j = 0 ; j < height; j++){
-        for(int i=0; i<width; i++){
-
-           
-             if (r>= startOf && r < startOf+size) {
-                if(j == 0){
-                     list1.Add(color);
-                
-                }else {
-                    list2.Add(color);
-                }
-                r++;
-               
-            } else {
-                if(j == 0){
-                     list1.Add(SquareColor.TRANSPARENT);
-                
-                }else {
-                   list2.Add(SquareColor.TRANSPARENT);
-                }
-               
-                 r++;
-            }
-        }
-    }
-
-
-        if(isPossibleToMove()){
-
-        }
-    }
-
-    public bool isPossibleToMove(){
+    public static bool isPossibleToMove(){
 
     }
 
