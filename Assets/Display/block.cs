@@ -21,19 +21,81 @@ public class block {
             BTL2 = 4;
             BTR1 = 1;
             BTR2 = 5;
-        }
+        }else if (id == 1){
+            GridDisplay.board[0][4] = color;
+            GridDisplay.board[1][4] = color;
+            GridDisplay.board[1][5] = color;
+            GridDisplay.board[1][6] = color;
+            TPL1 = 0;
+            TPL2 = 4;
+            TPR1 = 1;
+            TPR2 = 4;
+            BTL1 = 1;
+            BTL2 = 5;
+            BTR1 = 1;
+            BTR2 = 6;
+
+                
+            } else if (id == 2){
+           
+                
+            } else if (id == 3){
+                
+                
+            } else if (id == 4){
+              
+                
+            } else if (id == 5){
+            
+                
+            } else if (id == 6){
+             
+                
+            }
 
        
         }
 
 
-        public bool isPossibleToGoDown(int id){
+        public bool isPossibleToGoDown(int id, int pos){
             if (id ==0){
                 if(GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
                     return true;
                 }else {
                     return false;
                 }
+
+                //for other block we need to get the rotation
+            } else if (id == 1){
+                // cas : |_ _ _
+                if(pos == 1){
+                    if(GridDisplay.board[TPR1+1][TPR2] == SquareColor.TRANSPARENT && GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
+                    return true;
+                }else {
+                    return false;
+                }
+
+                }
+                return false;
+
+
+                
+
+            } else if (id == 2){
+                 return false;
+                
+            } else if (id == 3){
+                 return false;
+                
+            } else if (id == 4){
+                 return false;
+                
+            } else if (id == 5){
+                 return false;
+                
+            } else if (id == 6){
+                 return false;
+                
             }
             return false;
 
@@ -53,7 +115,26 @@ public class block {
                     BTL2 ++;
                     BTR2 ++;
             }
-        }
+        }else if (id == 1){
+                
+            } else if (id == 2){
+           
+                
+            } else if (id == 3){
+                
+                
+            } else if (id == 4){
+              
+                
+            } else if (id == 5){
+            
+                
+            } else if (id == 6){
+             
+                
+            }
+
+
         //SURE ??????
         return null;
         

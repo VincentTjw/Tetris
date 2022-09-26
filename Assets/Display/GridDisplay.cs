@@ -7,8 +7,27 @@ using System.Threading;
 
 
 
+/*
+*   INFO : 
+*   id (type of block): 
+*   0 = O
+*
+*   1 = |___     2 = ___|
+*
+*   3 = ¯¯|_     4 = _|¯¯
+*
+*    5 = _|_     6 = _____
+*   
+* block can have position between 1-4;
+*
+*/
+
+
+
 public class GridDisplay : MonoBehaviour
 {
+
+
 
 
     public static KeyCode moveUp;
@@ -18,11 +37,15 @@ public class GridDisplay : MonoBehaviour
 
     // Largeur de la grille en nombre de cases
     public static int width = 10;
-    public static List<List<SquareColor>> board = new List<List<SquareColor>>();    
+    public static List<List<SquareColor>> board = new List<List<SquareColor>>();
+
+    public static int pos = 0;    
+    public static int speedGame = 5;
+    public static  bool loose = false;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        bool loose = false;
+       
         bool sameBlock = true;
       
         //initialisation de la grille
@@ -49,14 +72,17 @@ public class GridDisplay : MonoBehaviour
               while(!loose){
                 
 
-
-             int id = 0;
+             
+            Random random = new Random();
+            var num = random.Next(0,2);//0,7 //max value not selected
+             int id = num;
+             pos = 1;
             
             SquareColor color = getAColorblock();
             block block = new block(color, id);
             GridDisplay.SetColors(board);
             
-
+            
             blockGoDown(id,block,color,sameBlock,loose);
             /*if(Input.GetKeyDown ("KeyRight")){
                 SetMoveRightFunction(block.moveRight(color,id)); 
@@ -199,22 +225,15 @@ public class GridDisplay : MonoBehaviour
     public static void blockGoDown (int id, block block, SquareColor color, bool sameBlock, bool loose){
         
         if(id ==0){
-            if(block.BTL1 == 1 && block.BTR1 == 21 && !block.isPossibleToGoDown(id)){
+            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,0)){
                 loose = true;
                 sameBlock = false;                
             }
-
-        
-
-           
+                 
             while(sameBlock){  
 
-                  
-            
-                
-                               
                
-                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id)){                    
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id,0)){                    
                   GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;       
                     GridDisplay.board[block.TPR1][block.TPR2]  = SquareColor.TRANSPARENT;  
                     
@@ -231,12 +250,67 @@ public class GridDisplay : MonoBehaviour
                 GridDisplay.SetColors(board);       
            
         
-            Task.Delay(200).Wait();        
+            Task.Delay(speedGame).Wait();        
         }
 
 
+        //for other block we need to get the rotation
+        }else if (id == 1){
+               //TODO var can change
+              
+
+            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,pos)){
+                loose = true;
+                sameBlock = false;                
+            }
+                 
+            while(sameBlock){  
+
+             
+
+               
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id,pos)){         
+                    GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;
+                    GridDisplay.board[block.BTL1][block.BTL2] = SquareColor.TRANSPARENT;  
+                    GridDisplay.board[block.BTR1][block.BTR2] = SquareColor.TRANSPARENT;       
+
+                      
+                    
+                    
+                    GridDisplay.board[block.BTL1+1][block.BTL2] = color;
+                    GridDisplay.board[block.BTR1+1][block.BTR2] = color;
+                    GridDisplay.board[block.TPR1+1][block.TPR2] = color;
+                    block.TPL1 ++;
+                    block.TPR1 ++;  
+                    block.BTL1 ++;
+                    block.BTR1 ++;  
+                    GridDisplay.SetColors(board);            
+                } else {
+                    sameBlock = false;}
+
+                GridDisplay.SetColors(board);       
+           
         
+            Task.Delay(speedGame).Wait();        
         }
+
+
+        } else if (id == 2){
+           
+                
+            } else if (id == 3){
+                
+                
+            } else if (id == 4){
+              
+                
+            } else if (id == 5){
+            
+                
+            } else if (id == 6){
+             
+                
+            }
 
     }
     
