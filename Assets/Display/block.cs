@@ -68,7 +68,19 @@ public class block {
            //TODO : first step move in 4*4 list
            //TODO : step 2 move the list 
             bool isPossible = false;
-           
+            bool moveIn4By4 = false;
+        
+            
+            //TODO : work in 4*4 tab :
+             for(int i =3; i < 4; i++){
+                for(int j = 0; j < 4;j++){
+                    if(blockList[i][j] == SquareColor.TRANSPARENT){
+
+                    }
+                 }
+             }
+
+
            //si on bloque et que la case qui se déplace est transparent on peut alors continuer en imprimant le bloc du jeu dans le tableau 4*4
            for(int i =0; i < 4; i++){
              for(int j = 0; j < 4;j++){
@@ -96,7 +108,7 @@ public class block {
             //TODO : supprimer l'ancienne pos
         for(int i =xDepart; i < 4+i; i++){
              for(int j = line; j < 4;j++){
-                
+
              }
 
         }
