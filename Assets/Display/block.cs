@@ -65,43 +65,49 @@ public class block {
 
         public bool isPossibleToGoDown(){
            //TODO : block can go down
-           //TODO : first step move in 4*4 list
-           //TODO : step 2 move the list 
+           //TODO : 2 step move in 4*4 list
+           //TODO : 1 step move the list 
             bool isPossible = false;
             bool moveIn4By4 = false;
         
             
-            //TODO : work in 4*4 tab :
-             for(int i =3; i < 4; i++){
-                for(int j = 0; j < 4;j++){
-                    if(blockList[i][j] == SquareColor.TRANSPARENT){
 
-                    }
-                 }
-             }
-
-
+           if(line < 22-4){
            //si on bloque et que la case qui se déplace est transparent on peut alors continuer en imprimant le bloc du jeu dans le tableau 4*4
-           for(int i =0; i < 4; i++){
-             for(int j = 0; j < 4;j++){
-                
-                
-                if(blockList[i][j] == GridDisplay.color){
-                    if(blockList[i+1][j] == SquareColor.TRANSPARENT || blockList[i+1][j] == GridDisplay.color  ){
-                        isPossible = true;
+           for(int i = line+4 ; i<line+4+1; i++){
+                //cas ou il y a au moins une ligne en dessous ( rempli de couleur ou non)
+                for(int j = xDepart; j<xDepart+4; j++){
+                   if( GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
 
-                    }else {
-                        return false;
-                    }
+
+                   } else {
+                    //un bloc donc 
+                    //TODO : verifier au dessus de ce bloc si block transparent
+
+                    //si transparent au dessus de tous 
+                    //TODO : on descend le petit tableau 
+                    //TODO : on parcours le tableau et tout block different va prendre -1 en hauteur 
+                    //TODO : check qu'il n'y a pas de pb avec le TODO précédent 
+
+                    //sinon
+                    //on ne peut pas descendre le tableau fin objet à l'interieur ne pas descendre non plus
+                   } 
                 }
-                
-             }
            }
 
-            return isPossible;
+           } else {
+            //TODO : travailler dans petit tableau
+
+            //si on dessous de l'objet c'est vide
+            //TODO : on descend 
+            //sinon fin 
+           }
+
+           // return isPossible;
 
         }
 
+//TODO : refaire
     public void MoveDown(){
         if(isPossibleToGoDown){
             line ++;
@@ -112,6 +118,8 @@ public class block {
              }
 
         }
+
+        //TODO : s'occuper des blocs qui font pas parti de l'objet
 
         for(int i =xDepart; i < 4+i; i++){
              for(int j = line; j < 4;j++){
