@@ -3,149 +3,127 @@ using System.Collections.Generic;
 using UnityEngine;
 public class block {
 
-    //coordonnées de chaque block
-    public int TPL1, TPL2,TPR1, TPR2,BTL1, BTL2,BTR1, BTR2;
+    public static List<List<SquareColor>> blockList = new List<List<SquareColor>>();
+
+    public static int heightBlockL = 4;
+
+    public static int xDepart = 4;
+
+    public static int line = 0;
+    public static int widthBlockL = 4;
+
+
+    
 
     public block(){
-        //there is 7 id (0 - 6)
-        if(GridDisplay.id == 0){
-            GridDisplay.board[0][4] = GridDisplay.color;
-            GridDisplay.board[0][5] = GridDisplay.color;
-            GridDisplay.board[1][4] = GridDisplay.color;
-            GridDisplay.board[1][5] = GridDisplay.color;
-            TPL1 = 0;
-            TPL2 = 4;
-            TPR1 = 0;
-            TPR2 = 5;
-            BTL1 = 1;
-            BTL2 = 4;
-            BTR1 = 1;
-            BTR2 = 5;
-        }else if (GridDisplay.id == 1){
-            GridDisplay.board[0][4] = GridDisplay.color;
-            GridDisplay.board[1][4] = GridDisplay.color;
-            GridDisplay.board[1][5] = GridDisplay.color;
-            GridDisplay.board[1][6] = GridDisplay.color;
-            TPL1 = 0;
-            TPL2 = 4;
-            TPR1 = 1;
-            TPR2 = 4;
-            BTL1 = 1;
-            BTL2 = 5;
-            BTR1 = 1;
-            BTR2 = 6;
-
-                
-            } else if (GridDisplay.id == 2){
-           
-           
-
-                
-            } else if (GridDisplay.id == 3){
-                
-                
-            } else if (GridDisplay.id == 4){
-              
-                
-            } else if (GridDisplay.id == 5){
-            
-                
-            } else if (GridDisplay.id == 6){
-             
-                
+        //enum de block
+        SquareColor couleur = GridDisplay.color;
+        //TODO : blockList.clear !!
+        for (int i=0;i<block.heightBlockL;i++){
+            List<SquareColor> Ligne = new List<SquareColor>();
+            for (int j = 0;j<block.widthBlockL;j++){
+                    Ligne.Add(SquareColor.TRANSPARENT);                
             }
-
-       
+            blockList.Add(Ligne);
         }
+        
+        switch (TypeOfBlock) 
+        {
+        case TypeOfBlock.I_Block:
+                //base :  _ _ _ _
+                blockList[0][0] = couleur;
+                blockList[1][0] = couleur;
+                blockList[2][0] = couleur;
+                blockList[3][0] = couleur;
+                 
+                 
+
+            
+        case TypeOfBlock.L_Block:
+                //TODO
+        case TypeOfBlock.J_Block:
+                //TODO
+            
+        case TypeOfBlock.O_Block:
+                //TODO
+        case TypeOfBlock.S_Block:
+                //TODO
+        case TypeOfBlock.Z_Block:
+                //TODO
+
+        }
+
+   
+        for(int i =xDepart; i < 4+i; i++){
+             for(int j = 0; j < 4;j++){
+                    GridDisplay.board[i][j] = blockList [i-xDepart][j];
+            }
+        }     
+       
+    }
 
 
         public bool isPossibleToGoDown(){
-            if (GridDisplay.id ==0){
-                if(GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
-                    return true;
-                }else {
-                    return false;
+           //TODO : block can go down
+           //TODO : first step move in 4*4 list
+           //TODO : step 2 move the list 
+            bool isPossible = false;
+           
+           //si on bloque et que la case qui se déplace est transparent on peut alors continuer en imprimant le bloc du jeu dans le tableau 4*4
+           for(int i =0; i < 4; i++){
+             for(int j = 0; j < 4;j++){
+                
+                
+                if(blockList[i][j] == GridDisplay.color){
+                    if(blockList[i+1][j] == SquareColor.TRANSPARENT || blockList[i+1][j] == GridDisplay.color  ){
+                        isPossible = true;
+
+                    }else {
+                        return false;
+                    }
                 }
+                
+             }
+           }
 
-                //for other block we need to get the rotation
-            } else if (GridDisplay.id == 1){
-                // cas : |_ _ _
-                if(GridDisplay.pos == 1){
-                    if(GridDisplay.board[TPR1+1][TPR2] == SquareColor.TRANSPARENT && GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
-                    return true;
-                }else {
-                    return false;
-                }
-
-                }
-                return false;
-
-
-                
-
-            } else if (GridDisplay.id == 2){
-                 return false;
-                
-            } else if (GridDisplay.id == 3){
-                 return false;
-                
-            } else if (GridDisplay.id == 4){
-                 return false;
-                
-            } else if (GridDisplay.id == 5){
-                 return false;
-                
-            } else if (GridDisplay.id == 6){
-                 return false;
-                
-            }
-            return false;
+            return isPossible;
 
         }
 
+    public void MoveDown(){
+        if(isPossibleToGoDown){
+            line ++;
+            //TODO : supprimer l'ancienne pos
+        for(int i =xDepart; i < 4+i; i++){
+             for(int j = line; j < 4;j++){
+                
+             }
+
+        }
+
+        for(int i =xDepart; i < 4+i; i++){
+             for(int j = line; j < 4;j++){
+                    GridDisplay.board[i][j] = blockList [i-xDepart][j];
+            }
+        }   
+
+        }
+        
+    
+    }
     
     public void moveRight(){
-        if(GridDisplay.id ==0){
-            if(TPR2 != 9 && BTR2 != 9 && isPossibleToMove()){
-                    GridDisplay.board[TPL1][TPL2] = SquareColor.TRANSPARENT;       
-                    GridDisplay.board[BTL1][BTL2]  = SquareColor.TRANSPARENT;  
-                    
-                    GridDisplay.board[TPR1][TPR2+1] = GridDisplay.color;
-                    GridDisplay.board[BTR1][BTR2+1] = GridDisplay.color;
-                    TPL2 ++;
-                    TPR2 ++;  
-                    BTL2 ++;
-                    BTR2 ++;
-            }
-        }else if (GridDisplay.id == 1){
-                
-            } else if (GridDisplay.id == 2){
-           
-                
-            } else if (GridDisplay.id == 3){
-                
-                
-            } else if (GridDisplay.id == 4){
-              
-                
-            } else if (GridDisplay.id == 5){
-            
-                
-            } else if (GridDisplay.id == 6){
-             
-                
-            }
-
-
-        //SURE ??????
-        
+        //TODO : move right
         
     }
 
-    public bool isPossibleToMove(){
-        //TODO :
-        return true;
+
+     public void moveLeft(){
+        //TODO : move right
+        
     }
+
+    
 
 }
 

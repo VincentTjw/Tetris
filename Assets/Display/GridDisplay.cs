@@ -35,16 +35,11 @@ public class GridDisplay : MonoBehaviour
     public static int width = 10;
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
-<<<<<<< HEAD
     public static int pos = 0;  
 
     public static int id = 0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static int speedGame = 45;
-=======
-    public static int pos = 0;    
-    public static int speedGame = 1000;
->>>>>>> 6613e7fd5f1e4267c29899370d0ad55e34c587f7
     public static  bool loose = false;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
@@ -80,7 +75,7 @@ public class GridDisplay : MonoBehaviour
 
           Debug.Log("isLoose = "+ GridDisplay.loose);
 
-          GridDisplay.TriggerGameOver;
+          //GridDisplay.TriggerGameOver;
 
        
           
@@ -215,7 +210,7 @@ public class GridDisplay : MonoBehaviour
             color = getAColorblock();
             block block = new block();
             GridDisplay.SetColors(board);
-            blockGoDown();
+            //blockGoDown();
 
       
         //move right
@@ -225,98 +220,10 @@ public class GridDisplay : MonoBehaviour
        
         
 
-    }
+    
 
 
-    public static void blockGoDown (){
-        
-        if(GridDisplay.id ==0){
-            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown()){
-                GridDisplay.loose = true;
-                sameBlock = false;                
-            }
-                 
-            while(sameBlock){  
-
-               
-                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown()){                    
-                  GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;       
-                    GridDisplay.board[block.TPR1][block.TPR2]  = SquareColor.TRANSPARENT;  
-                    
-                    GridDisplay.board[block.BTL1+1][block.BTL2] = GridDisplay.color;
-                    GridDisplay.board[block.BTR1+1][block.BTR2] = GridDisplay.color;
-                    block.TPL1 ++;
-                    block.TPR1 ++;  
-                    block.BTL1 ++;
-                    block.BTR1 ++;  
-                    GridDisplay.SetColors(board);            
-                } else {
-                    sameBlock = false;}
-
-                GridDisplay.SetColors(board);       
-           
-        
-               
-        }
-
-
-        //for other block we need to get the rotation
-        }else if (GridDisplay.id == 1){
-               //TODO var can change
-              
-
-            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown()){
-                loose = true;
-                sameBlock = false;                
-            }
-                 
-            while(sameBlock){  
-
-             
-
-               
-                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown()){         
-                    GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;
-                    GridDisplay.board[block.BTL1][block.BTL2] = SquareColor.TRANSPARENT;  
-                    GridDisplay.board[block.BTR1][block.BTR2] = SquareColor.TRANSPARENT;       
-
-                      
-                    
-                    
-                    GridDisplay.board[block.BTL1+1][block.BTL2] = GridDisplay.color;
-                    GridDisplay.board[block.BTR1+1][block.BTR2] = GridDisplay.color;
-                    GridDisplay.board[block.TPR1+1][block.TPR2] = GridDisplay.color;
-                    block.TPL1 ++;
-                    block.TPR1 ++;  
-                    block.BTL1 ++;
-                    block.BTR1 ++;  
-                    GridDisplay.SetColors(board);            
-                } else {
-                    sameBlock = false;}
-
-                GridDisplay.SetColors(board);       
-           
-        
-            //Task.Delay(speedGame).Wait();        
-        }
-
-
-        } else if (GridDisplay.id == 2){
-           
-                
-            } else if (GridDisplay.id == 3){
-                
-                
-            } else if (GridDisplay.id == 4){
-              
-                
-            } else if (GridDisplay.id == 5){
-            
-                
-            } else if (GridDisplay.id == 6){
-             
-                
-            }
+   
 
     }
     
