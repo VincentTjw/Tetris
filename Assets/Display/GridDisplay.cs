@@ -40,7 +40,7 @@ public class GridDisplay : MonoBehaviour
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
     public static int pos = 0;    
-    public static int speedGame = 5;
+    public static int speedGame = 45;
     public static  bool loose = false;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
@@ -69,7 +69,7 @@ public class GridDisplay : MonoBehaviour
       
             //SetTickFunction(//TODO);
              Task t1 = Task.Run(() => {
-              while(!loose){
+              while(!GridDisplay.loose){
                 
 
              
@@ -83,7 +83,10 @@ public class GridDisplay : MonoBehaviour
             GridDisplay.SetColors(board);
             
             
-            blockGoDown(id,block,color,sameBlock,loose);
+              
+
+            GridDisplay.SetTickFunction(functionPerTick(id,block, color, sameBlock));
+          
             /*if(Input.GetKeyDown ("KeyRight")){
                 SetMoveRightFunction(block.moveRight(color,id)); 
                 GridDisplay.SetColors(board);   */ 
@@ -93,17 +96,34 @@ public class GridDisplay : MonoBehaviour
             //TODO check if a line is completed
 
              
-        
-          
+        //GridDisplay.looseCall();
+         
 
         }
 
-        TriggerGameOver();
+          Debug.Log("isLoose = "+ GridDisplay.loose);
+
+       
+          
+            
+        
 
           });
 
-        
-        
+
+            //TODO : comprendre comment cela fonctionne
+                 
+                  //GridDisplay.SetMoveRightFunction;
+                 
+                 
+
+            
+
+            
+
+           
+           
+            
 
         
 
@@ -221,12 +241,29 @@ public class GridDisplay : MonoBehaviour
         
     }
 
+    public static void looseCall (){
+         GridDisplay.TriggerGameOver();
+    }
 
-    public static void blockGoDown (int id, block block, SquareColor color, bool sameBlock, bool loose){
+    public static TickFunction functionPerTick(int id,block block,SquareColor color,bool sameBlock){
+        blockGoDown(id,block,color,sameBlock);
+
+      
+        //move right
+        //move left
+        //rush
+           Task.Delay(speedGame).Wait(); 
+        return  null;
+        
+
+    }
+
+
+    public static void blockGoDown (int id, block block, SquareColor color, bool sameBlock){
         
         if(id ==0){
             if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,0)){
-                loose = true;
+                GridDisplay.loose = true;
                 sameBlock = false;                
             }
                  
@@ -250,7 +287,7 @@ public class GridDisplay : MonoBehaviour
                 GridDisplay.SetColors(board);       
            
         
-            Task.Delay(speedGame).Wait();        
+               
         }
 
 
