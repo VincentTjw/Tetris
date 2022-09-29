@@ -35,11 +35,16 @@ public class GridDisplay : MonoBehaviour
     public static int width = 10;
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
+<<<<<<< HEAD
     public static int pos = 0;  
 
     public static int id = 0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static int speedGame = 45;
+=======
+    public static int pos = 0;    
+    public static int speedGame = 1000;
+>>>>>>> 6613e7fd5f1e4267c29899370d0ad55e34c587f7
     public static  bool loose = false;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
@@ -292,7 +297,7 @@ public class GridDisplay : MonoBehaviour
                 GridDisplay.SetColors(board);       
            
         
-           // Task.Delay(speedGame).Wait();        
+            //Task.Delay(speedGame).Wait();        
         }
 
 
