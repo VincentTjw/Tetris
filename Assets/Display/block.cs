@@ -53,7 +53,7 @@ public List<SquareColor> getModel2 (){
     }
 
 
-    public static void moveRight(SquareColor color){
+    public void moveRight(SquareColor color){
         startOf = startOf +1;
 
            int r = 0;
@@ -84,14 +84,14 @@ public List<SquareColor> getModel2 (){
     }
 
 
-        if(isPossibleToMove()){
+      //  if(isPossibleToMove()){
 
-        }
+      //  }
     }
 
-    public bool isPossibleToMove(){
+   // public bool isPossibleToMove(){
 
-    }
+   // }
 
 
 }

@@ -37,9 +37,6 @@ public class GridDisplay : MonoBehaviour
         //ligne
         
         //colomne
-            
-       
-
 
          
          
@@ -47,10 +44,11 @@ public class GridDisplay : MonoBehaviour
         while(!loose ) {
 
           
-            SetMoveRightFunction(block.moveRight(SquareColor.RED));
+            GridDisplay.SetMoveRightFunction(block.moveRight(SquareColor.RED));
+            for(int i =0; i < width; i++){
               board[0][i] = (block.getModel1())[i];
                  board[1][i] = (block.getModel2())[i];
-             
+            }
              
 
               //get les cases des objets en cours
@@ -62,7 +60,7 @@ public class GridDisplay : MonoBehaviour
 
 
              //tick per second             
-            GridDisplay.SetTickFunction(GridDisplay.TickFunction());
+            //GridDisplay.SetTickFunction(GridDisplay.TickFunction());
             //GridDisplay.SetTickTime(1);
            
              
