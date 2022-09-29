@@ -26,22 +26,18 @@ using System.Threading;
 
 public class GridDisplay : MonoBehaviour
 {
-
-
     // Hauteur de la grille en nombre de cases
     public static int height = 22;
-
     // Largeur de la grille en nombre de cases
     public static int width = 10;
+    static Random _R = new Random ();
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
-
-    public static int pos = 0;  
-
-    public static int id = 0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
-    public static int speedGame = 45;
+    public static block block= null;
+    public static float speedGame = 0.1F;
     public static  bool loose = false;
-
+    public static  bool sameBlock = false;
+     public static TypeOfBlock typeOfBlock;
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -58,22 +54,23 @@ public class GridDisplay : MonoBehaviour
       
              Task t1 = Task.Run(() => {
               while(!GridDisplay.loose){
+                
+                typeOfBlock = RandomEnumValue<TypeOfBlock>();
+                color = getAColorblock();
+                block = new block();
+                sameBlock = true;
+                while(sameBlock){
             
-            GridDisplay.SetTickFunction(functionPerTick);
-          
+            GridDisplay.SetTickFunction(functionPerTick);   
            
-
-
-
             //TODO check if a line is completed
 
-             
-       
-         
+            }
 
+   
         }
 
-          Debug.Log("isLoose = "+ GridDisplay.loose);
+          
 
           //GridDisplay.TriggerGameOver;
 
@@ -199,33 +196,27 @@ public class GridDisplay : MonoBehaviour
     }
 
    
-
     public static void functionPerTick(){
-            bool sameBlock = true;
-            Random random = new Random();
-            var num = random.Next(0,2);//0,7 //max value not selected
-             id = num;
-             pos = 1;
             
-            color = getAColorblock();
-            block block = new block();
-            GridDisplay.SetColors(board);
-            //blockGoDown();
-
-      
+            //Random random = new Random();
+            //var num = random.Next(0,2);//0,7 //max value not selected
+           
+        block.MoveDown();
         //move right
         //move left
         //rush
-        Task.Delay(GridDisplay.speedGame).Wait(); 
+        GridDisplay.SetColors(board);
+       SetTickTime(GridDisplay.speedGame);
        
-        
-
-    
-
-
-   
-
     }
+
+
+    static TypeOfBlock RandomEnumValue<TypeOfBlock> ()
+{
+    var v = System.Enum.GetValues (typeof (TypeOfBlock));
+    return (TypeOfBlock) v.GetValue (_R.Next(v.Length));
+    
+}
     
 
 

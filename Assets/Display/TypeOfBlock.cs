@@ -1,4 +1,4 @@
-[System.Serializable]
+//[System.Serializable]
 public enum TypeOfBlock {
   I_Block,
   L_Block,
@@ -6,4 +6,5 @@ public enum TypeOfBlock {
   O_Block,
   S_Block,
   Z_Block,
+  M_Block // _|-|_
 }
