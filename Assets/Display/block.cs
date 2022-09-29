@@ -3,87 +3,149 @@ using System.Collections.Generic;
 using UnityEngine;
 public class block {
 
-    public List<SquareColor> list1 = new List<SquareColor>();
-     public List<SquareColor> list2 = new List<SquareColor>();
-    int width = 10;
-    int height =2;
+    //coordonnées de chaque block
+    public int TPL1, TPL2,TPR1, TPR2,BTL1, BTL2,BTR1, BTR2;
 
-    int size = 2;
-    int startOf = 4; //TODO : valeur random entre 0 et 8 
-
-    public block(SquareColor color, int id){
+    public block(){
         //there is 7 id (0 - 6)
+        if(GridDisplay.id == 0){
+            GridDisplay.board[0][4] = GridDisplay.color;
+            GridDisplay.board[0][5] = GridDisplay.color;
+            GridDisplay.board[1][4] = GridDisplay.color;
+            GridDisplay.board[1][5] = GridDisplay.color;
+            TPL1 = 0;
+            TPL2 = 4;
+            TPR1 = 0;
+            TPR2 = 5;
+            BTL1 = 1;
+            BTL2 = 4;
+            BTR1 = 1;
+            BTR2 = 5;
+        }else if (GridDisplay.id == 1){
+            GridDisplay.board[0][4] = GridDisplay.color;
+            GridDisplay.board[1][4] = GridDisplay.color;
+            GridDisplay.board[1][5] = GridDisplay.color;
+            GridDisplay.board[1][6] = GridDisplay.color;
+            TPL1 = 0;
+            TPL2 = 4;
+            TPR1 = 1;
+            TPR2 = 4;
+            BTL1 = 1;
+            BTL2 = 5;
+            BTR1 = 1;
+            BTR2 = 6;
 
-    //O block
-    if(id ==0) {
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[0][startOf+1] = color;
-        GridDisplay.board[1][startOf+1] = color;
-        GridDisplay.board[1][startOf]   = color;
+                
+            } else if (GridDisplay.id == 2){
+           
+                
+            } else if (GridDisplay.id == 3){
+                
+                
+            } else if (GridDisplay.id == 4){
+              
+                
+            } else if (GridDisplay.id == 5){
+            
+                
+            } else if (GridDisplay.id == 6){
+             
+                
+            }
 
-    } 
-    //left stairs --_ _
-    else if (id == 1){
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[0][startOf+1] = color;
-        GridDisplay.board[1][startOf+1] = color;
-        GridDisplay.board[1][startOf+2]   = color;
+       
+        }
 
-    } //left L |_ _ _
-    else if (id == 2){
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[1][startOf] = color;
-        GridDisplay.board[1][startOf+1] = color;
-        GridDisplay.board[1][startOf+2]   = color;
 
-    } //line _ _ _ _
-     else if (id == 3){
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[0][startOf+3] = color;
-        GridDisplay.board[0][startOf+1] = color;
-        GridDisplay.board[0][startOf+2]   = color;
+        public bool isPossibleToGoDown(){
+            if (GridDisplay.id ==0){
+                if(GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
+                    return true;
+                }else {
+                    return false;
+                }
 
-    } //middle 
-    else if (id == 4){
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[1][startOf-1] = color;
-        GridDisplay.board[1][startOf+1] = color;
-        GridDisplay.board[1][startOf]   = color;
+                //for other block we need to get the rotation
+            } else if (GridDisplay.id == 1){
+                // cas : |_ _ _
+                if(GridDisplay.pos == 1){
+                    if(GridDisplay.board[TPR1+1][TPR2] == SquareColor.TRANSPARENT && GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
+                    return true;
+                }else {
+                    return false;
+                }
 
-    }// Right L _ _ _|
-    else if (id == 5){
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[1][startOf-1] = color;
-        GridDisplay.board[1][startOf-2] = color;
-        GridDisplay.board[1][startOf]   = color;
+                }
+                return false;
 
-    }//right stairs _ _--
-    else if (id == 6){
-        GridDisplay.board[0][startOf]   = color;
-        GridDisplay.board[0][startOf+1] = color;
-        GridDisplay.board[1][startOf-1] = color;
-        GridDisplay.board[1][startOf]   = color;
 
+                
+
+            } else if (GridDisplay.id == 2){
+                 return false;
+                
+            } else if (GridDisplay.id == 3){
+                 return false;
+                
+            } else if (GridDisplay.id == 4){
+                 return false;
+                
+            } else if (GridDisplay.id == 5){
+                 return false;
+                
+            } else if (GridDisplay.id == 6){
+                 return false;
+                
+            }
+            return false;
+
+        }
+
+    
+    public void moveRight(){
+        if(GridDisplay.id ==0){
+            if(TPR2 != 9 && BTR2 != 9 && isPossibleToMove()){
+                    GridDisplay.board[TPL1][TPL2] = SquareColor.TRANSPARENT;       
+                    GridDisplay.board[BTL1][BTL2]  = SquareColor.TRANSPARENT;  
+                    
+                    GridDisplay.board[TPR1][TPR2+1] = GridDisplay.color;
+                    GridDisplay.board[BTR1][BTR2+1] = GridDisplay.color;
+                    TPL2 ++;
+                    TPR2 ++;  
+                    BTL2 ++;
+                    BTR2 ++;
+            }
+        }else if (GridDisplay.id == 1){
+                
+            } else if (GridDisplay.id == 2){
+           
+                
+            } else if (GridDisplay.id == 3){
+                
+                
+            } else if (GridDisplay.id == 4){
+              
+                
+            } else if (GridDisplay.id == 5){
+            
+                
+            } else if (GridDisplay.id == 6){
+             
+                
+            }
+
+
+        //SURE ??????
+        
+        
     }
 
-
+    public bool isPossibleToMove(){
+        //TODO :
+        return true;
     }
-
-   
-
-
-    public static void moveRight(SquareColor color,int topLeftC,int topLeftL,int topRightC,int topRightL,int BottomLeftC,int  BottomLeftL,int  BottomRightC,int  BottomRightL){
-       if(block.isPossibleToMove){
-        GridDisplay.board[topLeftL][topLeftC] = SquareColor.TRANSPARENT;
-        GridDisplay.board[BottomLeftL][BottomLeftC] = SquareColor.TRANSPARENT;
-        GridDisplay.board[topRightL+1][topRightC] = color;
-        GridDisplay.board[BottomRightL+1][BottomRightC] = color;
-       }
-    }
-
-    public static bool isPossibleToMove(){
-
-    }
-
 
 }
+
+
+

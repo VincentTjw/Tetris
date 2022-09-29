@@ -28,10 +28,6 @@ public class GridDisplay : MonoBehaviour
 {
 
 
-
-
-    public static KeyCode moveUp;
-    public static KeyCode moveRight;
     // Hauteur de la grille en nombre de cases
     public static int height = 22;
 
@@ -39,15 +35,15 @@ public class GridDisplay : MonoBehaviour
     public static int width = 10;
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
-    public static int pos = 0;    
-    public static int speedGame = 5;
+    public static int pos = 0;  
+
+    public static int id = 0;
+    public static SquareColor color = SquareColor.TRANSPARENT;  
+    public static int speedGame = 45;
     public static  bool loose = false;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-       
-        bool sameBlock = true;
-      
         //initialisation de la grille
         for (int i=0;i<GridDisplay.height;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
@@ -58,56 +54,37 @@ public class GridDisplay : MonoBehaviour
         }
 
         GridDisplay.SetColors(board);
-               
-         
-
-        //id between 0-6 for choose a block (7 id possible)
-        //TODO : id random
-        //TODO ; color random
-
-        
+                 
       
-            //SetTickFunction(//TODO);
              Task t1 = Task.Run(() => {
-              while(!loose){
-                
-
-             
-            Random random = new Random();
-            var num = random.Next(0,2);//0,7 //max value not selected
-             int id = num;
-             pos = 1;
+              while(!GridDisplay.loose){
             
-            SquareColor color = getAColorblock();
-            block block = new block(color, id);
-            GridDisplay.SetColors(board);
-            
-            
-            blockGoDown(id,block,color,sameBlock,loose);
-            /*if(Input.GetKeyDown ("KeyRight")){
-                SetMoveRightFunction(block.moveRight(color,id)); 
-                GridDisplay.SetColors(board);   */ 
+            GridDisplay.SetTickFunction(functionPerTick);
+          
+           
 
 
 
             //TODO check if a line is completed
 
              
-        
-        
+       
+         
 
         }
 
-        GridDisplay.TriggerGameOver();
+          Debug.Log("isLoose = "+ GridDisplay.loose);
+
+          GridDisplay.TriggerGameOver;
+
+       
+          
+            
+        
 
           });
 
-        
-        
-
-        
-
-       // }  
+ 
                     
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
@@ -221,24 +198,48 @@ public class GridDisplay : MonoBehaviour
         
     }
 
+   
 
-    public static void blockGoDown (int id, block block, SquareColor color, bool sameBlock, bool loose){
+    public static void functionPerTick(){
+            bool sameBlock = true;
+            Random random = new Random();
+            var num = random.Next(0,2);//0,7 //max value not selected
+             id = num;
+             pos = 1;
+            
+            color = getAColorblock();
+            block block = new block();
+            GridDisplay.SetColors(board);
+            blockGoDown();
+
+      
+        //move right
+        //move left
+        //rush
+        Task.Delay(GridDisplay.speedGame).Wait(); 
+       
         
-        if(id ==0){
-            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,0)){
-                loose = true;
+
+    }
+
+
+    public static void blockGoDown (){
+        
+        if(GridDisplay.id ==0){
+            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown()){
+                GridDisplay.loose = true;
                 sameBlock = false;                
             }
                  
             while(sameBlock){  
 
                
-                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id,0)){                    
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown()){                    
                   GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;       
                     GridDisplay.board[block.TPR1][block.TPR2]  = SquareColor.TRANSPARENT;  
                     
-                    GridDisplay.board[block.BTL1+1][block.BTL2] = color;
-                    GridDisplay.board[block.BTR1+1][block.BTR2] = color;
+                    GridDisplay.board[block.BTL1+1][block.BTL2] = GridDisplay.color;
+                    GridDisplay.board[block.BTR1+1][block.BTR2] = GridDisplay.color;
                     block.TPL1 ++;
                     block.TPR1 ++;  
                     block.BTL1 ++;
@@ -250,16 +251,16 @@ public class GridDisplay : MonoBehaviour
                 GridDisplay.SetColors(board);       
            
         
-            Task.Delay(speedGame).Wait();        
+               
         }
 
 
         //for other block we need to get the rotation
-        }else if (id == 1){
+        }else if (GridDisplay.id == 1){
                //TODO var can change
               
 
-            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,pos)){
+            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown()){
                 loose = true;
                 sameBlock = false;                
             }
@@ -269,7 +270,7 @@ public class GridDisplay : MonoBehaviour
              
 
                
-                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id,pos)){         
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown()){         
                     GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;
                     GridDisplay.board[block.BTL1][block.BTL2] = SquareColor.TRANSPARENT;  
                     GridDisplay.board[block.BTR1][block.BTR2] = SquareColor.TRANSPARENT;       
@@ -277,9 +278,9 @@ public class GridDisplay : MonoBehaviour
                       
                     
                     
-                    GridDisplay.board[block.BTL1+1][block.BTL2] = color;
-                    GridDisplay.board[block.BTR1+1][block.BTR2] = color;
-                    GridDisplay.board[block.TPR1+1][block.TPR2] = color;
+                    GridDisplay.board[block.BTL1+1][block.BTL2] = GridDisplay.color;
+                    GridDisplay.board[block.BTR1+1][block.BTR2] = GridDisplay.color;
+                    GridDisplay.board[block.TPR1+1][block.TPR2] = GridDisplay.color;
                     block.TPL1 ++;
                     block.TPR1 ++;  
                     block.BTL1 ++;
@@ -291,23 +292,23 @@ public class GridDisplay : MonoBehaviour
                 GridDisplay.SetColors(board);       
            
         
-            Task.Delay(speedGame).Wait();        
+           // Task.Delay(speedGame).Wait();        
         }
 
 
-        } else if (id == 2){
+        } else if (GridDisplay.id == 2){
            
                 
-            } else if (id == 3){
+            } else if (GridDisplay.id == 3){
                 
                 
-            } else if (id == 4){
+            } else if (GridDisplay.id == 4){
               
                 
-            } else if (id == 5){
+            } else if (GridDisplay.id == 5){
             
                 
-            } else if (id == 6){
+            } else if (GridDisplay.id == 6){
              
                 
             }
