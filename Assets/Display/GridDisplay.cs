@@ -1,89 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=System.Random;
 using System.Threading.Tasks;
+using System.Threading;
+
+
+
+/*
+*   INFO : 
+*   id (type of block): 
+*   0 = O
+*
+*   1 = |___     2 = ___|
+*
+*   3 = ¯¯|_     4 = _|¯¯
+*
+*    5 = _|_     6 = _____
+*   
+* block can have position between 1-4;
+*
+*/
+
+
 
 public class GridDisplay : MonoBehaviour
 {
 
+
+
+
+    public static KeyCode moveUp;
+    public static KeyCode moveRight;
     // Hauteur de la grille en nombre de cases
     public static int height = 22;
 
     // Largeur de la grille en nombre de cases
     public static int width = 10;
-    public static List<List<SquareColor>> board = new List<List<SquareColor>>();    
+    public static List<List<SquareColor>> board = new List<List<SquareColor>>();
+
+    public static int pos = 0;    
+    public static int speedGame = 5;
+    public static  bool loose = false;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        bool loose = false;
        
+        bool sameBlock = true;
+      
         //initialisation de la grille
-        for (int i=0;i<22;i++){
+        for (int i=0;i<GridDisplay.height;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
-            for (int j = 0;j<10;j++){
+            for (int j = 0;j<GridDisplay.width;j++){
                     Ligne.Add(SquareColor.TRANSPARENT);                
             }
             board.Add(Ligne);
-        }         
-         GridDisplay.SetColors(board);
+        }
 
-          
-       
-
-
-         
-         
-        
-        while(!loose ) {
-            //faire id et couleur aléatoire
-             block block = new block(SquareColor.RED, 0);
-              int topLeftC = 4;
-        int topLeftL = 0;
-            
-       
-        int topRightC = 5;
-        int topRightL = 0;
-       
-        int BottomRightC = 5;
-        int BottomRightL = 1;
-
-        int BottomLeftC = 4;
-        int BottomLeftL =1;
-
-             while(!toBottom){
-                //le block en cours arrive au bottom
-                SetMoveRightFunction(block.moveRight(SquareColor.RED,topLeftC,topLeftL,topRightC,topRightL,BottomLeftC, BottomLeftL, BottomRightC, BottomRightL));
-
-             }
-
-            
-            
+        GridDisplay.SetColors(board);
                
-             
-             
+         
 
-              //get les cases des objets en cours
-                //puis on applique la descente
-                //puis a chaque tick il faut vérif les collisions --> on verif les cases suivante avant de le déplacer 
+        //id between 0-6 for choose a block (7 id possible)
+        //TODO : id random
+        //TODO ; color random
+
+        
+      
+            //SetTickFunction(//TODO);
+             Task t1 = Task.Run(() => {
+              while(!loose){
                 
-             
-            GridDisplay.SetColors(board);
 
-            //GridDisplay._grid.tick = TickTime();
-                         //tick per second             
-            //GridDisplay.SetTickFunction(GridDisplay.TickTime());
-            //GridDisplay.SetTickTime(1);
-           
              
+            Random random = new Random();
+            var num = random.Next(0,2);//0,7 //max value not selected
+             int id = num;
+             pos = 1;
+            
+            SquareColor color = getAColorblock();
+            block block = new block(color, id);
+            GridDisplay.SetColors(board);
+            
+            
+            blockGoDown(id,block,color,sameBlock,loose);
+            /*if(Input.GetKeyDown ("KeyRight")){
+                SetMoveRightFunction(block.moveRight(color,id)); 
+                GridDisplay.SetColors(board);   */ 
+
+
+
+            //TODO check if a line is completed
+
+             
+        
+        
 
         }
 
-   
+        GridDisplay.TriggerGameOver();
+
+          });
+
+        
+        
 
         
 
-
-        
+       // }  
+                    
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
@@ -158,6 +183,137 @@ public class GridDisplay : MonoBehaviour
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();
     }
+
+
+    public static SquareColor getAColorblock(){
+        
+        
+        Random random = new Random();
+        var num = random.Next(1,8);
+        
+        switch (num) 
+        {
+        case 1:
+            return SquareColor.DEEP_BLUE;
+            
+        case 2:
+            return SquareColor.LIGHT_BLUE;
+            
+        case 3:
+            return SquareColor.GREEN;
+            
+        case 4:
+            return SquareColor.RED;
+       
+        case 5:
+            return SquareColor.PURPLE;
+          
+        case 6:
+            return SquareColor.ORANGE;
+            
+        case 7:
+            return SquareColor.YELLOW;
+          
+        }
+
+         return SquareColor.RED;
+       
+        
+    }
+
+
+    public static void blockGoDown (int id, block block, SquareColor color, bool sameBlock, bool loose){
+        
+        if(id ==0){
+            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,0)){
+                loose = true;
+                sameBlock = false;                
+            }
+                 
+            while(sameBlock){  
+
+               
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id,0)){                    
+                  GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;       
+                    GridDisplay.board[block.TPR1][block.TPR2]  = SquareColor.TRANSPARENT;  
+                    
+                    GridDisplay.board[block.BTL1+1][block.BTL2] = color;
+                    GridDisplay.board[block.BTR1+1][block.BTR2] = color;
+                    block.TPL1 ++;
+                    block.TPR1 ++;  
+                    block.BTL1 ++;
+                    block.BTR1 ++;  
+                    GridDisplay.SetColors(board);            
+                } else {
+                    sameBlock = false;}
+
+                GridDisplay.SetColors(board);       
+           
+        
+            Task.Delay(speedGame).Wait();        
+        }
+
+
+        //for other block we need to get the rotation
+        }else if (id == 1){
+               //TODO var can change
+              
+
+            if(block.BTL1 == 1 && block.BTR1 == 1 && !block.isPossibleToGoDown(id,pos)){
+                loose = true;
+                sameBlock = false;                
+            }
+                 
+            while(sameBlock){  
+
+             
+
+               
+                if(block.BTL1 != 21 && block.BTR1 != 21 && block.isPossibleToGoDown(id,pos)){         
+                    GridDisplay.board[block.TPL1][block.TPL2] = SquareColor.TRANSPARENT;
+                    GridDisplay.board[block.BTL1][block.BTL2] = SquareColor.TRANSPARENT;  
+                    GridDisplay.board[block.BTR1][block.BTR2] = SquareColor.TRANSPARENT;       
+
+                      
+                    
+                    
+                    GridDisplay.board[block.BTL1+1][block.BTL2] = color;
+                    GridDisplay.board[block.BTR1+1][block.BTR2] = color;
+                    GridDisplay.board[block.TPR1+1][block.TPR2] = color;
+                    block.TPL1 ++;
+                    block.TPR1 ++;  
+                    block.BTL1 ++;
+                    block.BTR1 ++;  
+                    GridDisplay.SetColors(board);            
+                } else {
+                    sameBlock = false;}
+
+                GridDisplay.SetColors(board);       
+           
+        
+            Task.Delay(speedGame).Wait();        
+        }
+
+
+        } else if (id == 2){
+           
+                
+            } else if (id == 3){
+                
+                
+            } else if (id == 4){
+              
+                
+            } else if (id == 5){
+            
+                
+            } else if (id == 6){
+             
+                
+            }
+
+    }
+    
 
 
 
