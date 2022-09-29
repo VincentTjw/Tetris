@@ -44,7 +44,7 @@ public class _GridDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
@@ -79,13 +79,11 @@ public class _GridDisplay : MonoBehaviour
         if(colors.Count != this.height){
             throw new System.FormatException("Provided grid does not have the right number of lines.");
         }
-        Debug.Log(squares.Count);
         for(int y = 0; y < colors.Count; y++){
             if(colors[y].Count != this.width){
                 throw new System.FormatException($"Line {y} of provided grid does not have the right number of columns.");
             }
             for(int x = 0; x < colors[y].Count; x++){
-                Debug.Log(y*this.width + x);
                 squares[y*this.width + x].color = colors[y][x];
             }
         }
@@ -110,16 +108,18 @@ public class _GridDisplay : MonoBehaviour
     }
 
     void OnRush(){
-        if(this.MoveRight != null){
-            this.MoveRight();
+        if(this.Rush != null){
+            this.Rush();
         }
     }
 
 
     IEnumerator LaunchTicks(){
-        yield return new WaitForSeconds(tick);
-        if(Tick != null){
-            Tick();
+        while(true){
+            yield return new WaitForSeconds(tick);
+            if(Tick != null){
+                Tick();
+            }
         }
     }
 }

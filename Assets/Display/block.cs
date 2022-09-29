@@ -3,95 +3,149 @@ using System.Collections.Generic;
 using UnityEngine;
 public class block {
 
-    public List<SquareColor> list1 = new List<SquareColor>();
-     public List<SquareColor> list2 = new List<SquareColor>();
-    int width = 10;
-    int height =2;
-
-    int size = 2;
-    int startOf = 4; //TODO : valeur random entre 0 et 8 
+    //coordonnées de chaque block
+    public int TPL1, TPL2,TPR1, TPR2,BTL1, BTL2,BTR1, BTR2;
 
     public block(SquareColor color, int id){
         //there is 7 id (0 - 6)
+        if(id == 0){
+            GridDisplay.board[0][4] = color;
+            GridDisplay.board[0][5] = color;
+            GridDisplay.board[1][4] = color;
+            GridDisplay.board[1][5] = color;
+            TPL1 = 0;
+            TPL2 = 4;
+            TPR1 = 0;
+            TPR2 = 5;
+            BTL1 = 1;
+            BTL2 = 4;
+            BTR1 = 1;
+            BTR2 = 5;
+        }else if (id == 1){
+            GridDisplay.board[0][4] = color;
+            GridDisplay.board[1][4] = color;
+            GridDisplay.board[1][5] = color;
+            GridDisplay.board[1][6] = color;
+            TPL1 = 0;
+            TPL2 = 4;
+            TPR1 = 1;
+            TPR2 = 4;
+            BTL1 = 1;
+            BTL2 = 5;
+            BTR1 = 1;
+            BTR2 = 6;
 
-        int r = 0;
-    for(int j = 0 ; j < height; j++){
-        for(int i=0; i<width; i++){
-
+                
+            } else if (id == 2){
            
-             if (r>= startOf && r < startOf+size) {
-                if(j == 0){
-                     list1.Add(color);
                 
-                }else {
-                    list2.Add(color);
-                }
-                r++;
-               
-            } else {
-                if(j == 0){
-                     list1.Add(SquareColor.TRANSPARENT);
+            } else if (id == 3){
                 
-                }else {
-                   list2.Add(SquareColor.TRANSPARENT);
-                }
-               
-                 r++;
+                
+            } else if (id == 4){
+              
+                
+            } else if (id == 5){
+            
+                
+            } else if (id == 6){
+             
+                
             }
+
+       
         }
-    }
 
 
-    }
+        public bool isPossibleToGoDown(int id, int pos){
+            if (id ==0){
+                if(GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
+                    return true;
+                }else {
+                    return false;
+                }
 
-    public List<SquareColor> getModel1 (){
-        return list1;
-    }
+                //for other block we need to get the rotation
+            } else if (id == 1){
+                // cas : |_ _ _
+                if(pos == 1){
+                    if(GridDisplay.board[TPR1+1][TPR2] == SquareColor.TRANSPARENT && GridDisplay.board[BTL1+1][BTL2] == SquareColor.TRANSPARENT && GridDisplay.board[BTR1+1][BTR2] == SquareColor.TRANSPARENT){
+                    return true;
+                }else {
+                    return false;
+                }
 
-public List<SquareColor> getModel2 (){
-        return list2;
-    }
+                }
+                return false;
 
 
-    public void moveRight(SquareColor color){
-        startOf = startOf +1;
+                
 
-           int r = 0;
-    for(int j = 0 ; j < height; j++){
-        for(int i=0; i<width; i++){
+            } else if (id == 2){
+                 return false;
+                
+            } else if (id == 3){
+                 return false;
+                
+            } else if (id == 4){
+                 return false;
+                
+            } else if (id == 5){
+                 return false;
+                
+            } else if (id == 6){
+                 return false;
+                
+            }
+            return false;
 
+        }
+
+    
+    public MoveFunction moveRight(SquareColor color, int id){
+        if(id ==0){
+            if(TPR2 != 9 && BTR2 != 9 && isPossibleToMove()){
+                    GridDisplay.board[TPL1][TPL2] = SquareColor.TRANSPARENT;       
+                    GridDisplay.board[BTL1][BTL2]  = SquareColor.TRANSPARENT;  
+                    
+                    GridDisplay.board[TPR1][TPR2+1] = color;
+                    GridDisplay.board[BTR1][BTR2+1] = color;
+                    TPL2 ++;
+                    TPR2 ++;  
+                    BTL2 ++;
+                    BTR2 ++;
+            }
+        }else if (id == 1){
+                
+            } else if (id == 2){
            
-             if (r>= startOf && r < startOf+size) {
-                if(j == 0){
-                     list1.Add(color);
                 
-                }else {
-                    list2.Add(color);
-                }
-                r++;
-               
-            } else {
-                if(j == 0){
-                     list1.Add(SquareColor.TRANSPARENT);
+            } else if (id == 3){
                 
-                }else {
-                   list2.Add(SquareColor.TRANSPARENT);
-                }
-               
-                 r++;
+                
+            } else if (id == 4){
+              
+                
+            } else if (id == 5){
+            
+                
+            } else if (id == 6){
+             
+                
             }
-        }
+
+
+        //SURE ??????
+        return null;
+        
     }
 
-
-      //  if(isPossibleToMove()){
-
-      //  }
+    public bool isPossibleToMove(){
+        //TODO :
+        return true;
     }
-
-   // public bool isPossibleToMove(){
-
-   // }
-
 
 }
+
+
+
