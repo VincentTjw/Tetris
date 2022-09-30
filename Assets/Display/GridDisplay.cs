@@ -35,17 +35,16 @@ public class GridDisplay : MonoBehaviour
     public static int width = 10;
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
-<<<<<<< HEAD
-    public static int pos = 0;  
-
     public static int id = 0;
-    public static SquareColor color = SquareColor.TRANSPARENT;  
-    public static int speedGame = 45;
-=======
+    public static SquareColor color = SquareColor.TRANSPARENT;
+
     public static int pos = 0;    
     public static int speedGame = 1000;
->>>>>>> 6613e7fd5f1e4267c29899370d0ad55e34c587f7
     public static  bool loose = false;
+
+    public static bool sameBlock = false;
+
+    public static block block;
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
@@ -80,7 +79,7 @@ public class GridDisplay : MonoBehaviour
 
           Debug.Log("isLoose = "+ GridDisplay.loose);
 
-          GridDisplay.TriggerGameOver;
+          //GridDisplay.TriggerGameOver;
 
        
           
@@ -206,14 +205,14 @@ public class GridDisplay : MonoBehaviour
    
 
     public static void functionPerTick(){
-            bool sameBlock = true;
+             sameBlock = true;
             Random random = new Random();
             var num = random.Next(0,2);//0,7 //max value not selected
              id = num;
              pos = 1;
             
             color = getAColorblock();
-            block block = new block();
+             block = new block();
             GridDisplay.SetColors(board);
             blockGoDown();
 
