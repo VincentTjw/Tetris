@@ -217,11 +217,24 @@ public class GridDisplay : MonoBehaviour
     return (TypeOfBlock) v.GetValue (_R.Next(v.Length));
     
 }
-    
+
+public static void lineCompleted (){
+
+    //TODO : action when a line is completed : check per tick
+    //return a line or -1 if no line
+    //is line completed we have to call clearLine()
+    //TODO : tableau de ligne si plusieurs ligne a suppr ?
+}
+
+public static void clearLine(){
+    //TODO : clear a line 
+    //peut être appelé plusieurs fois si plusieurs ligne
+    //TODO : call add score to the score board
+}
 
 
 
-   
+
 
 
 
