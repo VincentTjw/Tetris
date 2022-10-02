@@ -285,7 +285,7 @@ public class block {
         for (int i = 0; i < heightBlockL ; i++){
             for (int j = 0 ; j<widthBlockL ; j++){
                 if (blockList [i][j] != blockList[line][xDepart]){
-                public static List<List<SquareColor>> blockList = new List<List<SquareColor>>();
+                 List<List<SquareColor>> blockList = new List<List<SquareColor>>();
                 }
             }
         }
