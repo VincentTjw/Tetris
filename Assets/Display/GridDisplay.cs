@@ -4,6 +4,8 @@ using UnityEngine;
 using Random=System.Random;
 using System.Threading.Tasks;
 using System.Threading;
+using System;
+
 
 
 
@@ -32,6 +34,8 @@ public class GridDisplay : MonoBehaviour
     public static int width = 10;
     static Random _R = new Random ();
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
+    public static List<int> lines = new List<int>();
+    public static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static block block= null;
     public static float speedGame = 0.4F;
@@ -50,44 +54,21 @@ public class GridDisplay : MonoBehaviour
             board.Add(Ligne);
         }
 
-        GridDisplay.SetColors(board);
-                 
+        GridDisplay.SetColors(board);                 
       
-             Task t1 = Task.Run(() => {
-              while(!GridDisplay.loose){
-                
+        Task t1 = Task.Run(() => {
+            while(!GridDisplay.loose){                
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
                 block = new block();
                 sameBlock = true;
                 while(sameBlock){
-            
-            GridDisplay.SetTickFunction(functionPerTick);   
-           
-            
-
+                GridDisplay.SetTickFunction(functionPerTick);   
+                }
+                lineCompleted();
             }
-             lineCompleted();
-            
-               
-
-             
-              
-
-   
-        }
-
-          
-
-          //GridDisplay.TriggerGameOver;
-
-       
-          
-            
-        
-
-          });
-
+            //GridDisplay.TriggerGameOver;
+        });
  
                     
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
@@ -95,7 +76,7 @@ public class GridDisplay : MonoBehaviour
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
         // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer 
-        //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
+        
         //        et la flèche du bas du clavier.
         //
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
@@ -209,87 +190,87 @@ public class GridDisplay : MonoBehaviour
             //var num = random.Next(0,2);//0,7 //max value not selected
            
         block.MoveDown();        
+        //flèches de gauche
         SetMoveLeftFunction(block.moveLeft);
+         //flèches de droite
         SetMoveRightFunction(block.moveRight);
-        //TODO :rush
-        //TODO : rotate 
-      
+         //flèches du bas
+        SetRushFunction(rush);
+        //barre espace
+        //TODO : rotate       
         GridDisplay.SetColors(board);
-       SetTickTime(GridDisplay.speedGame);
+        SetTickTime(GridDisplay.speedGame);
 
   
        
     }
 
 
-    static TypeOfBlock RandomEnumValue<TypeOfBlock> ()
-{
+    static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
+
     var v = System.Enum.GetValues (typeof (TypeOfBlock));
-    return (TypeOfBlock) v.GetValue (_R.Next(v.Length));
-    
+    return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
 }
 
+    public static void rush (){
+        float tmp = speedGame;
+        speedGame = 0.01F;
+        while(sameBlock){
+        block.MoveDown();  
+        } 
+        speedGame = tmp; 
+
+    }
+
     public static void lineCompleted (){
-
-        List<int> lines = new List<int>();
-        lines.clear();
-
-
-        bool lineCompleted = true;
-    
+        sizeListLines =0;
+        
+        
+        lines.Clear();
+        bool lineCompleted = true;    
         for (int i=0;i<GridDisplay.height;i++){          
             for (int j = 0;j<GridDisplay.width;j++){
                 if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
                     lineCompleted = false;
                 }
                 if(lineCompleted){
-                    lines.add(i);
-                }            
-
+                    lines.Add(i);
+                    sizeListLines ++;
+                }
             }
-            
         }
-        
-        if(lines.Length()>0){
-            clearLine(lines);
+        if(sizeListLines>0){
+            clearLine(lines ,sizeListLines);
         }
-
     }
 
-
-
-    public static void clearLine(List<int> lines){
+    public static void clearLine(List<int> lines, int sizeListLines){
         //TODO : verif 
               
         for (int i=lines[0];i>0;i--){          
             for (int j = 0;j<GridDisplay.width;j++){             
                      //nb fois qu'on descent une ligne
-                     for(int k = 0; k< lines.Length(); k++){
+                     for(int k = 0; k< sizeListLines; k++){
                         GridDisplay.board[i+k][j] =GridDisplay.board[i+k-1][j];
-                    
                 }
-
-            }
-            
-            
-            
+            }         
         }
         //clear ligne dépasse
-         for (int i=0;i<0;i++){          
+         for (int i=0;i<sizeListLines;i++){          
             for (int j = 0;j<GridDisplay.width;j++){
                 GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
             }
          } 
 
-
         // 1 ligne = 40, 2 = 100 , 3 = 300 et 4 = 1200
-        if(lines.Length() == 1){
+        //TODO : add different sound-
+        if(sizeListLines == 1){
             scoreTotal =scoreTotal + 40;
 
-        } else if(lines.Length() == 2){
+        } else if(sizeListLines == 2){
             scoreTotal =scoreTotal + 100;
 
-        } else if(lines.Length() == 3){
+        } else if(sizeListLines == 3){
             scoreTotal =scoreTotal + 300;
         } 
         //pour 4 lignes
