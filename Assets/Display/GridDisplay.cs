@@ -34,10 +34,11 @@ public class GridDisplay : MonoBehaviour
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static block block= null;
-    public static float speedGame = 0.1F;
+    public static float speedGame = 0.4F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
-     public static TypeOfBlock typeOfBlock;
+    public static TypeOfBlock typeOfBlock;
+    public static int scoreTotal=0;
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -63,9 +64,15 @@ public class GridDisplay : MonoBehaviour
             
             GridDisplay.SetTickFunction(functionPerTick);   
            
-            //TODO check if a line is completed
+            
 
             }
+             lineCompleted();
+            
+               
+
+             
+              
 
    
         }
@@ -201,12 +208,16 @@ public class GridDisplay : MonoBehaviour
             //Random random = new Random();
             //var num = random.Next(0,2);//0,7 //max value not selected
            
-        block.MoveDown();
-        //move right
-        //move left
-        //rush
+        block.MoveDown();        
+        SetMoveLeftFunction(block.moveLeft);
+        SetMoveRightFunction(block.moveRight);
+        //TODO :rush
+        //TODO : rotate 
+      
         GridDisplay.SetColors(board);
        SetTickTime(GridDisplay.speedGame);
+
+  
        
     }
 
@@ -218,19 +229,77 @@ public class GridDisplay : MonoBehaviour
     
 }
 
-public static void lineCompleted (){
+    public static void lineCompleted (){
 
-    //TODO : action when a line is completed : check per tick
-    //return a line or -1 if no line
-    //is line completed we have to call clearLine()
-    //TODO : tableau de ligne si plusieurs ligne a suppr ?
-}
+        List<int> lines = new List<int>();
+        lines.clear();
 
-public static void clearLine(){
-    //TODO : clear a line 
-    //peut être appelé plusieurs fois si plusieurs ligne
-    //TODO : call add score to the score board
-}
+
+        bool lineCompleted = true;
+    
+        for (int i=0;i<GridDisplay.height;i++){          
+            for (int j = 0;j<GridDisplay.width;j++){
+                if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
+                    lineCompleted = false;
+                }
+                if(lineCompleted){
+                    lines.add(i);
+                }            
+
+            }
+            
+        }
+        
+        if(lines.Length()>0){
+            clearLine(lines);
+        }
+
+    }
+
+
+
+    public static void clearLine(List<int> lines){
+        //TODO : verif 
+              
+        for (int i=lines[0];i>0;i--){          
+            for (int j = 0;j<GridDisplay.width;j++){             
+                     //nb fois qu'on descent une ligne
+                     for(int k = 0; k< lines.Length(); k++){
+                        GridDisplay.board[i+k][j] =GridDisplay.board[i+k-1][j];
+                    
+                }
+
+            }
+            
+            
+            
+        }
+        //clear ligne dépasse
+         for (int i=0;i<0;i++){          
+            for (int j = 0;j<GridDisplay.width;j++){
+                GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
+            }
+         } 
+
+
+        // 1 ligne = 40, 2 = 100 , 3 = 300 et 4 = 1200
+        if(lines.Length() == 1){
+            scoreTotal =scoreTotal + 40;
+
+        } else if(lines.Length() == 2){
+            scoreTotal =scoreTotal + 100;
+
+        } else if(lines.Length() == 3){
+            scoreTotal =scoreTotal + 300;
+        } 
+        //pour 4 lignes
+        else {
+            scoreTotal =scoreTotal + 1200;
+        } 
+        
+        
+        SetScore(scoreTotal);
+    }
 
 
 
