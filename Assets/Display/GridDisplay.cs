@@ -61,23 +61,19 @@ public class GridDisplay : MonoBehaviour
         Task t1 = Task.Run(() => {
             while(!GridDisplay.loose){
                 //accélération de la vitesse plus le score est haut
-                Debug.Log("gainThreeHundredPoint = "+gainThreeHundredPoint); 
                 if(gainThreeHundredPoint){
                     gainPoint = scoreTotal;
                     gainThreeHundredPoint = false;
                 }
 
-                 Debug.Log("gainPoint = "+gainPoint +"<"+ "scoreTotal = "+scoreTotal ); 
-
                 if(gainPoint+100 < scoreTotal && speedGame > 0.20F){
                     speedGame = speedGame - 0.01F;
                     gainThreeHundredPoint = true;
-                    Debug.Log("speedGame = "+speedGame); 
                 }
                 
                 
 
-                //TODO  ACCELERER AVEC UN STOCKAGE TEMP DU GAIN 
+              
                           
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
@@ -221,28 +217,18 @@ public class GridDisplay : MonoBehaviour
          //flèches du bas
         SetRushFunction(rush);
         //barre espace
-        //todo : faire 2 autres rotations
         SetRotateFunction(block.rotate);   
         // /!\ si placé autre part --> erreur le jeu de marche plus 
         GridDisplay.SetColors(board);
-        
-        //TODO 
-        //musicWinPoint.instanceWin.GetComponent<AudioSource>().Play(); 
         GridDisplay.SetScore(scoreTotal);
-
-        
 
         SetTickTime(GridDisplay.speedGame);
         } else {
+            //sound voice : "GAME OVER"
             musicGameOver.instance2.GetComponent<AudioSource>().Play();
             TriggerGameOver();
         }
-
-  
-       
     }
-
-
     static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
 
     var v = System.Enum.GetValues (typeof (TypeOfBlock));

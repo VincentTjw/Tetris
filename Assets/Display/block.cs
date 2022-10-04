@@ -18,16 +18,14 @@ public class block
 
     public int posBlock = 0;
 
-    //TODO : verif qu'elle bien faite
+    
     public bool moveIn4By4 = false;
 
     //*******CONSTRUCTOR*******
     public block()
     {
         //enum de block
-        SquareColor couleur = GridDisplay.color;
-
-        //TODO : si ligne déjà écrire par block (ligne 1/2/3 alors on renvoit erreur et isLoose = true)
+        SquareColor couleur = GridDisplay.color;        
         for (int i = 0; i < this.heightBlockL; i++)
         {
             List<SquareColor> Ligne = new List<SquareColor>();
@@ -114,7 +112,7 @@ public class block
                 {
                     GridDisplay.board[i][j] = blockList[i][j - xDepart];
                 }
-                //TODO : refaire les cas si loose
+                
             }
             if (GridDisplay.loose)
             {
@@ -221,8 +219,7 @@ public class block
             }
         }
         else{
-            //TODO : verif !!!
-            //verifie si il n'y a pas de block sur la ligne la plus a droite
+            //on verifie si il n'y a pas de block sur la ligne la plus a droite
             for (int i = line; i < line + 4; i++)
             {
                 for (int j = xDepart + 3; j >= xDepart + 3; j--)
@@ -301,7 +298,6 @@ public class block
         }
         else
         {
-            //TODO : verif !!!
             //verifie si il n'y a pas de block sur la ligne la plus a gauche
             for (int i = line; i < line + 4; i++)
             {
@@ -565,13 +561,10 @@ public class block
                 }
 
                 //ON REAFFICHE LE BLOCK PLUS BAS DANS SA LIST
-                //*************WORK IN 4BY4LIST*************
+               
             }
             else if (isPossibleToGoLeft() && moveIn4By4)
-            {
-
-                //TODO
-                           
+            {                           
                 for (int j = xDepart+1; j <= xDepart+3 ; j++)
                 {
                         for (int i = line; i < line+4; i++)
@@ -611,148 +604,97 @@ public class block
 
     //*******END DEPLACEMEMNT***********
 
+    
+    //*******ROTATION***********
+
+
+
+public bool isPossibleToRotate(){
+        bool isPossible = true;
+        List<List<SquareColor>> blockListTest = new List<List<SquareColor>>();
+        for (int i = line+3; i >= line; i--)
+        {
+            for (int j = xDepart; j < xDepart + 4; j++)
+            {   
+                Deb
+                blockListTest[line+3-i][j] = this.blockList[i][j];
+            }
+        }
+
+        //verification
+        for (int i = line; i < line + 4; i++)
+        {
+            for (int j = xDepart; j < xDepart + 4; j++)
+            {
+                //si sur nos nouvelles pos sur board les blocks ne sont pas transparents on renvoit false
+                if (blockListTest[i - line][j - xDepart] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT){
+                
+                    return false;
+                }
+            }
+        }
+                    
+  
+        return isPossible;      
+
+}
+    
+
+
     public void rotate()
     {
-        if (this != null)
+
+        if (this != null && GridDisplay.typeOfBlock != TypeOfBlock.O_Block)
         {
-            bool isPossibleToRotate = true;
+            if(isPossibleToRotate()){
+                List<List<SquareColor>> blockListTmp =new List<List<SquareColor>>();
 
-            List<List<SquareColor>> blockListTmp =
-                new List<List<SquareColor>>();
 
-            //initialisation tmp
-            for (int i = 0; i < this.heightBlockL; i++)
-            {
-                List<SquareColor> Ligne = new List<SquareColor>();
-                for (int j = 0; j < this.widthBlockL; j++)
-                {
-                    Ligne.Add(SquareColor.TRANSPARENT);
-                }
-                blockListTmp.Add (Ligne);
-            }
-
-            //suppresion dans board
-            for (int i = line; i < line + 4; i++)
-            {
-                for (int j = xDepart; j < xDepart + 4; j++)
-                {
-                    if (
-                        GridDisplay.board[i][j] == SquareColor.TRANSPARENT ||
-                        (
-                        GridDisplay.board[i][j] == GridDisplay.color &&
-                        GridDisplay.board[i][j] ==
-                        this.blockList[i - line][j - xDepart]
-                        )
-                    )
-                    {
-                        GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
-                    }
-                }
-            }
-
-            //stokage dans tmp
-            if (posBlock == 0)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        blockListTmp[j][i] = this.blockList[i][j];
-                        this.blockList[i][j] = SquareColor.TRANSPARENT;
-                    }
-                }
-                posBlock = 0;
-                //posBlock =1;
-                //première pos
-            } /*else if(posBlock ==1){
-            for(int i =4; i > 0; i--){
-                for(int j = 4; j > 0;j++){
-                    blockListTmp[i][j] = this.blockList[i][j];                     
-                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
-                     
-                }
-
-            }
-            posBlock =2;
-
-            } if(posBlock ==2){
-            for(int i =0; i < 4; i++){
-                for(int j = 0; j < 4;j++){
-                    blockListTmp[j][i] = this.blockList[i][j];                     
-                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
-                     
-                }
-
-            }
-            posBlock =3;
-
-            } else{
-            for(int i =0; i < 4; i++){
-                for(int j = 0; j < 4;j++){
-                    blockListTmp[j][i] = this.blockList[i][j];                     
-                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
-                     
-                }
-
-            }
-            posBlock =0;
-            } */
-
-            //verification
-            for (int i = line; i < line + 4; i++)
-            {
-                for (int j = xDepart; j < xDepart + 4; j++)
-                {
-                    if (blockListTmp[i - line][j - xDepart] == GridDisplay.color
-                    )
-                    {
-                        if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT)
-                        {
-                            isPossibleToRotate = true;
-                        }
-                        else
-                        {
-                            isPossibleToRotate = false;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            //si posibilité de rotate
-            
-            if (isPossibleToRotate)
-            {
-                //réatribution
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        this.blockList[i][j] = blockListTmp[i][j];
-                    }
-                }
-
-                //suppresion sur board
-                //réaffichage
+                //suppresion dans board
                 for (int i = line; i < line + 4; i++)
                 {
                     for (int j = xDepart; j < xDepart + 4; j++)
                     {
-                        if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT)
+                        if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT ||
+                                (GridDisplay.board[i][j] == GridDisplay.color &&GridDisplay.board[i][j] == this.blockList[i - line][j - xDepart]))
                         {
-                            GridDisplay.board[i][j] =
-                                blockList[i - line][j - xDepart];
+                            GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
                         }
                     }
                 }
 
-                //sinon on ne fait rien
-            }
-            else
-            {
+                //ajout dans list temp et suppression dans notre petit tableau
+                for (int i = line+3; i >= line; i--)
+                {
+                    for (int j = xDepart; j < xDepart + 4; j++)
+                    {
+                        blockListTmp[line+3-i][j] = this.blockList[i][j];
+                        this.blockList[i][j] =SquareColor.TRANSPARENT; 
+                    }
+                }
+
+
+
+                //re-attribution
+                for(int i =0; i < 4; i++){
+                    for(int j = 0; j < 4;j++){
+                        this.blockList[i][j] = blockListTmp[i][j];                         
+                    }
+                }
+
+                //re-affichage dans board
+                for (int i = line; i < line + 4; i++)
+                {
+                        for (int j = xDepart; j < xDepart + 4; j++)
+                        {
+                            if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT)
+                            {
+                                GridDisplay.board[i][j] = blockList[i - line][j - xDepart];
+                            }
+                        }
+                }
             }
         }
     }
-
    
 }
