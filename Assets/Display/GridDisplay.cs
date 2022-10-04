@@ -57,7 +57,8 @@ public class GridDisplay : MonoBehaviour
         GridDisplay.SetColors(board);                 
       
         Task t1 = Task.Run(() => {
-            while(!GridDisplay.loose){                
+            while(!GridDisplay.loose){   
+                          
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
                 block = new block();
@@ -65,10 +66,15 @@ public class GridDisplay : MonoBehaviour
                 while(sameBlock){
                 GridDisplay.SetTickFunction(functionPerTick);   
                 }
-                GridDisplay.lineCompleted();
+                //GridDisplay.lineCompleted();
             }
-            //GridDisplay.TriggerGameOver;
+
+            
         });
+
+
+        Debug.Log("loose = "+GridDisplay.loose); 
+        GridDisplay.TriggerGameOver();
  
                     
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
@@ -284,7 +290,7 @@ public class GridDisplay : MonoBehaviour
 
         Debug.Log("score AFTER = "+scoreTotal);
         
-        sameBlock = false;
+        //sameBlock = false;
         GridDisplay.SetScore(scoreTotal);
     }
 

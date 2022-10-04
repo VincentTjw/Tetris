@@ -103,9 +103,17 @@ public class block {
         //TODO : attention si sur la 3eme ou 4eme ligne il y a des blocks il ne faut pas les effacer.
         for(int i =0; i < 4; i++){
              for(int j = xDepart; j < 4+xDepart;j++){
-                //if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){  
-                    GridDisplay.board[i][j]= blockList [i][j-xDepart] ;
+                //if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
+                    if(i>=2 && GridDisplay.board[i][j] != SquareColor.TRANSPARENT ) {
+                        GridDisplay.loose = true;
+                        GridDisplay.sameBlock = true;
+                        break;
+                    } else {
+                        GridDisplay.board[i][j]= blockList [i][j-xDepart] ;
+                    }
+                    
               //  } else if(GridDisplay.board[i][j] != SquareColor.TRANSPARENT && i >1 ){
+                
                     //TODO : impossible de jouer : loose
                 //}
                  
@@ -119,6 +127,7 @@ public class block {
         //step 3 : move in 4*4 list   
         public bool isPossibleToGoDown(){              
         bool isPossible = false;   
+        moveIn4By4 = false;
         if(line < GridDisplay.height-4){ 
 
            for(int i = line ; i<line+4; i++){
@@ -138,22 +147,28 @@ public class block {
            } 
 
         } else {
-            
-             for(int i = line ; i<line+4; i++){
+                return false;
+             for(int i = line ; i<line+3; i++){
                 for(int j = xDepart; j<xDepart+4; j++){  
                     
+                    if(GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i-line][j-xDepart] ){
+                            if(GridDisplay.board[i+1][j] == SquareColor.TRANSPARENT || (GridDisplay.board[i+1][j] == GridDisplay.color && GridDisplay.board[i+1][j] == this.blockList[i-line+1][j-xDepart])) {
+                                isPossible = true;
+                                Debug.Log("line : i+1 = "+i+1+" | j = "+j+"| isPossible= "+ isPossible);
+                            } else {
+                                return false;
+                            }
                     }          
                 }
 
-                moveIn4By4 = true;   
+               
            } 
-            
-            
-                  
-           
-            
-            return isPossible;
+            moveIn4By4 = true;   
+         
         }
+        return isPossible;
+
+    }
 
     //*********DEPLACEMENT**********
 
@@ -190,7 +205,7 @@ public class block {
             //TODO déplacer block
             //ON EFFACE Les block AU DESSUS
           
-           /* for(int i =line; i < line+3; i++){
+            /*for(int i =line; i < line+3; i++){
                 for(int j = xDepart; j < xDepart+4;j++){               
                     if(blockList[i-line][j-xDepart] == GridDisplay.board[i][j]){                   
                         if(GridDisplay.board[i][j]== GridDisplay.color ){                                            
