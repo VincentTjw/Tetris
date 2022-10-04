@@ -14,6 +14,8 @@ public class block {
 
     public int lineIn4By4 =0;
 
+    public int posBlock = 0;
+
     
     //TODO : verif qu'elle bien faite
     public  bool moveIn4By4 = false;
@@ -136,30 +138,19 @@ public class block {
            } 
 
         } else {
-            return false;
+            
              for(int i = line ; i<line+4; i++){
-                for(int j = xDepart; j<xDepart+4; j++){              
-                        //si vrai on est sur le postion de l'un de nos blocks        
-                        if(GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i-line][j-xDepart] ){ // on verif que un block n'est pas tout en bas
-                            //le block en dessous est transparent ou égale à un de notre tableau
-                            if(i < line+3){
-                                if(GridDisplay.board[i+1][j] == SquareColor.TRANSPARENT || (GridDisplay.board[i+1][j] == GridDisplay.color && GridDisplay.board[i+1][j] == this.blockList[i-line+1][j-xDepart])) {
-                                    isPossible = true;
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }    
-                            
-                   
-                        } 
+                for(int j = xDepart; j<xDepart+4; j++){  
+                    
+                    }          
                 }
+
+                moveIn4By4 = true;   
            } 
             
             
-           //moveIn4By4 = true;          
-           }
+                  
+           
             
             return isPossible;
         }
@@ -256,9 +247,8 @@ public class block {
            } 
 
         } else {
-            //TODO : verif inside
-            return false;
-             
+            
+           
             
             
            //moveIn4By4 = true;          
@@ -301,18 +291,148 @@ public class block {
             
     }
 
-    public void moveRush(){
-        //TODO : rush down block
-    }
+   
 
+    
     public void rotate(){
-        //TODO : rotate block in block list
+            bool isPossibleToRotate = true;
+            //TODO : faire une vraie rotation
+
+            List<List<SquareColor>> blockListTmp = new List<List<SquareColor>>();
+            
+            //initialisation tmp
+            for (int i=0;i<this.heightBlockL;i++){
+                List<SquareColor> Ligne = new List<SquareColor>();
+                for (int j = 0;j<this.widthBlockL;j++){
+                        Ligne.Add(SquareColor.TRANSPARENT);                
+                }
+                blockListTmp.Add(Ligne);
+               
+               
+            }
+
+            //suppresion dans board
+            for(int i =line; i < line+4; i++){
+                    for(int j = xDepart; j < xDepart+4;j++){
+                        
+                        if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT || (GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i-line][j-xDepart]) ){
+                        GridDisplay.board[i][j]=SquareColor.TRANSPARENT;
+                        } 
+                    }
+                }
+            
+
+            //stokage dans tmp
+
+            if(posBlock ==0){
+            for(int i =0; i < 4; i++){
+                for(int j = 0; j < 4;j++){
+                    blockListTmp[j][i] = this.blockList[i][j];                     
+                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
+                     
+                }
+
+            }
+            posBlock =0;
+            //posBlock =1;
+            //première pos
+
+            }  /*else if(posBlock ==1){
+            for(int i =4; i > 0; i--){
+                for(int j = 4; j > 0;j++){
+                    blockListTmp[i][j] = this.blockList[i][j];                     
+                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
+                     
+                }
+
+            }
+            posBlock =2;
+
+            } if(posBlock ==2){
+            for(int i =0; i < 4; i++){
+                for(int j = 0; j < 4;j++){
+                    blockListTmp[j][i] = this.blockList[i][j];                     
+                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
+                     
+                }
+
+            }
+            posBlock =3;
+
+            } else{
+            for(int i =0; i < 4; i++){
+                for(int j = 0; j < 4;j++){
+                    blockListTmp[j][i] = this.blockList[i][j];                     
+                    this.blockList[i][j] =SquareColor.TRANSPARENT;                                  
+                     
+                }
+
+            }
+            posBlock =0;
+            } */
+
+            //verification
+             for(int i =line; i < line+4 ; i++){
+                    for(int j = xDepart; j < xDepart+4 ;j++){
+                
+                    if(blockListTmp[i-line][j-xDepart] == GridDisplay.color ){
+                        if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
+                            isPossibleToRotate = true;
+                        }else {
+                            isPossibleToRotate = false;
+                            break;
+                            
+                        }
+                    }
+
+                    }
+             }
+
+             
+
+            
+            //si posibilité de rotate
+            Debug.Log("can rotate = "+ isPossibleToRotate);
+            if(isPossibleToRotate){       
+
+
+            //réatribution
+            for(int i =0; i < 4; i++){
+                for(int j = 0; j < 4;j++){                   
+                    this.blockList[i][j]= blockListTmp[i][j];         
+                }
+            }
+
+            //suppresion sur board
+            
+
+            //réaffichage
+            for(int i =line; i < line+4; i++){
+                    for(int j = xDepart; j < xDepart+4;j++){
+                        //TODO : verif
+                        if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
+                        GridDisplay.board[i][j]= blockList[i-line][j-xDepart];
+                        } 
+                    }
+                }
+
+
+            //sinon on ne fait rien
+            } else {
+
+                
+            }
+
+            
+
+        
     }
+    
 
     public void moveRight(){
 
         if(isPossibleToGoRight() && !moveIn4By4){
-            //ON EFFACE LA LIGNE AU DESSUS
+           
             for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){               
                     if(blockList[i-line][j-xDepart] == GridDisplay.board[i][j]){                   
@@ -323,7 +443,7 @@ public class block {
             
                 }
             }
-            //affichage une ligne plus bas
+            //affichage une colonne à droite
             xDepart ++;
             //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD
             for(int i =line; i < line+4; i++){
@@ -338,7 +458,8 @@ public class block {
         //ON REAFFICHE LE BLOCK PLUS BAS DANS SA LIST
         //*************WORK IN 4BY4LIST*************
         } else if (isPossibleToGoRight() && moveIn4By4){
-            //TODO déplacer block inside          
+
+     
 
         } else {
             moveIn4By4 = false;
@@ -351,7 +472,7 @@ public class block {
      public void moveLeft(){
 
           if(isPossibleToGoLeft() && !moveIn4By4){
-            //ON EFFACE LA LIGNE AU DESSUS
+            
             for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){               
                     if(blockList[i-line][j-xDepart] == GridDisplay.board[i][j]){                   
@@ -362,7 +483,7 @@ public class block {
             
                 }
             }
-            //affichage une ligne plus bas
+          
             xDepart --;
             //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD
             for(int i =line; i < line+4; i++){

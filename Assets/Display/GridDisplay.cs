@@ -65,7 +65,7 @@ public class GridDisplay : MonoBehaviour
                 while(sameBlock){
                 GridDisplay.SetTickFunction(functionPerTick);   
                 }
-                lineCompleted();
+                GridDisplay.lineCompleted();
             }
             //GridDisplay.TriggerGameOver;
         });
@@ -197,7 +197,7 @@ public class GridDisplay : MonoBehaviour
          //flèches du bas
         SetRushFunction(rush);
         //barre espace
-        //TODO : rotate       
+        SetRotateFunction(block.rotate);     
         GridDisplay.SetColors(board);
         SetTickTime(GridDisplay.speedGame);
 
@@ -227,18 +227,21 @@ public class GridDisplay : MonoBehaviour
         
         
         lines.Clear();
-        bool lineCompleted = true;    
-        for (int i=0;i<GridDisplay.height;i++){          
+        bool lineIsCompleted = true;    
+        for (int i=0;i<GridDisplay.height;i++){     
+            lineIsCompleted = true;     
             for (int j = 0;j<GridDisplay.width;j++){
                 if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
-                    lineCompleted = false;
+                    lineIsCompleted = false;
                 }
-                if(lineCompleted){
+                
+            }
+            if(lineIsCompleted){
                     lines.Add(i);
                     sizeListLines ++;
                 }
-            }
         }
+        Debug.Log("size = "+sizeListLines);
         if(sizeListLines>0){
             clearLine(lines ,sizeListLines);
         }
@@ -246,7 +249,7 @@ public class GridDisplay : MonoBehaviour
 
     public static void clearLine(List<int> lines, int sizeListLines){
         //TODO : verif 
-              
+            
         for (int i=lines[0];i>0;i--){          
             for (int j = 0;j<GridDisplay.width;j++){             
                      //nb fois qu'on descent une ligne
@@ -264,6 +267,7 @@ public class GridDisplay : MonoBehaviour
 
         // 1 ligne = 40, 2 = 100 , 3 = 300 et 4 = 1200
         //TODO : add different sound-
+          Debug.Log("score before = "+scoreTotal);
         if(sizeListLines == 1){
             scoreTotal =scoreTotal + 40;
 
@@ -277,9 +281,11 @@ public class GridDisplay : MonoBehaviour
         else {
             scoreTotal =scoreTotal + 1200;
         } 
+
+        Debug.Log("score AFTER = "+scoreTotal);
         
-        
-        SetScore(scoreTotal);
+        sameBlock = false;
+        GridDisplay.SetScore(scoreTotal);
     }
 
 
