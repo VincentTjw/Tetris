@@ -162,7 +162,7 @@ public class block
             {
                 for (int j = xDepart; j < xDepart + 4; j++)
                 {
-                    //Debug.Log("line =" + line + " & line+3 =" + line + 3);
+                
                     if (this.blockList[i - line][j - xDepart] ==  GridDisplay.color)
                     {
                         return false;
@@ -246,7 +246,6 @@ public class block
                                 (GridDisplay.board[i][j + 1] == GridDisplay.color &&GridDisplay.board[i][j + 1] ==this.blockList[i - line][j - xDepart + 1]))
                         {
                             isPossible = true;
-                            //Debug.Log("line : i+1 = "+i+1+" | j = "+j+"| isPossible= "+ isPossible);
                         }
                         else
                         {
@@ -497,7 +496,6 @@ public class block
                     {
                         
                         //PARCOURS INVERSE POUR PAS DELETE DE BLOCK : parcours de haut en bas de droite vers la gauche pour pas avoir de perte 
-                        Debug.Log("i - line = "+(i-line)+" | j-xDepart = "+(j-xDepart)+"| ");
                         if (blockList[i - line][j - xDepart] == GridDisplay.board[i][j] && GridDisplay.board[i][j] == GridDisplay.color)
                         {
                             GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
@@ -580,7 +578,6 @@ public class block
                     {
                         
                         //PARCOURS INVERSE POUR PAS DELETE DE BLOCK : parcours de haut en bas de droite vers la gauche pour pas avoir de perte 
-                        Debug.Log("i - line = "+(i-line)+" | j-xDepart = "+(j-xDepart)+"| ");
                         if (blockList[i - line][j - xDepart] == GridDisplay.board[i][j] && GridDisplay.board[i][j] == GridDisplay.color)
                         {
                             GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
@@ -723,7 +720,7 @@ public class block
             }
 
             //si posibilité de rotate
-            //Debug.Log("can rotate = " + isPossibleToRotate);
+            
             if (isPossibleToRotate)
             {
                 //réatribution

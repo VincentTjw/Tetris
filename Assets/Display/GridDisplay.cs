@@ -38,11 +38,13 @@ public class GridDisplay : MonoBehaviour
     public static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static block block= null;
-    public static float speedGame = 0.4F;
+    public static float speedGame = 0.99F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
     public static TypeOfBlock typeOfBlock;
-    public static int scoreTotal=100;
+    public static int scoreTotal=0;
+    public static int gainPoint =0;
+    public static bool gainThreeHundredPoint = true;
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -57,7 +59,23 @@ public class GridDisplay : MonoBehaviour
         GridDisplay.SetColors(board);                 
       
         Task t1 = Task.Run(() => {
-            while(!GridDisplay.loose){  
+            while(!GridDisplay.loose){
+                //accélération de la vitesse plus le score est haut
+                Debug.Log("gainThreeHundredPoint = "+gainThreeHundredPoint); 
+                if(gainThreeHundredPoint){
+                    gainPoint = scoreTotal;
+                    gainThreeHundredPoint = false;
+                }
+
+                 Debug.Log("gainPoint = "+gainPoint +"<"+ "scoreTotal = "+scoreTotal ); 
+
+                if(gainPoint+100 < scoreTotal && speedGame > 0.20F){
+                    speedGame = speedGame - 0.01F;
+                    gainThreeHundredPoint = true;
+                    Debug.Log("speedGame = "+speedGame); 
+                }
+                
+                
 
                 //TODO  ACCELERER AVEC UN STOCKAGE TEMP DU GAIN 
                           
@@ -80,26 +98,11 @@ public class GridDisplay : MonoBehaviour
             }
 
 
-            Debug.Log("game over start, loose = "+GridDisplay.loose); 
+            
             block = null;
-            
-            
             
         });
 
-
-        
- 
-                    
-        // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
-        // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
-        //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
-        //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
-        // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer 
-        
-        //        et la flèche du bas du clavier.
-        //
-        // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
                   
     }
 
@@ -218,17 +221,13 @@ public class GridDisplay : MonoBehaviour
          //flèches du bas
         SetRushFunction(rush);
         //barre espace
-
         //todo : faire 2 autres rotations
         SetRotateFunction(block.rotate);   
-        
         // /!\ si placé autre part --> erreur le jeu de marche plus 
         GridDisplay.SetColors(board);
         
         //TODO 
         //musicWinPoint.instanceWin.GetComponent<AudioSource>().Play(); 
-
-
         GridDisplay.SetScore(scoreTotal);
 
         
@@ -252,9 +251,10 @@ public class GridDisplay : MonoBehaviour
 
     public static void rush (){
         float tmp = speedGame;
-        speedGame = 0.01F;
+        speedGame = 0.5F;
         while(sameBlock){
         block.MoveDown();  
+        GridDisplay.SetColors(board);
         } 
         speedGame = tmp; 
 
@@ -279,14 +279,14 @@ public class GridDisplay : MonoBehaviour
                     sizeListLines ++;
                 }
         }
-        Debug.Log("size = "+sizeListLines);
+       
         if(sizeListLines>0){
             clearLine(lines ,sizeListLines);
         }
     }
 
     public static void clearLine(List<int> lines, int sizeListLines){
-        //TODO : verif 
+        
             
         for (int i=lines[0];i>0;i--){          
             for (int j = 0;j<GridDisplay.width;j++){             
