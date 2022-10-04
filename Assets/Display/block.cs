@@ -100,7 +100,7 @@ public class block {
                 
         }
 
-        //TODO : attention si sur la 3eme ou 4eme ligne il y a des blocks il ne faut pas les effacer.
+      
         for(int i =0; i < 4; i++){
              for(int j = xDepart; j < 4+xDepart;j++){
                 //if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
@@ -111,11 +111,7 @@ public class block {
                     } else {
                         GridDisplay.board[i][j]= blockList [i][j-xDepart] ;
                     }
-                    
-              //  } else if(GridDisplay.board[i][j] != SquareColor.TRANSPARENT && i >1 ){
-                
-                    //TODO : impossible de jouer : loose
-                //}
+                    //TODO : refaire les cas si loose
                  
             }
             if(GridDisplay.loose){
@@ -153,17 +149,21 @@ public class block {
            } 
 
         } else {
-                return false;
+
+            //TODO : en ce moment
+                
              for(int i = line ; i<line+3; i++){
                 for(int j = xDepart; j<xDepart+4; j++){  
                     
                     if(GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i-line][j-xDepart] ){
+                      //  if(i>20){
                             if(GridDisplay.board[i+1][j] == SquareColor.TRANSPARENT || (GridDisplay.board[i+1][j] == GridDisplay.color && GridDisplay.board[i+1][j] == this.blockList[i-line+1][j-xDepart])) {
                                 isPossible = true;
                                 Debug.Log("line : i+1 = "+i+1+" | j = "+j+"| isPossible= "+ isPossible);
                             } else {
                                 return false;
                             }
+                        //}else {return false;}
                     }          
                 }
 
@@ -200,7 +200,7 @@ public class block {
             //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD
             for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){
-                    //TODO : verif
+                   
                     if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
                     GridDisplay.board[i][j]= blockList[i-line][j-xDepart];
                     } 
@@ -210,33 +210,32 @@ public class block {
         //ON REAFFICHE LE BLOCK PLUS BAS DANS SA LIST
         //*************WORK IN 4BY4LIST*************
         } else if (isPossibleToGoDown() && moveIn4By4){
-            //TODO déplacer block
+          
             //ON EFFACE Les block AU DESSUS
           
-            /*for(int i =line; i < line+3; i++){
+            for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){               
-                    if(blockList[i-line][j-xDepart] == GridDisplay.board[i][j]){                   
-                        if(GridDisplay.board[i][j]== GridDisplay.color ){                                            
+                    if(blockList[i-line][j-xDepart] == GridDisplay.board[i][j] && GridDisplay.board[i][j]== GridDisplay.color){                   
                             GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
                             blockList[i-line][j-xDepart] = SquareColor.TRANSPARENT;
                             blockList[i-line+1][j-xDepart] = GridDisplay.color;
-                            GridDisplay.board[i+1][j] = GridDisplay.color;
-                        }
+                            
+                        
                     }             
             
                 }
-            }*/
+            }
             
 
             //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD 1 case plus bas
-            /*for(int i =line; i < line+3; i++){
+            for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){
-                    //TODO : verif
+                 
                     if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT || (GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i-line][j-xDepart]) ){
                     GridDisplay.board[i][j]= blockList[i-line][j-xDepart];
                     } 
                 }
-            }*/
+            }
 
 
 
@@ -322,7 +321,7 @@ public class block {
 
         if(this != null)  {
             bool isPossibleToRotate = true;
-            //TODO : faire une vraie rotation
+       
 
             List<List<SquareColor>> blockListTmp = new List<List<SquareColor>>();
             
@@ -435,7 +434,7 @@ public class block {
             //réaffichage
             for(int i =line; i < line+4; i++){
                     for(int j = xDepart; j < xDepart+4;j++){
-                        //TODO : verif
+                    
                         if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
                         GridDisplay.board[i][j]= blockList[i-line][j-xDepart];
                         } 
@@ -476,7 +475,7 @@ public class block {
             //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD
             for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){
-                    //TODO : verif
+                
                     if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
                     GridDisplay.board[i][j]= blockList[i-line][j-xDepart];
                     } 
@@ -518,7 +517,7 @@ public class block {
             //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD
             for(int i =line; i < line+4; i++){
                 for(int j = xDepart; j < xDepart+4;j++){
-                    //TODO : verif
+                   
                     if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
                     GridDisplay.board[i][j]= blockList[i-line][j-xDepart];
                     } 

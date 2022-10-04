@@ -218,6 +218,8 @@ public class GridDisplay : MonoBehaviour
          //flèches du bas
         SetRushFunction(rush);
         //barre espace
+
+        //todo : faire 2 autres rotations
         SetRotateFunction(block.rotate);   
         
         // /!\ si placé autre part --> erreur le jeu de marche plus 
