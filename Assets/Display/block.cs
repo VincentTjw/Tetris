@@ -139,6 +139,8 @@ public class block {
                         //si vrai on est sur le postion de l'un de nos blocks        
                         if(GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i-line][j-xDepart] ){
                             //le block en dessous est transparent ou égale à un de notre tableau
+
+                            //TODO : bug ici >
                             if(GridDisplay.board[i+1][j] == SquareColor.TRANSPARENT || (GridDisplay.board[i+1][j] == GridDisplay.color && GridDisplay.board[i+1][j] == this.blockList[i-line+1][j-xDepart])) {
                                 isPossible = true;
                             } else {

@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class musicGameOver : MonoBehaviour
+public class musicWinPoint : MonoBehaviour
 {
-
-     public static musicGameOver instance2;
+    public static musicWinPoint instanceWin;
     // Start is called before the first frame update
     void Start()
     {
-          if (instance2 != null)
+          if (instanceWin != null)
             Destroy(gameObject);
         else
         {
-            instance2 = this;
+            instanceWin = this;
             DontDestroyOnLoad(this.gameObject);
         }
 
@@ -33,7 +32,9 @@ public class musicGameOver : MonoBehaviour
      void Update()
     {
        
-
+ 
+               
+            
  
     }
 }

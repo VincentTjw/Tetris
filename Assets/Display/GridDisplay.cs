@@ -57,7 +57,9 @@ public class GridDisplay : MonoBehaviour
         GridDisplay.SetColors(board);                 
       
         Task t1 = Task.Run(() => {
-            while(!GridDisplay.loose){   
+            while(!GridDisplay.loose){  
+
+                //TODO  ACCELERER AVEC UN STOCKAGE TEMP DU GAIN 
                           
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
@@ -73,6 +75,8 @@ public class GridDisplay : MonoBehaviour
                 }
                 
                 GridDisplay.lineCompleted();
+                
+                
             }
 
 
@@ -205,6 +209,7 @@ public class GridDisplay : MonoBehaviour
             //Random random = new Random();
             //var num = random.Next(0,2);//0,7 //max value not selected
         if(block != null){
+        
         block.MoveDown();        
         //flèches de gauche
         SetMoveLeftFunction(block.moveLeft);
@@ -215,8 +220,12 @@ public class GridDisplay : MonoBehaviour
         //barre espace
         SetRotateFunction(block.rotate);   
         
-        // /!\ si placé autre part --> erreur le jeu de marche plus
+        // /!\ si placé autre part --> erreur le jeu de marche plus 
         GridDisplay.SetColors(board);
+        
+        //TODO 
+        //musicWinPoint.instanceWin.GetComponent<AudioSource>().Play(); 
+
 
         GridDisplay.SetScore(scoreTotal);
 
@@ -292,9 +301,9 @@ public class GridDisplay : MonoBehaviour
             }
          } 
 
-        // 1 ligne = 40, 2 = 100 , 3 = 300 et 4 = 1200
-        //TODO : add different sound
-          Debug.Log("score before = "+scoreTotal);
+       
+       
+          
         if(sizeListLines == 1){
             scoreTotal =scoreTotal + 40;
 
@@ -307,7 +316,11 @@ public class GridDisplay : MonoBehaviour
         //pour 4 lignes
         else {
             scoreTotal =scoreTotal + 1200;
-        } 
+        }
+
+        
+
+        
 
     
         
