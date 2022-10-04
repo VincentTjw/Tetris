@@ -42,7 +42,7 @@ public class GridDisplay : MonoBehaviour
     public static  bool loose = false;
     public static  bool sameBlock = false;
     public static TypeOfBlock typeOfBlock;
-    public static int scoreTotal=0;
+    public static int scoreTotal=100;
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -62,19 +62,29 @@ public class GridDisplay : MonoBehaviour
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
                 block = new block();
+                if(!GridDisplay.loose){
+                    
                 sameBlock = true;
-                while(sameBlock){
-                GridDisplay.SetTickFunction(functionPerTick);   
+                }else {
+                    sameBlock = false;
                 }
-                //GridDisplay.lineCompleted();
+                while(sameBlock){
+                    GridDisplay.SetTickFunction(functionPerTick);   
+                }
+                
+                GridDisplay.lineCompleted();
             }
 
+
+            Debug.Log("game over start, loose = "+GridDisplay.loose); 
+            block = null;
+            
+            
             
         });
 
 
-        Debug.Log("loose = "+GridDisplay.loose); 
-        GridDisplay.TriggerGameOver();
+        
  
                     
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
@@ -194,7 +204,7 @@ public class GridDisplay : MonoBehaviour
             
             //Random random = new Random();
             //var num = random.Next(0,2);//0,7 //max value not selected
-           
+        if(block != null){
         block.MoveDown();        
         //flèches de gauche
         SetMoveLeftFunction(block.moveLeft);
@@ -203,9 +213,20 @@ public class GridDisplay : MonoBehaviour
          //flèches du bas
         SetRushFunction(rush);
         //barre espace
-        SetRotateFunction(block.rotate);     
+        SetRotateFunction(block.rotate);   
+        
+        // /!\ si placé autre part --> erreur le jeu de marche plus
         GridDisplay.SetColors(board);
+
+        GridDisplay.SetScore(scoreTotal);
+
+        
+
         SetTickTime(GridDisplay.speedGame);
+        } else {
+            musicGameOver.instance2.GetComponent<AudioSource>().Play();
+            TriggerGameOver();
+        }
 
   
        
@@ -272,7 +293,7 @@ public class GridDisplay : MonoBehaviour
          } 
 
         // 1 ligne = 40, 2 = 100 , 3 = 300 et 4 = 1200
-        //TODO : add different sound-
+        //TODO : add different sound
           Debug.Log("score before = "+scoreTotal);
         if(sizeListLines == 1){
             scoreTotal =scoreTotal + 40;
@@ -288,10 +309,10 @@ public class GridDisplay : MonoBehaviour
             scoreTotal =scoreTotal + 1200;
         } 
 
-        Debug.Log("score AFTER = "+scoreTotal);
+    
         
-        //sameBlock = false;
-        GridDisplay.SetScore(scoreTotal);
+       
+        
     }
 
 

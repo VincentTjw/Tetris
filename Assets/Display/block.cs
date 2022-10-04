@@ -106,7 +106,7 @@ public class block {
                 //if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT ){
                     if(i>=2 && GridDisplay.board[i][j] != SquareColor.TRANSPARENT ) {
                         GridDisplay.loose = true;
-                        GridDisplay.sameBlock = true;
+                        GridDisplay.sameBlock = false;
                         break;
                     } else {
                         GridDisplay.board[i][j]= blockList [i][j-xDepart] ;
@@ -118,6 +118,10 @@ public class block {
                 //}
                  
             }
+            if(GridDisplay.loose){
+                break;
+            }
+            
         }     
        
     }
@@ -172,7 +176,9 @@ public class block {
 
     //*********DEPLACEMENT**********
 
-    public void MoveDown(){      
+    public void MoveDown(){    
+
+        if(this != null)  {
         
         //INFO : dans blocklist il n'y a que notre block
         if(isPossibleToGoDown() && !moveIn4By4){
@@ -239,8 +245,9 @@ public class block {
             GridDisplay.sameBlock = false;
                     }
         
-    
+        }
     }
+
     public bool isPossibleToGoRight(){
         bool isPossible = false;   
         if(xDepart < GridDisplay.width-4){ 
@@ -310,6 +317,8 @@ public class block {
 
     
     public void rotate(){
+
+        if(this != null)  {
             bool isPossibleToRotate = true;
             //TODO : faire une vraie rotation
 
@@ -440,11 +449,13 @@ public class block {
 
             
 
-        
+        }
     }
     
 
     public void moveRight(){
+
+        if(this != null)  {
 
         if(isPossibleToGoRight() && !moveIn4By4){
            
@@ -480,11 +491,13 @@ public class block {
             moveIn4By4 = false;
            
                     }
-        
+        }   
     }
 
 
      public void moveLeft(){
+
+        if(this != null)  {
 
           if(isPossibleToGoLeft() && !moveIn4By4){
             
@@ -517,10 +530,9 @@ public class block {
 
         } else {
             moveIn4By4 = false;
-           
                     }
         
-        
+        }
     }
 
     

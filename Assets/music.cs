@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class music : MonoBehaviour
 {
+
+    //public static music instance;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    
+
+     public static music instance;
+ 
+    void Awake()
     {
-        
+        if (instance != null)
+            Destroy(gameObject);
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
+
+     void Update()
+    {
+       
+ 
+        if (GridDisplay.loose){
+            music.instance.GetComponent<AudioSource>().Pause();
+         
+        }
+      
+ 
+    }
+
+
 }
