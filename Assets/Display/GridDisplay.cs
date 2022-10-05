@@ -8,43 +8,33 @@ using System;
 
 
 
-
-/*
-*   INFO : 
-*   id (type of block): 
-*   0 = O
-*
-*   1 = |___     2 = ___|
-*
-*   3 = ¯¯|_     4 = _|¯¯
-*
-*    5 = _|_     6 = _____
-*   
-* block can have position between 1-4;
-*
-*/
-
-
-
 public class GridDisplay : MonoBehaviour
 {
     // Hauteur de la grille en nombre de cases
     public static int height = 22;
     // Largeur de la grille en nombre de cases
     public static int width = 10;
-    static Random _R = new Random ();
+    //objet random utilisé pour générer des objets aléatoire (SquareColor, TypeOfBLock, ...)
+    public static Random _R = new Random ();
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
-    public static List<int> lines = new List<int>();
-    public static int sizeListLines =0;
+
+    //liste des index des lignes à clear une fois complète
+    private static List<int> lines = new List<int>();
+    //taille de la liste lines
+    private static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static Block block= null;
-    public static float speedGame = 0.99F;
+
+    //durée d'un tick
+    private static float speedGame = 0.99F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
     public static TypeOfBlock typeOfBlock;
-    public static int scoreTotal=0;
-    public static int gainPoint =0;
-    public static bool gainThreeHundredPoint = true;
+    private static int scoreTotal=0;
+    private static int gainPoint =0;
+    private static bool gainThreeHundredPoint = true;
+
+
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -57,6 +47,7 @@ public class GridDisplay : MonoBehaviour
         }
         GridDisplay.SetColors(board);                 
         Task t1 = Task.Run(() => { 
+            //boucle principale : tant que loose est faux on continue le jeu
             while(!GridDisplay.loose){
                 //accélération de la vitesse plus le score est haut
                 if(gainThreeHundredPoint){
@@ -77,10 +68,10 @@ public class GridDisplay : MonoBehaviour
                     sameBlock = false;
                 }
                 while(sameBlock){
-                    GridDisplay.SetTickFunction(functionPerTick);   
+                    GridDisplay.SetTickFunction(FunctionPerTick);   
                 }
                 
-                GridDisplay.lineCompleted();
+                GridDisplay.LineCompleted();
                
             }
             block = null;
@@ -150,10 +141,12 @@ public class GridDisplay : MonoBehaviour
         _grid.TriggerGameOver();
     }
 
-
-    public static SquareColor getAColorblock(){
-        
-        
+     /*
+    * role : renvoie une couleur aléatoire parmis l'énumération de couleur possible
+    * retour : SquareColor
+    * entrée : void
+    */
+    private static SquareColor getAColorblock(){
         Random random = new Random();
         var num = random.Next(1,8);
         
@@ -183,23 +176,25 @@ public class GridDisplay : MonoBehaviour
          return SquareColor.RED;  
     }
 
-   
-    public static void functionPerTick(){
+   /*
+    * role : appel des fonctions à chaque tick
+    * retour : void
+    * entrée : void
+    */
+    private static void FunctionPerTick(){
         
         if(block != null){
         block.MoveDown();        
         //flèches de gauche
-        SetMoveLeftFunction(block.moveLeft);
+        SetMoveLeftFunction(block.MoveLeft);
          //flèches de droite
-        SetMoveRightFunction(block.moveRight);
+        SetMoveRightFunction(block.MoveRight);
          //flèches du bas
-        SetRushFunction(rush);
+        SetRushFunction(Rush);
         //barre espace
-        SetRotateFunction(block.rotate);   
-        // /!\ si placé autre part --> erreur le jeu de marche plus 
-        GridDisplay.SetColors(board);
+        SetRotateFunction(block.Rotate);   
+        //GridDisplay.SetColors(board);
         GridDisplay.SetScore(scoreTotal);
-
         SetTickTime(GridDisplay.speedGame);
         } else {
             //sound voice : "GAME OVER"
@@ -208,13 +203,23 @@ public class GridDisplay : MonoBehaviour
         }
     }
 
-    //renvoie une valeur aléatoire du type TypeOfBlock
-    static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
+    
+    /*
+    * role : renvoie une valeur aléatoire du type TypeOfBlock
+    * retour : TypeOfBlock
+    * entrée : <TypeOfBLock> : la liste de tout les TypeOfBLock
+    */
+    private static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
     var v = System.Enum.GetValues (typeof (TypeOfBlock));
     return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
 }
 
-    public static void rush (){
+    /*
+    * role : déplacement instantanément le block vers le bas
+    * retour : void
+    * entrée : void
+    */
+    private static void Rush(){
         float tmp = speedGame;
         speedGame = 0.5F;
         while(sameBlock){
@@ -225,7 +230,12 @@ public class GridDisplay : MonoBehaviour
 
     }
 
-    public static void lineCompleted (){
+    /*
+    * role : Regarde les lignes complétées et appelle la fonction clearLine
+    * retour : void
+    * entrée : void
+    */
+    private static void LineCompleted (){
         sizeListLines =0;
         lines.Clear();
         bool lineIsCompleted = true;    
@@ -244,11 +254,19 @@ public class GridDisplay : MonoBehaviour
         }
        
         if(sizeListLines>0){
-            clearLine(lines ,sizeListLines);
+            ClearLine(lines ,sizeListLines);
         }
     }
 
-    public static void clearLine(List<int> lines, int sizeListLines){
+    /*
+    * role : supprime les lignes vides et incrémente le score en foncion du nombre de ligne supprimé
+    * retour : void
+    * entrée : lines : liste des lignes, sizeListLines : nombre de ligne
+    */
+
+    private static void ClearLine(List<int> lines, int sizeListLines){
+        
+            
         for (int i=lines[0];i>0;i--){          
             for (int j = 0;j<GridDisplay.width;j++){             
                      //nb fois qu'on descent une ligne
@@ -273,14 +291,8 @@ public class GridDisplay : MonoBehaviour
         //pour 4 lignes
         else {
             scoreTotal =scoreTotal + 1200;
-        }
+        }    
     }
-
-
-
-
-
-
 
 /// Les lignes au delà de celle-ci ne vous concernent pas.
 
