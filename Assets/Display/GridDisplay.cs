@@ -18,17 +18,17 @@ public class GridDisplay : MonoBehaviour
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
     //info : liste des index des lignes à clear une fois complète
-    public static List<int> lines = new List<int>();
-    public static int sizeListLines =0;
+    private static List<int> lines = new List<int>();
+    private static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static Block block= null;
-    public static float speedGame = 0.99F;
+    private static float speedGame = 0.99F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
     public static TypeOfBlock typeOfBlock;
-    public static int scoreTotal=0;
-    public static int gainPoint =0;
-    public static bool gainThreeHundredPoint = true;
+    private static int scoreTotal=0;
+    private static int gainPoint =0;
+    private static bool gainThreeHundredPoint = true;
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -135,7 +135,7 @@ public class GridDisplay : MonoBehaviour
     }
 
 
-    public static SquareColor getAColorblock(){
+    private static SquareColor getAColorblock(){
         Random random = new Random();
         var num = random.Next(1,8);
         
@@ -166,7 +166,7 @@ public class GridDisplay : MonoBehaviour
     }
 
    
-    public static void FunctionPerTick(){
+    private static void FunctionPerTick(){
         
         if(block != null){
         block.MoveDown();        
@@ -191,12 +191,12 @@ public class GridDisplay : MonoBehaviour
     }
 
     //renvoie une valeur aléatoire du type TypeOfBlock
-    static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
+    private static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
     var v = System.Enum.GetValues (typeof (TypeOfBlock));
     return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
 }
 
-    public static void Rush(){
+    private static void Rush(){
         float tmp = speedGame;
         speedGame = 0.5F;
         while(sameBlock){
@@ -207,7 +207,7 @@ public class GridDisplay : MonoBehaviour
 
     }
 
-    public static void LineCompleted (){
+    private static void LineCompleted (){
         sizeListLines =0;
         lines.Clear();
         bool lineIsCompleted = true;    
@@ -230,7 +230,7 @@ public class GridDisplay : MonoBehaviour
         }
     }
 
-    public static void ClearLine(List<int> lines, int sizeListLines){
+    private static void ClearLine(List<int> lines, int sizeListLines){
         
             
         for (int i=lines[0];i>0;i--){          

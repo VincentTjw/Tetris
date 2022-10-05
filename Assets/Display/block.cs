@@ -693,5 +693,34 @@ private bool IsPossibleToRotate(){
         //TODO :VERIF
         GridDisplay.SetColors(board);
     }
+
+
+    //*************************************
+
+
+    //TODO :
+
+    /*
+    private void Check(int a, int b){
+        for (int i = posLine; i < posLine + 4; i++)
+            {
+                for (int j = posColumn; j < posColumn + 4; j++)
+                {
+                    //si vrai on est sur le postion de l'un de nos blocks
+                    if (GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i - posLine][j - posColumn]){
+                        //le block en dessous est transparent ou égale à un de notre tableau
+                        Debug.Log("test : i+1 = "+(i+1) +" | j = "+j);
+                        if (GridDisplay.board[i + 1][j] == SquareColor.TRANSPARENT || 
+                                (GridDisplay.board[i + 1][j] == GridDisplay.color && GridDisplay.board[i + 1][j] == this.blockList[i - posLine + 1][j - posColumn]))
+                        {
+                            isPossible = true;
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+                }
+            }
+    }*/
    
 }
