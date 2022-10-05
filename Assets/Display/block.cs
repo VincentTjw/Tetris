@@ -612,12 +612,25 @@ public class block
 public bool isPossibleToRotate(){
         bool isPossible = true;
         List<List<SquareColor>> blockListTest = new List<List<SquareColor>>();
+        //init test
+         for (int i = 0; i < 4; i++)
+        {
+            List<SquareColor> Ligne = new List<SquareColor>();
+            for (int j = 0; j < 4; j++)
+            {
+                Ligne.Add(SquareColor.TRANSPARENT);
+            }
+            blockListTest.Add(Ligne);
+        }
+
+
+        //ajout transformation dans test
         for (int i = line+3; i >= line; i--)
         {
             for (int j = xDepart; j < xDepart + 4; j++)
             {   
-                Deb
-                blockListTest[line+3-i][j] = this.blockList[i][j];
+                //Debug.Log("j-xDepart = "+(j-xDepart) +" | "+"(3-(i-line)) = "+(3-(i-line)) +" | "+"i-line = "+(i-line)+" | ");
+                blockListTest[j-xDepart][(3-(i-line))] = this.blockList[i-line][j-xDepart];
             }
         }
 
@@ -627,8 +640,9 @@ public bool isPossibleToRotate(){
             for (int j = xDepart; j < xDepart + 4; j++)
             {
                 //si sur nos nouvelles pos sur board les blocks ne sont pas transparents on renvoit false
-                if (blockListTest[i - line][j - xDepart] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT){
-                
+                 Debug.Log("bool = "+(blockListTest[i - line][j - xDepart] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT));
+                 //ne pas oublier que le bloc dans board est toujours écrit
+                if (blockListTest[i - line][j - xDepart] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT && GridDisplay.board[i][j] != this.blockList[i-line][j-xDepart]){
                     return false;
                 }
             }
@@ -639,8 +653,6 @@ public bool isPossibleToRotate(){
 
 }
     
-
-
     public void rotate()
     {
 
@@ -662,16 +674,27 @@ public bool isPossibleToRotate(){
                         }
                     }
                 }
+                    //init
+                 for (int i = 0; i < 4; i++)
+                    {
+                        List<SquareColor> Ligne = new List<SquareColor>();
+                        for (int j = 0; j < 4; j++)
+                        {
+                            Ligne.Add(SquareColor.TRANSPARENT);
+                        }
+                        blockListTmp.Add(Ligne);
+                    }
 
-                //ajout dans list temp et suppression dans notre petit tableau
+                //ajout transformation dans temp
                 for (int i = line+3; i >= line; i--)
                 {
                     for (int j = xDepart; j < xDepart + 4; j++)
-                    {
-                        blockListTmp[line+3-i][j] = this.blockList[i][j];
-                        this.blockList[i][j] =SquareColor.TRANSPARENT; 
+                    {   
+                     
+                        blockListTmp[j-xDepart][(3-(i-line))] = this.blockList[i-line][j-xDepart];
                     }
                 }
+
 
 
 

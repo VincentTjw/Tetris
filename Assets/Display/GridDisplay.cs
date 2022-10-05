@@ -59,6 +59,8 @@ public class GridDisplay : MonoBehaviour
         GridDisplay.SetColors(board);                 
       
         Task t1 = Task.Run(() => {
+
+           
             while(!GridDisplay.loose){
                 //accélération de la vitesse plus le score est haut
                 if(gainThreeHundredPoint){
