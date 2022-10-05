@@ -588,7 +588,7 @@ public class Block
                 moveIn4By4 = false;
             }
         }
-        //TODO :VERIF
+        
         GridDisplay.SetColors(GridDisplay.board);
     }
 
@@ -631,7 +631,8 @@ private bool IsPossibleToRotate(){
             {
                 //si sur nos nouvelles pos sur board les blocks ne sont pas transparents on renvoit false
                  //ne pas oublier que le bloc dans board est toujours écrit
-                if (blockListTest[i - posLine][j - posColumn] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT && GridDisplay.board[i][j] != this.blockList[i-posLine][j-posColumn]){
+                if (blockListTest[i - posLine][j - posColumn] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT 
+                    && GridDisplay.board[i][j] != this.blockList[i-posLine][j-posColumn]){
                     return false;
                 }
             }
@@ -645,18 +646,13 @@ private bool IsPossibleToRotate(){
     * retour : void
     * entrée : void
     */
-    public void Rotate()
-    {
-
-        if (this != null && GridDisplay.typeOfBlock != TypeOfBlock.O_Block)
-        {
+    public void Rotate(){
+        if (this != null && GridDisplay.typeOfBlock != TypeOfBlock.O_Block){
             if(IsPossibleToRotate()){
                 List<List<SquareColor>> blockListTmp =new List<List<SquareColor>>();
                 //suppresion dans board
-                for (int i = posLine; i < posLine + 4; i++)
-                {
-                    for (int j = posColumn; j < posColumn + 4; j++)
-                    {
+                for (int i = posLine; i < posLine + 4; i++){
+                    for (int j = posColumn; j < posColumn + 4; j++){
                         if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT ||
                                 (GridDisplay.board[i][j] == GridDisplay.color &&GridDisplay.board[i][j] == this.blockList[i - posLine][j - posColumn]))
                         {
@@ -691,20 +687,15 @@ private bool IsPossibleToRotate(){
                 }
 
                 //re-affichage dans board
-                for (int i = posLine; i < posLine + 4; i++)
-                {
-                        for (int j = posColumn; j < posColumn + 4; j++)
-                        {
-                            if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT)
-                            {
+                for (int i = posLine; i < posLine + 4; i++){
+                        for (int j = posColumn; j < posColumn + 4; j++){
+                            if (GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
                                 GridDisplay.board[i][j] = blockList[i - posLine][j - posColumn];
                             }
                         }
                 }
             }
-        }
-
-        //TODO :VERIF
+        }      
         GridDisplay.SetColors(GridDisplay.board);
     }
 
