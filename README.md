@@ -1,4 +1,4 @@
 # Tetris
 
 //TODO : description du projet
-// pourquoi comment but quand
+// pourquoi comment but quand 
