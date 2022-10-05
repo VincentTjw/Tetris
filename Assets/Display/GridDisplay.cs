@@ -37,7 +37,7 @@ public class GridDisplay : MonoBehaviour
     public static List<int> lines = new List<int>();
     public static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
-    public static block block= null;
+    public static Block block= null;
     public static float speedGame = 0.99F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
@@ -55,11 +55,8 @@ public class GridDisplay : MonoBehaviour
             }
             board.Add(Ligne);
         }
-
         GridDisplay.SetColors(board);                 
-      
-        Task t1 = Task.Run(() => {
-            
+        Task t1 = Task.Run(() => { 
             while(!GridDisplay.loose){
                 //accélération de la vitesse plus le score est haut
                 if(gainThreeHundredPoint){
@@ -69,13 +66,12 @@ public class GridDisplay : MonoBehaviour
                 if(gainPoint+100 < scoreTotal && speedGame > 0.20F){
                     speedGame = speedGame - 0.01F;
                     gainThreeHundredPoint = true;
-                }
-        
+                }        
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
-                block = new block();
-                if(!GridDisplay.loose){
-                    
+                block = new Block();
+
+                if(!GridDisplay.loose){                    
                 sameBlock = true;
                 }else {
                     sameBlock = false;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class block
+public class Block
 {
     public List<List<SquareColor>> blockList = new List<List<SquareColor>>();
 
@@ -22,7 +22,7 @@ public class block
     public bool moveIn4By4 = false;
 
     //*******CONSTRUCTOR*******
-    public block()
+    public Block()
     {
         //enum de block
         SquareColor couleur = GridDisplay.color;        
@@ -116,7 +116,7 @@ public class block
             }
             if (GridDisplay.loose)
             {
-                
+
                 break;
             }
         }
@@ -239,7 +239,7 @@ public class block
                 {
                     if (GridDisplay.board[i][j] == GridDisplay.color &&GridDisplay.board[i][j] == this.blockList[i - line][j - xDepart])
                     {
-                        //  if(i>20){
+                        
                         if (
                             GridDisplay.board[i][j + 1] ==SquareColor.TRANSPARENT ||
                                 (GridDisplay.board[i][j + 1] == GridDisplay.color &&GridDisplay.board[i][j + 1] ==this.blockList[i - line][j - xDepart + 1]))
@@ -250,7 +250,7 @@ public class block
                         {
                             return false;
                         }
-                        //}else {return false;}
+                       
                     }
                 }
             }
