@@ -59,24 +59,18 @@ public class GridDisplay : MonoBehaviour
         GridDisplay.SetColors(board);                 
       
         Task t1 = Task.Run(() => {
-
-           
+            
             while(!GridDisplay.loose){
                 //accélération de la vitesse plus le score est haut
                 if(gainThreeHundredPoint){
                     gainPoint = scoreTotal;
                     gainThreeHundredPoint = false;
                 }
-
                 if(gainPoint+100 < scoreTotal && speedGame > 0.20F){
                     speedGame = speedGame - 0.01F;
                     gainThreeHundredPoint = true;
                 }
-                
-                
-
-              
-                          
+        
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
                 block = new block();
@@ -91,17 +85,10 @@ public class GridDisplay : MonoBehaviour
                 }
                 
                 GridDisplay.lineCompleted();
-                
-                
+               
             }
-
-
-            
             block = null;
-            
-        });
-
-                  
+        });        
     }
 
     // Paramètre la fonction devant être appelée à chaque tick. 
@@ -195,22 +182,15 @@ public class GridDisplay : MonoBehaviour
             return SquareColor.ORANGE;
             
         case 7:
-            return SquareColor.YELLOW;
-          
+            return SquareColor.YELLOW; 
         }
-
-         return SquareColor.RED;
-       
-        
+         return SquareColor.RED;  
     }
 
    
     public static void functionPerTick(){
-            
-            //Random random = new Random();
-            //var num = random.Next(0,2);//0,7 //max value not selected
-        if(block != null){
         
+        if(block != null){
         block.MoveDown();        
         //flèches de gauche
         SetMoveLeftFunction(block.moveLeft);
@@ -231,8 +211,9 @@ public class GridDisplay : MonoBehaviour
             TriggerGameOver();
         }
     }
-    static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
 
+    //renvoie une valeur aléatoire du type TypeOfBlock
+    static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
     var v = System.Enum.GetValues (typeof (TypeOfBlock));
     return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
 }
@@ -250,8 +231,6 @@ public class GridDisplay : MonoBehaviour
 
     public static void lineCompleted (){
         sizeListLines =0;
-        
-        
         lines.Clear();
         bool lineIsCompleted = true;    
         for (int i=0;i<GridDisplay.height;i++){     

@@ -142,6 +142,7 @@ public class block
                     //si vrai on est sur le postion de l'un de nos blocks
                     if (GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i - line][j - xDepart]){
                         //le block en dessous est transparent ou égale à un de notre tableau
+                        Debug.Log("test : i+1 = "+(i+1) +" | j = "+j);
                         if (GridDisplay.board[i + 1][j] == SquareColor.TRANSPARENT || 
                                 (GridDisplay.board[i + 1][j] == GridDisplay.color && GridDisplay.board[i + 1][j] == this.blockList[i - line + 1][j - xDepart]))
                         {
@@ -605,10 +606,7 @@ public class block
     //*******END DEPLACEMEMNT***********
 
     
-    //*******ROTATION***********
-
-
-
+    //**********ROTATION**************
 public bool isPossibleToRotate(){
         bool isPossible = true;
         List<List<SquareColor>> blockListTest = new List<List<SquareColor>>();
@@ -629,7 +627,7 @@ public bool isPossibleToRotate(){
         {
             for (int j = xDepart; j < xDepart + 4; j++)
             {   
-                //Debug.Log("j-xDepart = "+(j-xDepart) +" | "+"(3-(i-line)) = "+(3-(i-line)) +" | "+"i-line = "+(i-line)+" | ");
+               
                 blockListTest[j-xDepart][(3-(i-line))] = this.blockList[i-line][j-xDepart];
             }
         }
@@ -640,7 +638,7 @@ public bool isPossibleToRotate(){
             for (int j = xDepart; j < xDepart + 4; j++)
             {
                 //si sur nos nouvelles pos sur board les blocks ne sont pas transparents on renvoit false
-                 Debug.Log("bool = "+(blockListTest[i - line][j - xDepart] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT));
+              
                  //ne pas oublier que le bloc dans board est toujours écrit
                 if (blockListTest[i - line][j - xDepart] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT && GridDisplay.board[i][j] != this.blockList[i-line][j-xDepart]){
                     return false;
