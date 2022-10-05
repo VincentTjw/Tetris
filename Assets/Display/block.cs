@@ -116,6 +116,7 @@ public class block
             }
             if (GridDisplay.loose)
             {
+                
                 break;
             }
         }
