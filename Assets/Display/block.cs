@@ -8,14 +8,12 @@ public class Block
 
 
     private int heightBlock = 4;
-
+    private int widthBlock = 4;
     //column of blockList
     private int posColumn = 3;
 
      //line of blockList
     private int posLine = 0;
-
-    private int widthBlock = 4;
 
     private bool moveIn4By4 = false;
 
@@ -48,48 +46,36 @@ public class Block
                 blockList[0][1] = color;
                 blockList[0][2] = color;
                 blockList[1][2] = color;
-
-                //Debug.Log("BLOCK = j ");
                 break;
             case TypeOfBlock.L_Block:
                 blockList[0][0] = color;
                 blockList[0][1] = color;
                 blockList[0][2] = color;
                 blockList[1][0] = color;
-
-                //Debug.Log("BLOCK = L ");
                 break;
             case TypeOfBlock.Z_Block:
                 blockList[0][0] = color;
                 blockList[0][1] = color;
                 blockList[1][1] = color;
                 blockList[1][2] = color;
-
-                //Debug.Log("BLOCK = z ");
                 break;
             case TypeOfBlock.S_Block:
                 blockList[1][0] = color;
                 blockList[1][1] = color;
                 blockList[0][1] = color;
                 blockList[0][2] = color;
-
-                //Debug.Log("BLOCK = s ");
                 break;
             case TypeOfBlock.M_Block:
                 blockList[0][0] = color;
                 blockList[0][1] = color;
                 blockList[0][2] = color;
                 blockList[1][1] = color;
-
-                //Debug.Log("BLOCK = m ");
                 break;
             case TypeOfBlock.O_Block:
                 blockList[0][0] = color;
                 blockList[1][0] = color;
                 blockList[0][1] = color;
                 blockList[1][1] = color;
-
-                //Debug.Log("BLOCK = o ");
                 break;
         }
 
@@ -123,9 +109,6 @@ public class Block
 
 
     //*******FUNCTION CHECK IF_POSSIBLE_TO_MOVE*******
-    //step 1 : block can go down
-    //step 2 : move the list
-    //step 3 : move in 4*4 list
     private bool IsPossibleToGoDown()
     {
         bool isPossible = false;
@@ -195,14 +178,14 @@ public class Block
         bool isPossible = false;
         if (posColumn < GridDisplay.width - 4)
         {
+
+            //TODO : créer une fonction commune check(int a,int b)
             for (int i = posLine; i < posLine + 4; i++)
             {
                 for (int j = posColumn; j < posColumn + 4; j++)
                 {
-                    //si vrai on est sur le postion de l'un de nos blocks
                     if (GridDisplay.board[i][j] == GridDisplay.color && GridDisplay.board[i][j] == this.blockList[i - posLine][j - posColumn])
                     {
-                        //le block en dessous est transparent ou égale à un de notre tableau
                         if (GridDisplay.board[i][j + 1] == SquareColor.TRANSPARENT ||
                             (GridDisplay.board[i][j + 1] == GridDisplay.color && GridDisplay.board[i][j + 1] == this.blockList[i - posLine][j - posColumn + 1]))
                         {
@@ -217,7 +200,6 @@ public class Block
             }
         }
         else{
-            //on verifie si il n'y a pas de block sur la ligne la plus a droite
             for (int i = posLine; i < posLine + 4; i++)
             {
                 for (int j = posColumn + 3; j >= posColumn + 3; j--)
@@ -236,8 +218,7 @@ public class Block
                     if (GridDisplay.board[i][j] == GridDisplay.color &&GridDisplay.board[i][j] == this.blockList[i - posLine][j - posColumn])
                     {
                         
-                        if (
-                            GridDisplay.board[i][j + 1] ==SquareColor.TRANSPARENT ||
+                        if (GridDisplay.board[i][j + 1] ==SquareColor.TRANSPARENT ||
                                 (GridDisplay.board[i][j + 1] == GridDisplay.color &&GridDisplay.board[i][j + 1] ==this.blockList[i - posLine][j - posColumn + 1]))
                         {
                             isPossible = true;
@@ -265,15 +246,9 @@ public class Block
             {
                 for (int j = posColumn; j < posColumn + 4; j++)
                 {
-                    //si vrai on est sur le postion de l'un de nos blocks
-
-                    if (
-                        GridDisplay.board[i][j] == GridDisplay.color &&
-                        GridDisplay.board[i][j] ==
-                        this.blockList[i - posLine][j - posColumn]
-                    )
+                    if (GridDisplay.board[i][j] == GridDisplay.color &&GridDisplay.board[i][j] ==this.blockList[i - posLine][j - posColumn])
                     {
-                        //le block en dessous est transparent ou égale à un de notre tableau
+  
                         if (
                             GridDisplay.board[i][j - 1] ==
                             SquareColor.TRANSPARENT ||
@@ -369,7 +344,7 @@ public class Block
                 //affichage une ligne plus bas
                 posLine++;
 
-                //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD
+                //re-affichage
                 for (int i = posLine; i < posLine + 4; i++)
                 {
                     for (int j = posColumn; j < posColumn + 4; j++)
@@ -382,8 +357,6 @@ public class Block
                     }
                 }
 
-                //ON REAFFICHE LE BLOCK PLUS BAS DANS SA LIST
-                //*************WORK IN 4BY4LIST*************
             }
             else if (IsPossibleToGoDown() && moveIn4By4)
             {
@@ -409,7 +382,7 @@ public class Block
                     }
                 }
 
-                //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD 1 case plus bas
+    
                 for (int i = posLine; i < posLine + 4; i++)
                 {
                     for (int j = posColumn; j < posColumn + 4; j++)
@@ -429,8 +402,6 @@ public class Block
                         }
                     }
                 }
-
-                //******************************************
             }
             else
             {
@@ -438,6 +409,8 @@ public class Block
                 GridDisplay.sameBlock = false;
             }
         }
+        //TODO : verif
+        GridDisplay.SetColors(board);
     }
 
      public void MoveRight()
@@ -516,6 +489,9 @@ public class Block
                 moveIn4By4 = false;
             }
         }
+
+        //TODO :VERIF
+        GridDisplay.SetColors(board);
     }
 
     /*
@@ -562,8 +538,6 @@ public class Block
                     }
                 }
 
-                //ON REAFFICHE LE BLOCK PLUS BAS DANS SA LIST
-               
             }
             else if (isPossibleToGoLeft() && moveIn4By4)
             {                           
@@ -571,8 +545,6 @@ public class Block
                 {
                         for (int i = posLine; i < posLine+4; i++)
                     {
-                        
-                        //PARCOURS INVERSE POUR PAS DELETE DE BLOCK : parcours de haut en bas de droite vers la gauche pour pas avoir de perte 
                         if (blockList[i - posLine][j - posColumn] == GridDisplay.board[i][j] && GridDisplay.board[i][j] == GridDisplay.color)
                         {
                             GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
@@ -582,7 +554,6 @@ public class Block
                     }
                 }
 
-                //ON REAFFICHE LA LIST DU BLOCK DANS LE BOARD 1 case plus à droite
                 for (int i = posLine; i < posLine + 4; i++)
                 {
                     for (int j = posColumn; j < posColumn + 4; j++)
@@ -602,6 +573,8 @@ public class Block
                 moveIn4By4 = false;
             }
         }
+        //TODO :VERIF
+        GridDisplay.SetColors(board);
     }
 
     //*******END DEPLACEMEMNT***********
@@ -639,7 +612,6 @@ private bool IsPossibleToRotate(){
             for (int j = posColumn; j < posColumn + 4; j++)
             {
                 //si sur nos nouvelles pos sur board les blocks ne sont pas transparents on renvoit false
-              
                  //ne pas oublier que le bloc dans board est toujours écrit
                 if (blockListTest[i - posLine][j - posColumn] == GridDisplay.color && GridDisplay.board[i][j] != SquareColor.TRANSPARENT && GridDisplay.board[i][j] != this.blockList[i-posLine][j-posColumn]){
                     return false;
@@ -717,6 +689,9 @@ private bool IsPossibleToRotate(){
                 }
             }
         }
+
+        //TODO :VERIF
+        GridDisplay.SetColors(board);
     }
    
 }

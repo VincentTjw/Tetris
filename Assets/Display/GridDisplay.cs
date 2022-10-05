@@ -8,23 +8,6 @@ using System;
 
 
 
-
-/*
-*   INFO : 
-*   id (type of block): 
-*   0 = O
-*
-*   1 = |___     2 = ___|
-*
-*   3 = ¯¯|_     4 = _|¯¯
-*
-*    5 = _|_     6 = _____
-*   
-* block can have position between 1-4;
-*
-*/
-
-
 public class GridDisplay : MonoBehaviour
 {
     // Hauteur de la grille en nombre de cases
@@ -78,10 +61,10 @@ public class GridDisplay : MonoBehaviour
                     sameBlock = false;
                 }
                 while(sameBlock){
-                    GridDisplay.SetTickFunction(functionPerTick);   
+                    GridDisplay.SetTickFunction(FunctionPerTick);   
                 }
                 
-                GridDisplay.lineCompleted();
+                GridDisplay.lLneCompleted();
                
             }
             block = null;
@@ -153,8 +136,6 @@ public class GridDisplay : MonoBehaviour
 
 
     public static SquareColor getAColorblock(){
-        
-        
         Random random = new Random();
         var num = random.Next(1,8);
         
@@ -185,7 +166,7 @@ public class GridDisplay : MonoBehaviour
     }
 
    
-    public static void functionPerTick(){
+    public static void FunctionPerTick(){
         
         if(block != null){
         block.MoveDown();        
@@ -194,11 +175,11 @@ public class GridDisplay : MonoBehaviour
          //flèches de droite
         SetMoveRightFunction(block.moveRight);
          //flèches du bas
-        SetRushFunction(rush);
+        SetRushFunction(Rush);
         //barre espace
         SetRotateFunction(block.Rotate);   
         // /!\ si placé autre part --> erreur le jeu de marche plus 
-        GridDisplay.SetColors(board);
+        //GridDisplay.SetColors(board);
         GridDisplay.SetScore(scoreTotal);
 
         SetTickTime(GridDisplay.speedGame);
@@ -215,7 +196,7 @@ public class GridDisplay : MonoBehaviour
     return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
 }
 
-    public static void rush(){
+    public static void Rush(){
         float tmp = speedGame;
         speedGame = 0.5F;
         while(sameBlock){
@@ -226,7 +207,7 @@ public class GridDisplay : MonoBehaviour
 
     }
 
-    public static void lineCompleted (){
+    public static void LineCompleted (){
         sizeListLines =0;
         lines.Clear();
         bool lineIsCompleted = true;    
@@ -245,11 +226,11 @@ public class GridDisplay : MonoBehaviour
         }
        
         if(sizeListLines>0){
-            clearLine(lines ,sizeListLines);
+            ClearLine(lines ,sizeListLines);
         }
     }
 
-    public static void clearLine(List<int> lines, int sizeListLines){
+    public static void ClearLine(List<int> lines, int sizeListLines){
         
             
         for (int i=lines[0];i>0;i--){          
@@ -282,23 +263,8 @@ public class GridDisplay : MonoBehaviour
         //pour 4 lignes
         else {
             scoreTotal =scoreTotal + 1200;
-        }
-
-        
-
-        
-
-    
-        
-       
-        
+        }    
     }
-
-
-
-
-
-
 
 /// Les lignes au delà de celle-ci ne vous concernent pas.
 
