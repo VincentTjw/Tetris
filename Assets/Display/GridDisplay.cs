@@ -14,14 +14,18 @@ public class GridDisplay : MonoBehaviour
     public static int height = 22;
     // Largeur de la grille en nombre de cases
     public static int width = 10;
+    //objet random utilisé pour générer des objets aléatoire (SquareColor, TypeOfBLock, ...)
     public static Random _R = new Random ();
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
 
-    //info : liste des index des lignes à clear une fois complète
+    //liste des index des lignes à clear une fois complète
     private static List<int> lines = new List<int>();
+    //taille de la liste lines
     private static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
     public static Block block= null;
+
+    //durée d'un tick
     private static float speedGame = 0.99F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
@@ -29,6 +33,8 @@ public class GridDisplay : MonoBehaviour
     private static int scoreTotal=0;
     private static int gainPoint =0;
     private static bool gainThreeHundredPoint = true;
+
+
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -41,6 +47,7 @@ public class GridDisplay : MonoBehaviour
         }
         GridDisplay.SetColors(board);                 
         Task t1 = Task.Run(() => { 
+            //boucle principale : tant que loose est faux on continue le jeu
             while(!GridDisplay.loose){
                 //accélération de la vitesse plus le score est haut
                 if(gainThreeHundredPoint){
@@ -178,10 +185,8 @@ public class GridDisplay : MonoBehaviour
         SetRushFunction(Rush);
         //barre espace
         SetRotateFunction(block.Rotate);   
-        // /!\ si placé autre part --> erreur le jeu de marche plus 
         //GridDisplay.SetColors(board);
         GridDisplay.SetScore(scoreTotal);
-
         SetTickTime(GridDisplay.speedGame);
         } else {
             //sound voice : "GAME OVER"
