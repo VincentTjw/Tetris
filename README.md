@@ -1,8 +1,10 @@
 # Tetris
 Bienvenue dans le projet Tetris de Favennec Mélaine et Terentjew Vincent !
 
-POUR TELECHARGER LE JEU : il faut récupérer le code avec git pull + le tag finale-version ou git pull + la branche DEV-Melaine
+__POUR TELECHARGER LE JEU__ : il faut récupérer le code avec git pull + le tag finale-version ou git pull + la branche DEV-Melaine
 
+
+#BUT : 
 Le projet consiste à créer un jeu Tetris basé sur ses règles.
 Mais c'et quoi un Tetris ?
 
