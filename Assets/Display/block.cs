@@ -116,7 +116,7 @@ public class block {
       
     
         if(line < GridDisplay.height-4){
-            //TODO : verif pourquoi ça dépasse
+            //TODO : verif pourquoi ça dépasse 
               //Debug.Log("line = "+line+"  <  "+ (GridDisplay.height-5));
             //on regarde la ligne en dessous du tableau
            for(int i = line+4 ; i<line+5; i++){
