@@ -1,6 +1,8 @@
 # Tetris
 Bienvenue dans le projet Tetris de Favennec Mélaine et Terentjew Vincent !
 
+POUR TELECHARGER LE JEU : il faut récupérer le code avec git pull + le tag finale-version ou git pull + la branche DEV-Melaine
+
 Le projet consiste à créer un jeu Tetris basé sur ses règles.
 Mais c'et quoi un Tetris ?
 
@@ -25,17 +27,17 @@ Au début de projet nous sommes partie d'un squelette du Tetris fonctionnel au n
 
 Décomposition des objectifs : 
 
-objectif 1 : mise en place d'une classe block
+- objectif 1 : mise en place d'une classe block
 
-objectif 2 : mise en place de la boucle principale et de l'enumération des type de bloc
+- objectif 2 : mise en place de la boucle principale et de l'enumération des type de bloc
 
-objectif 3 : création des méthodes dans gridDisplay et dans bloc
+- objectif 3 : création des méthodes dans gridDisplay et dans bloc
 
-objectif 4 : relier bloc et gridDisplay avec avec des appels
+- objectif 4 : relier bloc et gridDisplay avec avec des appels
 
-objectif 5 : vérification et résolution des problèmes
+- objectif 5 : vérification et résolution des problèmes
 
-objectif bonus : incrémentation de la vitesse de déplacement d'un bloc en fonction du score et mise en place de son (les sons ont été pris sur youtube)
+- objectif bonus : incrémentation de la vitesse de déplacement d'un bloc en fonction du score et mise en place de son (les sons ont été pris sur youtube)
 
 
 Problème rencontré/difficulté : lors du déplacement de blockList qui contient notre bloc et une fois arrivé en bas déplacer à l'intérieur de cette listes.
