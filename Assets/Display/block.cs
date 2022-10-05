@@ -109,6 +109,12 @@ public class Block
 
 
     //*******FUNCTION CHECK IF_POSSIBLE_TO_MOVE*******
+
+    /*
+    * role : vérifie que l'on peut déplacer le block vers le bas
+    * retour : bool
+    * entrée : void
+    */
     private bool IsPossibleToGoDown()
     {
         bool isPossible = false;
@@ -173,6 +179,11 @@ public class Block
         return isPossible;
     }
 
+    /*
+    * role : vérifie que l'on peut déplacer le block vers la droite
+    * retour : bool
+    * entrée : void
+    */
     private bool IsPossibleToGoRight()
     {
         bool isPossible = false;
@@ -237,6 +248,11 @@ public class Block
         return isPossible;
     }
 
+    /*
+    * role : vérifie que l'on peut déplacer le block vers la gauche
+    * retour : bool
+    * entrée : void
+    */
     private bool IsPossibleToGoLeft()
     {
         bool isPossible = false;
@@ -316,6 +332,12 @@ public class Block
 
 
     //*********DEPLACEMENT**********
+
+    /*
+    * role : déplace le block vers le bas
+    * retour : void
+    * entrée : void
+    */
     public void MoveDown() {
         if (this != null)
         {
@@ -413,6 +435,11 @@ public class Block
         GridDisplay.SetColors(board);
     }
 
+    /*
+    * role : déplace le block vers la droite
+    * retour : void
+    * entrée : void
+    */
      public void MoveRight()
     {
         if (this != null)
@@ -495,7 +522,7 @@ public class Block
     }
 
     /*
-    * role : déplacement d'un block d'une case vers la gauche 
+    * role : déplace le block vers la gauche
     * retour : void
     * entrée : void
     */
@@ -581,6 +608,12 @@ public class Block
 
     
     //**********ROTATION**************
+
+    /*
+    * role : vérifie que l'on peut tourner le block
+    * retour : bool
+    * entrée : void
+    */
 private bool IsPossibleToRotate(){
         bool isPossible = true;
         List<List<SquareColor>> blockListTest = new List<List<SquareColor>>();
@@ -624,6 +657,11 @@ private bool IsPossibleToRotate(){
 
 }
     
+    /*
+    * role : tounre le block
+    * retour : void
+    * entrée : void
+    */
     public void Rotate()
     {
 
@@ -699,7 +737,6 @@ private bool IsPossibleToRotate(){
 
 
     //TODO :
-
     /*
     private void Check(int a, int b){
         for (int i = posLine; i < posLine + 4; i++)

@@ -190,12 +190,22 @@ public class GridDisplay : MonoBehaviour
         }
     }
 
-    //renvoie une valeur aléatoire du type TypeOfBlock
+    
+    /*
+    * role : renvoie une valeur aléatoire du type TypeOfBlock
+    * retour : TypeOfBlock
+    * entrée : <TypeOfBLock> : la liste de tout les TypeOfBLock
+    */
     private static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
     var v = System.Enum.GetValues (typeof (TypeOfBlock));
     return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
 }
 
+    /*
+    * role : déplacement instantanément le block vers le bas
+    * retour : void
+    * entrée : void
+    */
     private static void Rush(){
         float tmp = speedGame;
         speedGame = 0.5F;
@@ -207,6 +217,11 @@ public class GridDisplay : MonoBehaviour
 
     }
 
+    /*
+    * role : Regarde les lignes complétées et appelle la fonction clearLine
+    * retour : void
+    * entrée : void
+    */
     private static void LineCompleted (){
         sizeListLines =0;
         lines.Clear();
@@ -230,6 +245,12 @@ public class GridDisplay : MonoBehaviour
         }
     }
 
+    /*
+    * role : supprime les lignes vides et incrémente le score en foncion du nombre de ligne supprimé
+    * retour : void
+    * entrée : lines : liste des lignes, sizeListLines : nombre de ligne
+    */
+
     private static void ClearLine(List<int> lines, int sizeListLines){
         
             
@@ -248,9 +269,6 @@ public class GridDisplay : MonoBehaviour
             }
          } 
 
-       
-       
-          
         if(sizeListLines == 1){
             scoreTotal =scoreTotal + 40;
 
