@@ -4,15 +4,15 @@ Bienvenue dans le projet Tetris de Favennec Mélaine et Terentjew Vincent !
 __POUR TELECHARGER LE JEU__ : il faut récupérer le code avec git pull + le tag finale-version ou git pull + la branche DEV-Melaine
 
 
-#BUT : 
+### BUT : 
 Le projet consiste à créer un jeu Tetris basé sur ses règles.
 Mais c'et quoi un Tetris ?
 
-Tetris est un jeu vidéo de puzzle conçu par Alekseï Pajitnov à partir de juin 1984 sur Elektronika 60. (source : wikipedia = https://fr.wikipedia.org/wiki/Tetris).
+Tetris est un jeu vidéo de puzzle 2D conçu par Alekseï Pajitnov à partir de juin 1984 sur Elektronika 60. (source : wikipedia = https://fr.wikipedia.org/wiki/Tetris).
 
 Le but est de créer des ligne complète avec des pièces de couleur pour gagner des points, la seule façon de perdre est de remplir la grille jusqu'à qu'une nouvelle pièce ne puisse plus apparaître (Game Over).
 
-Action possible : 
+### Action possible : 
 - déplacement à droite (flêche de droite)
 - déplacement à gauche (flêche de gauche)
 - déplacement rapide vers le bas (flêche du bas)
