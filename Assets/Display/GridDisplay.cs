@@ -249,8 +249,6 @@ public class GridDisplay : MonoBehaviour
     }
 
     public static void clearLine(List<int> lines, int sizeListLines){
-        
-            
         for (int i=lines[0];i>0;i--){          
             for (int j = 0;j<GridDisplay.width;j++){             
                      //nb fois qu'on descent une ligne
@@ -265,16 +263,10 @@ public class GridDisplay : MonoBehaviour
                 GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
             }
          } 
-
-       
-       
-          
         if(sizeListLines == 1){
             scoreTotal =scoreTotal + 40;
-
         } else if(sizeListLines == 2){
             scoreTotal =scoreTotal + 100;
-
         } else if(sizeListLines == 3){
             scoreTotal =scoreTotal + 300;
         } 
@@ -282,15 +274,6 @@ public class GridDisplay : MonoBehaviour
         else {
             scoreTotal =scoreTotal + 1200;
         }
-
-        
-
-        
-
-    
-        
-       
-        
     }
 
 
