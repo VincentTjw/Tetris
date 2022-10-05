@@ -4,6 +4,8 @@ using UnityEngine;
 using Random=System.Random;
 using System.Threading.Tasks;
 using System.Threading;
+using System;
+
 
 
 
@@ -23,21 +25,27 @@ using System.Threading;
 */
 
 
-
 public class GridDisplay : MonoBehaviour
 {
     // Hauteur de la grille en nombre de cases
     public static int height = 22;
     // Largeur de la grille en nombre de cases
     public static int width = 10;
-    static Random _R = new Random ();
+    public static Random _R = new Random ();
     public static List<List<SquareColor>> board = new List<List<SquareColor>>();
+
+    //info : liste des index des lignes à clear une fois complète
+    public static List<int> lines = new List<int>();
+    public static int sizeListLines =0;
     public static SquareColor color = SquareColor.TRANSPARENT;  
-    public static block block= null;
-    public static float speedGame = 0.1F;
+    public static Block block= null;
+    public static float speedGame = 0.99F;
     public static  bool loose = false;
     public static  bool sameBlock = false;
-     public static TypeOfBlock typeOfBlock;
+    public static TypeOfBlock typeOfBlock;
+    public static int scoreTotal=0;
+    public static int gainPoint =0;
+    public static bool gainThreeHundredPoint = true;
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //initialisation de la grille
@@ -48,51 +56,36 @@ public class GridDisplay : MonoBehaviour
             }
             board.Add(Ligne);
         }
-
-        GridDisplay.SetColors(board);
-                 
-      
-             Task t1 = Task.Run(() => {
-              while(!GridDisplay.loose){
-                
+        GridDisplay.SetColors(board);                 
+        Task t1 = Task.Run(() => { 
+            while(!GridDisplay.loose){
+                //accélération de la vitesse plus le score est haut
+                if(gainThreeHundredPoint){
+                    gainPoint = scoreTotal;
+                    gainThreeHundredPoint = false;
+                }
+                if(gainPoint+100 < scoreTotal && speedGame > 0.20F){
+                    speedGame = speedGame - 0.01F;
+                    gainThreeHundredPoint = true;
+                }        
                 typeOfBlock = RandomEnumValue<TypeOfBlock>();
                 color = getAColorblock();
-                block = new block();
+                block = new Block();
+
+                if(!GridDisplay.loose){                    
                 sameBlock = true;
+                }else {
+                    sameBlock = false;
+                }
                 while(sameBlock){
-            
-            GridDisplay.SetTickFunction(functionPerTick);   
-           
-            //TODO check if a line is completed
-
+                    GridDisplay.SetTickFunction(functionPerTick);   
+                }
+                
+                GridDisplay.lineCompleted();
+               
             }
-
-   
-        }
-
-          
-
-          //GridDisplay.TriggerGameOver;
-
-       
-          
-            
-        
-
-          });
-
- 
-                    
-        // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
-        // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
-        //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
-        //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
-        // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer 
-        //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
-        //        et la flèche du bas du clavier.
-        //
-        // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
-                  
+            block = null;
+        });        
     }
 
     // Paramètre la fonction devant être appelée à chaque tick. 
@@ -186,51 +179,120 @@ public class GridDisplay : MonoBehaviour
             return SquareColor.ORANGE;
             
         case 7:
-            return SquareColor.YELLOW;
-          
+            return SquareColor.YELLOW; 
         }
-
-         return SquareColor.RED;
-       
-        
+         return SquareColor.RED;  
     }
 
    
     public static void functionPerTick(){
-            
-            //Random random = new Random();
-            //var num = random.Next(0,2);//0,7 //max value not selected
-           
-        block.MoveDown();
-        //move right
-        //move left
-        //rush
+        
+        if(block != null){
+        block.MoveDown();        
+        //flèches de gauche
+        SetMoveLeftFunction(block.moveLeft);
+         //flèches de droite
+        SetMoveRightFunction(block.moveRight);
+         //flèches du bas
+        SetRushFunction(rush);
+        //barre espace
+        SetRotateFunction(block.Rotate);   
+        // /!\ si placé autre part --> erreur le jeu de marche plus 
         GridDisplay.SetColors(board);
-       SetTickTime(GridDisplay.speedGame);
-       
+        GridDisplay.SetScore(scoreTotal);
+
+        SetTickTime(GridDisplay.speedGame);
+        } else {
+            //sound voice : "GAME OVER"
+            musicGameOver.instance2.GetComponent<AudioSource>().Play();
+            TriggerGameOver();
+        }
     }
 
-
-    static TypeOfBlock RandomEnumValue<TypeOfBlock> ()
-{
+    //renvoie une valeur aléatoire du type TypeOfBlock
+    static TypeOfBlock RandomEnumValue<TypeOfBlock> (){
     var v = System.Enum.GetValues (typeof (TypeOfBlock));
-    return (TypeOfBlock) v.GetValue (_R.Next(v.Length));
+    return (TypeOfBlock) v.GetValue (_R.Next(v.Length)); 
+}
+
+    public static void rush(){
+        float tmp = speedGame;
+        speedGame = 0.5F;
+        while(sameBlock){
+        block.MoveDown();  
+        GridDisplay.SetColors(board);
+        } 
+        speedGame = tmp; 
+
+    }
+
+    public static void lineCompleted (){
+        sizeListLines =0;
+        lines.Clear();
+        bool lineIsCompleted = true;    
+        for (int i=0;i<GridDisplay.height;i++){     
+            lineIsCompleted = true;     
+            for (int j = 0;j<GridDisplay.width;j++){
+                if(GridDisplay.board[i][j] == SquareColor.TRANSPARENT){
+                    lineIsCompleted = false;
+                }
+                
+            }
+            if(lineIsCompleted){
+                    lines.Add(i);
+                    sizeListLines ++;
+                }
+        }
+       
+        if(sizeListLines>0){
+            clearLine(lines ,sizeListLines);
+        }
+    }
+
+    public static void clearLine(List<int> lines, int sizeListLines){
+        
+            
+        for (int i=lines[0];i>0;i--){          
+            for (int j = 0;j<GridDisplay.width;j++){             
+                     //nb fois qu'on descent une ligne
+                     for(int k = 0; k< sizeListLines; k++){
+                        GridDisplay.board[i+k][j] =GridDisplay.board[i+k-1][j];
+                }
+            }         
+        }
+        //clear ligne dépasse
+         for (int i=0;i<sizeListLines;i++){          
+            for (int j = 0;j<GridDisplay.width;j++){
+                GridDisplay.board[i][j] = SquareColor.TRANSPARENT;
+            }
+         } 
+
+       
+       
+          
+        if(sizeListLines == 1){
+            scoreTotal =scoreTotal + 40;
+
+        } else if(sizeListLines == 2){
+            scoreTotal =scoreTotal + 100;
+
+        } else if(sizeListLines == 3){
+            scoreTotal =scoreTotal + 300;
+        } 
+        //pour 4 lignes
+        else {
+            scoreTotal =scoreTotal + 1200;
+        }
+
+        
+
+        
+
     
-}
-
-public static void lineCompleted (){
-
-    //TODO : action when a line is completed : check per tick
-    //return a line or -1 if no line
-    //is line completed we have to call clearLine()
-    //TODO : tableau de ligne si plusieurs ligne a suppr ?
-}
-
-public static void clearLine(){
-    //TODO : clear a line 
-    //peut être appelé plusieurs fois si plusieurs ligne
-    //TODO : call add score to the score board
-}
+        
+       
+        
+    }
 
 
 
